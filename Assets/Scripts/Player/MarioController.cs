@@ -10,7 +10,7 @@ public class MarioController : MonoBehaviour
     //default value setting
     private float velocityWhenPress = 7;
 
-    private float velocityJump = 400;
+    private float velocityJump = 450;
     private float velocityFall = 5;
     private float smallJump = 5;
 
@@ -264,10 +264,9 @@ public class MarioController : MonoBehaviour
         yield return new WaitForSeconds(delay);
     }
 
-    Vector2 locationDie;
     public void DestroyMario()
     {
-        locationDie = transform.localPosition;
+        //locationDie = transform.localPosition;
         //GameObject marioDie = (GameObject)Instantiate(Resources.Load("Prefabs/MarioDie"));
         //marioDie.transform.localPosition = locationDie;
         //Destroy(gameObject);

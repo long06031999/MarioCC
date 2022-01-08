@@ -8,6 +8,7 @@ public class ItemController : MonoBehaviour
     private bool isMoveLeft = true;
     private Vector2 direction;
     private GameObject mario;
+    public bool isItemCanMove = true;
 
     private void Awake()
     {
@@ -15,10 +16,12 @@ public class ItemController : MonoBehaviour
     }
     void Start()
     {
-
-        velocity = 2f;
-        direction = transform.position;
-        InvokeRepeating("time", 0.2f, 0.2f);
+        if (isItemCanMove)
+        {
+            velocity = 2f;
+            direction = transform.position;
+            InvokeRepeating("time", 0.2f, 0.2f);
+        }
     }
 
     void time()

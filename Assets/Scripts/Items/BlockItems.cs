@@ -46,8 +46,8 @@ public class BlockItems : MonoBehaviour
             }
             else
             {
-                Vector2 positionOfItem = new Vector2(originalPosition.x, originalPosition.y + 1f);
-                weapon = Instantiate(weapon, originalPosition, Quaternion.identity);
+                Vector2 positionOfItem = new Vector2(transform.position.x, transform.position.y + 1f);
+                weapon = Instantiate(weapon, positionOfItem, Quaternion.identity);
                 weapon.transform.SetParent(transform.parent);
             }
         }
