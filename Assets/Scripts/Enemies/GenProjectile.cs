@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class GenProjectile : MonoBehaviour
 {
-
   public GameObject projectile;
 
   public bool Auto = true;
   public float time = 3f;
-  public float timer;
+  float timer;
+  public Vector2 direction = Vector2.up;
 
   // Start is called before the first frame update
   void Start()
@@ -23,7 +23,8 @@ public class GenProjectile : MonoBehaviour
     if (timer < 0)
     {
       timer = time;
-      Instantiate(projectile, transform.position, Quaternion.identity);
+      GameObject g = Instantiate(projectile, transform.position, Quaternion.identity);
+      g.GetComponent<FlyingByDirection>().direction = direction;
     }
     else
     {
