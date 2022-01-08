@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemiesController : MonoBehaviour
 {
-
     private float velocity;
     private bool isMoveLeft = true;
 
