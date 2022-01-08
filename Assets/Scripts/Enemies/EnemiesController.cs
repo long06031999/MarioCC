@@ -45,14 +45,10 @@ public class EnemiesController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        /*if(collision.collider.tag != "Player" && collision.contacts[0].normal.x > 0)
+        if (collision.collider.tag == "Player")
         {
-           
+            Debug.Log("DIE");
         }
-        else if(collision.collider.tag != "Player" && collision.contacts[0].normal.x < 0)
-        {
-            onDirection();
-        }*/
     }
 
    
