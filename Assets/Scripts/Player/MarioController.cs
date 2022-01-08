@@ -10,7 +10,7 @@ public class MarioController : MonoBehaviour
     //default value setting
     private float velocityWhenPress = 7;
 
-    private float velocityJump = 450;
+    private float velocityJump = 400;
     private float velocityFall = 5;
     private float smallJump = 5;
 
@@ -110,7 +110,8 @@ public class MarioController : MonoBehaviour
         if (r2d.velocity.y < 0)
         {
             r2d.velocity += Vector2.up * Physics2D.gravity.y * (velocityFall - 1) * Time.deltaTime;
-        } else if (r2d.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
+        }
+        else if (r2d.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
         {
             r2d.velocity += Vector2.up * Physics2D.gravity.y * (smallJump - 1) * Time.deltaTime;
         }
@@ -120,7 +121,6 @@ public class MarioController : MonoBehaviour
         if (col.tag == "Ground")
         {
             isOnGround = true;
-            print("OnTriggerEnter2D");
         }
     }
     private void OnTriggerStay2D(Collider2D col)
@@ -140,13 +140,6 @@ public class MarioController : MonoBehaviour
         }
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Ground")
-        {
-            isOnGround = true;
-        }
-    }
     IEnumerator OnNavigation()
     {
         isNavigation = true;

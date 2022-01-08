@@ -6,11 +6,27 @@ public class EnemiesController : MonoBehaviour
 {
     private float velocity;
     private bool isMoveLeft = true;
+    private Vector2 direction;
+ 
 
     void Start()
     {
         velocity = 2f;
+        direction = transform.position;
+        InvokeRepeating("time", 0.2f, 0.2f);
     }
+
+    void time()
+    {
+        if(transform.position.x == direction.x)
+        {
+            onDirection();
+        }else
+        {
+            direction = transform.position;
+        }
+    }
+
 
     private void FixedUpdate()
     {
@@ -28,15 +44,13 @@ public class EnemiesController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.collider.tag != "Player" && collision.contacts[0].normal.x > 0)
+        if (collision.collider.tag == "Player")
         {
-            onDirection();
-        }
-        else if(collision.collider.tag != "Player" && collision.contacts[0].normal.x < 0)
-        {
-            onDirection();
+            Debug.Log("DIE");
         }
     }
+
+   
 
     void onDirection()
     {
