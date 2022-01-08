@@ -74,10 +74,10 @@ public class MarioController : MonoBehaviour
 
             }
         }
-        if (gameObject.transform.position.y < -10f)
+        /*if (gameObject.transform.position.y < -10f)
         {
             Destroy(gameObject);
-        }
+        }*/
     }
     private void FixedUpdate()
     {
