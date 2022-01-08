@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - Empty
+  - Collision
   layers:
   - Default
   - TransparentFX
