@@ -11,7 +11,7 @@ public class MarioController : MonoBehaviour
     //default value setting
     private float velocityWhenPress = 7;
 
-    private float velocityJump = 400;
+    private float velocityJump = 500;
     private float velocityFall = 5;
     private float smallJump = 5;
 
