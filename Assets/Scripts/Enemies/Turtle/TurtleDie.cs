@@ -39,22 +39,25 @@ public class TurtleDie : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector2 position = transform.localPosition;
-        if (isMoveLeft)
+        if (isFastMove)
         {
-            position.x -= velocity * Time.deltaTime;
+            Vector2 position = transform.localPosition;
+            if (isMoveLeft)
+            {
+                position.x -= velocity * Time.deltaTime;
+            }
+            else
+            {
+                position.x += velocity * Time.deltaTime;
+            }
+            transform.position = position;
         }
-        else
-        {
-            position.x += velocity * Time.deltaTime;
-        }
-        transform.position = position;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.tag == "Player")
         {
-            if(collision.contacts[0].normal.x > 0)
+            if(collision.contacts[0].normal.x > 0)  
             {
                 //direction = Vector2.right;
                 isMoveLeft = false;
@@ -69,7 +72,8 @@ public class TurtleDie : MonoBehaviour
             }
             isFastMove = true;
         }
-        if(isFastMove && collision.collider.tag == "Player")
+        if(isFastMove && collision.collider.tag == "Player" &&
+            (collision.contacts[0].normal.y > 0 || collision.contacts[0].normal.x > 0 || collision.contacts[0].normal.x < 0))
         {
             MarioController marioController = collision.gameObject.GetComponent<MarioController>();
             if (marioController)
