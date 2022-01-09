@@ -52,23 +52,22 @@ public class TurtleDie : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.tag == "Player" && !isFastMove)
+        if (collision.collider.tag == "Player")
         {
             if(collision.contacts[0].normal.x > 0)
             {
                 //direction = Vector2.right;
                 isMoveLeft = false;
-                isFastMove = true;
             }
             else
             {
-                //direction = Vector2.left;
                 isMoveLeft = true;
-                isFastMove = true;
             }
             if(isFastMove && collision.contacts[0].normal.y < 0) {
                 Destroy(gameObject);
+                return;
             }
+            isFastMove = true;
         }
         if(isFastMove && collision.collider.tag == "Player")
         {
