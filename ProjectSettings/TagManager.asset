@@ -42,6 +42,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: LowBackgound
+    uniqueID: 3119935139
+    locked: 0
+  - name: Background
+    uniqueID: 11544149
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Game
+    uniqueID: 2186469283
     locked: 0
