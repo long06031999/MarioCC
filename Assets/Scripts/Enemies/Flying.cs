@@ -7,23 +7,35 @@ public class Flying : MonoBehaviour
 
   public float FlyingTime = 2f;
   private float timer;
+  private float waitInEdgeTimer;
   public int Speed;
   public bool IsHorizontal = true;
   public bool IsBehind = true;
+  public float WaitInEdgeTime = 0;
 
   // Start is called before the first frame update
   void Start()
   {
     timer = FlyingTime;
+    waitInEdgeTimer = WaitInEdgeTime;
   }
 
   // Update is called once per frame
   void Update()
   {
+
     if (timer < 0)
     {
-      timer = FlyingTime;
-      ChangeDirection();
+      if (waitInEdgeTimer > 0)
+      {
+        waitInEdgeTimer -= Time.deltaTime;
+      }
+      else
+      {
+        waitInEdgeTimer = WaitInEdgeTime;
+        timer = FlyingTime;
+        ChangeDirection();
+      }
     }
     else
     {
@@ -31,6 +43,8 @@ public class Flying : MonoBehaviour
       MovePosition();
 
     }
+
+
   }
 
   void ChangeDirection()
