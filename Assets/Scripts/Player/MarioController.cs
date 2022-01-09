@@ -157,12 +157,16 @@ public class MarioController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z))
         {
             timeHoldKey += Time.deltaTime;
-            if (level >= 2 && timeHoldKey < checkTimeHoldKey)
+            if (level ==2 && timeHoldKey < checkTimeHoldKey)
             {
                 if (!isSpawnBullet)
                 {
                     isSpawnBullet = true;
-                    Vector2 positionOfBullet = new Vector2(transform.position.x + 1f, transform.position.y);
+                    Vector2 positionOfBullet;
+                    if (transform.localScale.x > 0)
+                        positionOfBullet = new Vector2(transform.position.x + 1f, transform.position.y);
+                    else
+                        positionOfBullet = new Vector2(transform.position.x - 1f, transform.position.y);
                     GameObject g = Instantiate(bullet, positionOfBullet, Quaternion.identity);
                     if (transform.localScale.x > 0)
                         g.GetComponent<BulletController>().direction = Vector2.right;
