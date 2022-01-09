@@ -42,16 +42,6 @@ public class EnemiesController : MonoBehaviour
         transform.position = position;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.tag == "Player")
-        {
-            Debug.Log("DIE");
-        }
-    }
-
-   
-
     void onDirection()
     {
         isMoveLeft = !isMoveLeft;
