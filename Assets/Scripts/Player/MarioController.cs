@@ -22,16 +22,19 @@ public class MarioController : MonoBehaviour
     private bool isNavigation = false;
     private bool isRight = true;
 
+    //component
     private Animator animator;
     private Rigidbody2D r2d;
 
     //show level mario
     public int level = 0;
     public bool isChangeMario = false;
-    [SerializeField]
+   
+    //bullet
     private bool isSpawnBullet = false;
     public GameObject bullet;
 
+    //move to pipe
     public bool isOnPipe = false;
     public GameObject pipe;
  
@@ -58,7 +61,6 @@ public class MarioController : MonoBehaviour
                 case 0:
                     {
                         StartCoroutine(ChangeSmallMario());
-
                         isChangeMario = false;
                         break;
                     }
@@ -82,10 +84,6 @@ public class MarioController : MonoBehaviour
 
             }
         }
-        /*if (gameObject.transform.position.y < -10f)
-        {
-            Destroy(gameObject);
-        }*/
     }
 
     
@@ -127,21 +125,6 @@ public class MarioController : MonoBehaviour
             r2d.velocity += Vector2.up * Physics2D.gravity.y * (smallJump - 1) * Time.deltaTime;
         }
     }
-    private void OnTriggerEnter2D(Collider2D col)
-    {
-        if (col.tag == "Ground")
-        {
-            isOnGround = true;
-        }
-    }
-    private void OnTriggerStay2D(Collider2D col)
-    {
-        if (col.tag == "Ground")
-        {
-            isOnGround = true;
-        }
-    }
-
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -154,7 +137,7 @@ public class MarioController : MonoBehaviour
     IEnumerator OnNavigation()
     {
         isNavigation = true;
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.1f);
         isNavigation = false;
     }
 
@@ -162,10 +145,11 @@ public class MarioController : MonoBehaviour
     //bắn đạn và chạy nhanh.
     private void ShootAndSpeed()
     {
+        // shoot
         if (Input.GetKeyDown(KeyCode.Z))
         {
             timeHoldKey += Time.deltaTime;
-            if (level ==2 && timeHoldKey < checkTimeHoldKey)
+            if (level == 2 && timeHoldKey < checkTimeHoldKey)
             {
                 if (!isSpawnBullet)
                 {
@@ -182,9 +166,17 @@ public class MarioController : MonoBehaviour
                         g.GetComponent<BulletController>().direction = Vector2.left;
                 }
             }
-            else
+        }
+        // hold key z to move faster
+        else if (Input.GetKey(KeyCode.Z))
+        {
+            timeHoldKey += Time.deltaTime;
+            if (timeHoldKey < checkTimeHoldKey)
             {
 
+            }
+            else
+            {
                 velocityWhenPress *= 1.01f;
                 if (velocityWhenPress >= maxSpeedWhenHoldKey)
                 {
@@ -192,6 +184,7 @@ public class MarioController : MonoBehaviour
                 }
             }
         }
+        //reset value when press finsish
         if (Input.GetKeyUp(KeyCode.Z))
         {
             velocityWhenPress = 7f;
@@ -277,7 +270,6 @@ public class MarioController : MonoBehaviour
         yield return new WaitForSeconds(delay);
     }
 
-
     IEnumerator ChangeSmallMario()
     {
         float delay = 0.1f;
@@ -306,15 +298,6 @@ public class MarioController : MonoBehaviour
         animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
         yield return new WaitForSeconds(delay);
     }
-
-    public void DestroyMario()
-    {
-        //locationDie = transform.localPosition;
-        //GameObject marioDie = (GameObject)Instantiate(Resources.Load("Prefabs/MarioDie"));
-        //marioDie.transform.localPosition = locationDie;
-        //Destroy(gameObject);
-    } 
-    
 }
 
 

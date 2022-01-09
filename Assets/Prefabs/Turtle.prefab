@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6050347461544364169}
   - component: {fileID: 6050347461544364168}
   - component: {fileID: 6050347461544364181}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Turtle
   m_TagString: Enemies
   m_Icon: {fileID: 0}

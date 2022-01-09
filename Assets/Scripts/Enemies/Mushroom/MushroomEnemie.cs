@@ -39,6 +39,7 @@ public class MushroomEnemie : MonoBehaviour
             else
             {
                 mario.GetComponent<MarioController>().level -= 1;
+                mario.GetComponent<MarioController>().isChangeMario = true;
                 Destroy(gameObject);
             }
         }
