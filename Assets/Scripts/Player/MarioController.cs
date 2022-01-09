@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ public class MarioController : MonoBehaviour
     //default value setting
     private float velocityWhenPress = 7;
 
-    private float velocityJump = 450;
+    private float velocityJump = 400;
     private float velocityFall = 5;
     private float smallJump = 5;
 
@@ -29,8 +30,11 @@ public class MarioController : MonoBehaviour
     public bool isChangeMario = false;
     [SerializeField]
     private bool isSpawnBullet = false;
-    public GameObject bullet; 
+    public GameObject bullet;
 
+    public bool isOnPipe = false;
+    public GameObject pipe;
+ 
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +50,7 @@ public class MarioController : MonoBehaviour
         animator.SetBool("isNavigation", isNavigation);
         OnJump();
         ShootAndSpeed();
+        OnMoveToPipe();
         if (isChangeMario)
         {
             switch (level)
@@ -82,6 +87,9 @@ public class MarioController : MonoBehaviour
             Destroy(gameObject);
         }*/
     }
+
+    
+
     private void FixedUpdate()
     {
         OnMove();
@@ -189,6 +197,23 @@ public class MarioController : MonoBehaviour
             velocityWhenPress = 7f;
             timeHoldKey = 0f;
             isSpawnBullet = false;
+        }
+    }
+
+    private void OnMoveToPipe()
+    {
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            if (isOnPipe)
+            {
+                Debug.Log(pipe.transform.GetChild(0).transform.position);
+                pipe.GetComponent<PipeScript>().Action();
+
+            } else
+            {
+                Debug.Log("Ground");
+            }
+            
         }
     }
 

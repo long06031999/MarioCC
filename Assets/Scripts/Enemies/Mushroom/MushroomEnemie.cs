@@ -31,7 +31,7 @@ public class MushroomEnemie : MonoBehaviour
         {
             if (mario.GetComponent<MarioController>().level == 0)
             {
-                Destroy(mario);
+                //Destroy(mario);
                 Instantiate(mushRoomDie, transform.position, Quaternion.identity);
                 mushRoomDie.transform.localPosition = positionDie;
                 Destroy(gameObject);

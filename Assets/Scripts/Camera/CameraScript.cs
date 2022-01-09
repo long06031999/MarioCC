@@ -5,7 +5,8 @@ using UnityEngine;
 public class CameraScript : MonoBehaviour
 {
     private Transform player;
-    private float minX = 0, maxX=204;
+    public float minX = 0, maxX=204;
+    public float minY = 0, maxY = 255;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +20,9 @@ public class CameraScript : MonoBehaviour
         {
             Vector3 position = transform.position;
             position.x = player.position.x;
-            if (position.x < minX) position.x = 0;
+            position.y = player.position.y;
+            if (position.y < minY) position.y = minY;
+            if (position.x < minX) position.x = minX;
             if (position.x >= maxX) position.x = maxX;
             transform.position = position;
         }
