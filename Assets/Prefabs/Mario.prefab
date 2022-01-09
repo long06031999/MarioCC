@@ -185,6 +185,9 @@ MonoBehaviour:
   level: 0
   isChangeMario: 0
   bullet: {fileID: 4443310651840714476, guid: b1e11553c5554a94a88bbf88b3a647fe, type: 3}
+  isOnPipe: 0
+  pipe: {fileID: 0}
+  marioDie: {fileID: 3191792717973071642, guid: 88bbff671bb4300488a404a457859f07, type: 3}
 --- !u!1 &4281254734364430788
 GameObject:
   m_ObjectHideFlags: 0

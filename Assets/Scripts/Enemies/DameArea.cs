@@ -28,7 +28,7 @@ public class DameArea : MonoBehaviour
             {
                 if (marioController.level == 0)
                 {
-                    Destroy(collision.gameObject);
+                    collision.gameObject.GetComponent<MarioController>().DestroyMario();
                 } else
                 {
                     marioController.level -= 1;
@@ -48,7 +48,7 @@ public class DameArea : MonoBehaviour
             {
                 if (marioController.level == 0)
                 {
-                    Destroy(collision.gameObject);
+                    collision.gameObject.GetComponent<MarioController>().DestroyMario();
                 }
                 else
                 {
