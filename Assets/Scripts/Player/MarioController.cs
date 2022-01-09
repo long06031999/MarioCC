@@ -5,7 +5,7 @@ using UnityEngine;
 public class MarioController : MonoBehaviour
 {
     private const float maxSpeedWhenHoldKey = 12;
-    private const float checkTimeHoldKey = 0.2f;
+    private const float checkTimeHoldKey = 0.02f;
 
     //default value setting
     private float velocityWhenPress = 7;
@@ -27,6 +27,9 @@ public class MarioController : MonoBehaviour
     //show level mario
     public int level = 0;
     public bool isChangeMario = false;
+    [SerializeField]
+    private bool isSpawnBullet = false;
+    public GameObject bullet; 
 
     // Start is called before the first frame update
     void Start()
@@ -151,15 +154,25 @@ public class MarioController : MonoBehaviour
     //bắn đạn và chạy nhanh.
     private void ShootAndSpeed()
     {
-        if (Input.GetKey(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             timeHoldKey += Time.deltaTime;
-            if (timeHoldKey < checkTimeHoldKey)
+            if (level >= 2 && timeHoldKey < checkTimeHoldKey)
             {
-
+                if (!isSpawnBullet)
+                {
+                    isSpawnBullet = true;
+                    Vector2 positionOfBullet = new Vector2(transform.position.x + 1f, transform.position.y);
+                    GameObject g = Instantiate(bullet, positionOfBullet, Quaternion.identity);
+                    if (transform.localScale.x > 0)
+                        g.GetComponent<BulletController>().direction = Vector2.right;
+                    else
+                        g.GetComponent<BulletController>().direction = Vector2.left;
+                }
             }
             else
             {
+
                 velocityWhenPress *= 1.01f;
                 if (velocityWhenPress >= maxSpeedWhenHoldKey)
                 {
@@ -171,6 +184,7 @@ public class MarioController : MonoBehaviour
         {
             velocityWhenPress = 7f;
             timeHoldKey = 0f;
+            isSpawnBullet = false;
         }
     }
 
