@@ -167,9 +167,9 @@ public class MarioController : MonoBehaviour
   {
     if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
     {
-      //Test
-      Health -= 10;
-      //Test
+      // //Test
+      // Health -= 10;
+      // //Test
       r2d.AddForce((Vector2.up) * velocityJump);
       isOnGround = false;
     }
