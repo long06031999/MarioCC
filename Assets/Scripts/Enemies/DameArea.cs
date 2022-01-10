@@ -6,6 +6,7 @@ using UnityEngine;
 public class DameArea : MonoBehaviour
 {
 
+  public int dame = 10;
   // Start is called before the first frame updateprivate GameObject mario;
 
   void Start()
@@ -27,15 +28,16 @@ public class DameArea : MonoBehaviour
       MarioController marioController = collision.GetComponent<MarioController>();
       if (marioController)
       {
-        if (marioController.level == 0)
-        {
-          collision.gameObject.GetComponent<MarioController>().DestroyMario();
-        }
-        else
-        {
-          marioController.level -= 1;
-          marioController.isChangeMario = true;
-        }
+        marioController.Health -= dame;
+        // if (marioController.level == 0)
+        // {
+        //   collision.gameObject.GetComponent<MarioController>().DestroyMario();
+        // }
+        // else
+        // {
+        //   marioController.level -= 1;
+        //   marioController.isChangeMario = true;
+        // }
       }
     }
 
@@ -48,15 +50,17 @@ public class DameArea : MonoBehaviour
       MarioController marioController = collision.gameObject.GetComponent<MarioController>();
       if (marioController)
       {
-        if (marioController.level == 0)
-        {
-          collision.gameObject.GetComponent<MarioController>().DestroyMario();
-        }
-        else
-        {
-          marioController.level -= 1;
-          marioController.isChangeMario = true;
-        }
+
+        marioController.Health -= dame;
+        // if (marioController.level == 0)
+        // {
+        //   collision.gameObject.GetComponent<MarioController>().DestroyMario();
+        // }
+        // else
+        // {
+        //   marioController.level -= 1;
+        //   marioController.isChangeMario = true;
+        // }
       }
     }
   }
