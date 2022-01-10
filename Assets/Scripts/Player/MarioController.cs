@@ -9,7 +9,7 @@ public class MarioController : MonoBehaviour
     private const float maxSpeedWhenHoldKey = 12;
     private const float checkTimeHoldKey = 0.02f;
 
-    public int health = 100;
+    private int health = 100;
     public int MaxHealth = 100;
 
     Image image;
@@ -31,18 +31,18 @@ public class MarioController : MonoBehaviour
                     {
                         level = 0;
                         isChangeMario = true;
-                        MaxHealth = 100;
+                        //MaxHealth = 100;
                     }else if(health > 100 && health <= 200 && level != 1)
                     {
                         level = 1;
                         isChangeMario = true;
-                        MaxHealth = 200;
+                        //MaxHealth = 200;
                     }
                     else if(health > 200 && health <= 300 && level != 2)
                     {
                         level = 2;
                         isChangeMario = true;
-                        MaxHealth = 300;
+                        //MaxHealth = 300;
                     }
                 }
                 float percent = (float)health / MaxHealth;

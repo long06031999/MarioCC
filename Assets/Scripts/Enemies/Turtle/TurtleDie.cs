@@ -78,15 +78,7 @@ public class TurtleDie : MonoBehaviour
             MarioController marioController = collision.gameObject.GetComponent<MarioController>();
             if (marioController)
             {
-                if (marioController.level == 0)
-                {
-                    collision.gameObject.GetComponent<MarioController>().DestroyMario();
-                }
-                else
-                {
-                    marioController.level -= 1;
-                    marioController.isChangeMario = true;
-                }
+                marioController.Health -= 40;
                 Destroy(gameObject);
             }
         }
