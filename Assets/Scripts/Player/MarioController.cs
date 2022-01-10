@@ -241,12 +241,15 @@ public class MarioController : MonoBehaviour
                 {
                     isSpawnBullet = true;
                     Vector2 positionOfBullet;
-                    if (transform.localScale.x > 0)
+                    if (!gameObject.GetComponent<SpriteRenderer>().flipX)
                         positionOfBullet = new Vector2(transform.position.x + 1f, transform.position.y);
                     else
                         positionOfBullet = new Vector2(transform.position.x - 1f, transform.position.y);
                     GameObject g = Instantiate(bullet, positionOfBullet, Quaternion.identity);
-                    if (transform.localScale.x > 0)
+
+                    // because mario's default face direction is always right and default flipX = false,
+                    // so ! for exact direction
+                    if (!gameObject.GetComponent<SpriteRenderer>().flipX)
                         g.GetComponent<BulletController>().direction = Vector2.right;
                     else
                         g.GetComponent<BulletController>().direction = Vector2.left;
