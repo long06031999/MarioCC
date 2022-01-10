@@ -9,7 +9,7 @@ public class MarioController : MonoBehaviour
     private const float maxSpeedWhenHoldKey = 12;
     private const float checkTimeHoldKey = 0.02f;
 
-    private int health = 100;
+    public int health = 100;
     public int MaxHealth = 100;
 
     Image image;
@@ -27,14 +27,44 @@ public class MarioController : MonoBehaviour
                 if (value > 0 && value <= MaxHealth)
                 {
                     health = value;
+                    if(health <= 100 && level !=0)
+                    {
+                        level = 0;
+                        isChangeMario = true;
+                        MaxHealth = 100;
+                    }else if(health > 100 && health <= 200 && level != 1)
+                    {
+                        level = 1;
+                        isChangeMario = true;
+                        MaxHealth = 200;
+                    }
+                    else if(health > 200 && health <= 300 && level != 2)
+                    {
+                        level = 2;
+                        isChangeMario = true;
+                        MaxHealth = 300;
+                    }
                 }
-
                 float percent = (float)health / MaxHealth;
                 Debug.Log("Percent: " + percent);
                 GetComponentInChildren<Image>().rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, originalImageSize * percent);
             }
         }
     }
+
+    public void HandleHealthPlayerWhenEatItem()
+    {
+        if (level < 2)
+        {
+            MaxHealth += 100;
+            Health = MaxHealth;
+        }
+        else
+        {
+            Health += 100;
+        }
+    }
+
 
     //default value setting
     private float velocityWhenPress = 7;
@@ -167,7 +197,7 @@ public class MarioController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
         {
             // //Test
-            Health -= 10;
+            //Health -= 10;
             // //Test
             r2d.AddForce((Vector2.up) * velocityJump);
             isOnGround = false;
