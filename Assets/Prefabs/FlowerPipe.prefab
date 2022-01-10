@@ -175,7 +175,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4321906465641603733}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.83, y: 1.22, z: -0.57216525}
+  m_LocalPosition: {x: -4.84, y: 1.171, z: -0.57216525}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4321906465627083389}
@@ -192,7 +192,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6965556674282678553, guid: 8268f06bae20f364fa9fede9acfa908a, type: 3}
       propertyPath: FlyingTime
-      value: 1.4
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 6965556674282678553, guid: 8268f06bae20f364fa9fede9acfa908a, type: 3}
       propertyPath: WaitInEdgeTime
@@ -204,11 +204,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6965556674282678554, guid: 8268f06bae20f364fa9fede9acfa908a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.4
+      value: -1.371
       objectReference: {fileID: 0}
     - target: {fileID: 6965556674282678554, guid: 8268f06bae20f364fa9fede9acfa908a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.68
+      value: -3.024
       objectReference: {fileID: 0}
     - target: {fileID: 6965556674282678554, guid: 8268f06bae20f364fa9fede9acfa908a, type: 3}
       propertyPath: m_LocalPosition.z
