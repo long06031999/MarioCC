@@ -2,326 +2,368 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MarioController : MonoBehaviour
 {
-    private const float maxSpeedWhenHoldKey = 12;
-    private const float checkTimeHoldKey = 0.02f;
+  private const float maxSpeedWhenHoldKey = 12;
+  private const float checkTimeHoldKey = 0.02f;
 
-    //default value setting
-    private float velocityWhenPress = 7;
+  private int health = 100;
+  public int MaxHealth = 100;
 
-    private float velocityJump = 500;
-    private float velocityFall = 5;
-    private float smallJump = 5;
+  Image image;
+  float originalImageSize;
 
-    private float timeHoldKey = 0;
-
-    private float velocity = 0;
-    private bool isOnGround = true;
-    private bool isNavigation = false;
-    private bool isRight = true;
-
-    //component
-    private Animator animator;
-    private Rigidbody2D r2d;
-
-    //show level mario
-    public int level = 0;
-    public bool isChangeMario = false;
-   
-    //bullet
-    private bool isSpawnBullet = false;
-    public GameObject bullet;
-
-    //move to pipe
-    public bool isOnPipe = false;
-    public GameObject pipe;
-
-    //mario die
-    public GameObject marioDie;
-    private Vector2 positionDie;
-
-    // Start is called before the first frame update
-    void Start()
+  public int Health
+  {
+    get { return health; }
+    set
     {
-        animator = GetComponent<Animator>();
-        r2d = GetComponent<Rigidbody2D>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        animator.SetFloat("velocity", velocity);
-        animator.SetBool("isOnGround", isOnGround);
-        animator.SetBool("isNavigation", isNavigation);
-        OnJump();
-        ShootAndSpeed();
-        OnMoveToPipe();
-        OnChangeMario();
-        CheckMarioDie();
-    }
-
-    private void CheckMarioDie()
-    {
-        if (transform.localPosition.y <= -10f)
+      if (value <= 0) Die();
+      else
+      {
+        if (value < MaxHealth) health = MaxHealth;
+        if (value > 0 && value <= MaxHealth)
         {
-            DestroyMario();
+          health = value;
         }
-    }
 
-    private void OnChangeMario()
+        float percent = (float)health / MaxHealth;
+        Debug.Log("Percent: " + percent);
+        GetComponentInChildren<Image>().rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, originalImageSize * percent);
+      }
+    }
+  }
+
+  //default value setting
+  private float velocityWhenPress = 7;
+
+  private float velocityJump = 500;
+  private float velocityFall = 5;
+  private float smallJump = 5;
+
+  private float timeHoldKey = 0;
+
+  private float velocity = 0;
+  private bool isOnGround = true;
+  private bool isNavigation = false;
+  private bool isRight = true;
+
+  //component
+  private Animator animator;
+  private Rigidbody2D r2d;
+
+  //show level mario
+  public int level = 0;
+  public bool isChangeMario = false;
+
+  //bullet
+  private bool isSpawnBullet = false;
+  public GameObject bullet;
+
+  //move to pipe
+  public bool isOnPipe = false;
+  public GameObject pipe;
+
+  //mario die
+  public GameObject marioDie;
+  private Vector2 positionDie;
+
+  private void Awake()
+  {
+    image = GetComponentInChildren<Image>();
+    originalImageSize = image.rectTransform.rect.width;
+    Debug.Log(image);
+  }
+  // Start is called before the first frame update
+  void Start()
+  {
+    animator = GetComponent<Animator>();
+    r2d = GetComponent<Rigidbody2D>();
+  }
+
+  void Die()
+  {
+    DestroyMario();
+  }
+  // Update is called once per frame
+  void Update()
+  {
+    animator.SetFloat("velocity", velocity);
+    animator.SetBool("isOnGround", isOnGround);
+    animator.SetBool("isNavigation", isNavigation);
+    OnJump();
+    ShootAndSpeed();
+    OnMoveToPipe();
+    OnChangeMario();
+    CheckMarioDie();
+  }
+
+  private void CheckMarioDie()
+  {
+    if (transform.localPosition.y <= -10f)
     {
-        if (this.isChangeMario)
+      DestroyMario();
+    }
+  }
+
+  private void OnChangeMario()
+  {
+    if (this.isChangeMario)
+    {
+      switch (level)
+      {
+        case 0:
+          {
+            StartCoroutine(ChangeSmallMario());
+            this.isChangeMario = false;
+            break;
+          }
+        case 1:
+          {
+            StartCoroutine(ChangeHighMario());
+            this.isChangeMario = false;
+            break;
+          }
+        case 2:
+          {
+            StartCoroutine(ChangeHighMarioWithGun());
+            this.isChangeMario = false;
+            break;
+          }
+        default:
+          {
+            this.isChangeMario = false;
+            break;
+          }
+
+      }
+    }
+  }
+
+  private void FixedUpdate()
+  {
+    OnMove();
+  }
+  private void OnMove()
+  {
+    float velocityKeyInput = Input.GetAxis("Horizontal");
+    r2d.velocity = new Vector2(velocityWhenPress * velocityKeyInput, r2d.velocity.y);
+    velocity = Mathf.Abs(velocityWhenPress * velocityKeyInput);
+    if (velocityKeyInput > 0 && !isRight) OnDirection();
+    if (velocityKeyInput < 0 && isRight) OnDirection();
+  }
+
+  private void OnDirection()
+  {
+    isRight = !isRight;
+    Vector2 scale = transform.localScale;
+    scale.x *= -1;
+    transform.localScale = scale;
+    if (velocityWhenPress > 1f) StartCoroutine(OnNavigation());
+  }
+  private void OnJump()
+  {
+    if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
+    {
+      //Test
+      Health -= 10;
+      //Test
+      r2d.AddForce((Vector2.up) * velocityJump);
+      isOnGround = false;
+    }
+    if (r2d.velocity.y < 0)
+    {
+      r2d.velocity += Vector2.up * Physics2D.gravity.y * (velocityFall - 1) * Time.deltaTime;
+    }
+    else if (r2d.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
+    {
+      r2d.velocity += Vector2.up * Physics2D.gravity.y * (smallJump - 1) * Time.deltaTime;
+    }
+  }
+
+  private void OnCollisionEnter2D(Collision2D collision)
+  {
+    if (collision.gameObject.tag == "Ground")
+    {
+      isOnGround = true;
+    }
+  }
+
+  IEnumerator OnNavigation()
+  {
+    isNavigation = true;
+    yield return new WaitForSeconds(0.1f);
+    isNavigation = false;
+  }
+
+
+  //bắn đạn và chạy nhanh.
+  private void ShootAndSpeed()
+  {
+    // shoot
+    if (Input.GetKeyDown(KeyCode.Z))
+    {
+      timeHoldKey += Time.deltaTime;
+      if (level == 2 && timeHoldKey < checkTimeHoldKey)
+      {
+        if (!isSpawnBullet)
         {
-            switch (level)
-            {
-                case 0:
-                    {
-                        StartCoroutine(ChangeSmallMario());
-                        this.isChangeMario = false;
-                        break;
-                    }
-                case 1:
-                    {
-                        StartCoroutine(ChangeHighMario());
-                        this.isChangeMario = false;
-                        break;
-                    }
-                case 2:
-                    {
-                        StartCoroutine(ChangeHighMarioWithGun());
-                        this.isChangeMario = false;
-                        break;
-                    }
-                default:
-                    {
-                        this.isChangeMario = false;
-                        break;
-                    }
-
-            }
+          isSpawnBullet = true;
+          Vector2 positionOfBullet;
+          if (transform.localScale.x > 0)
+            positionOfBullet = new Vector2(transform.position.x + 1f, transform.position.y);
+          else
+            positionOfBullet = new Vector2(transform.position.x - 1f, transform.position.y);
+          GameObject g = Instantiate(bullet, positionOfBullet, Quaternion.identity);
+          if (transform.localScale.x > 0)
+            g.GetComponent<BulletController>().direction = Vector2.right;
+          else
+            g.GetComponent<BulletController>().direction = Vector2.left;
         }
+      }
     }
+    // hold key z to move faster
+    else if (Input.GetKey(KeyCode.Z))
+    {
+      timeHoldKey += Time.deltaTime;
+      if (timeHoldKey < checkTimeHoldKey)
+      {
 
-    private void FixedUpdate()
-    {
-        OnMove();
-    }
-    private void OnMove()
-    {
-        float velocityKeyInput = Input.GetAxis("Horizontal");
-        r2d.velocity = new Vector2(velocityWhenPress * velocityKeyInput, r2d.velocity.y);
-        velocity = Mathf.Abs(velocityWhenPress * velocityKeyInput);
-        if (velocityKeyInput > 0 && !isRight) OnDirection();
-        if (velocityKeyInput < 0 && isRight) OnDirection();
-    }
-
-    private void OnDirection()
-    {
-        isRight = !isRight;
-        Vector2 scale = transform.localScale;
-        scale.x *= -1;
-        transform.localScale = scale;
-        if (velocityWhenPress > 1f) StartCoroutine(OnNavigation());
-    }
-    private void OnJump()
-    {
-        if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
+      }
+      else
+      {
+        velocityWhenPress *= 1.01f;
+        if (velocityWhenPress >= maxSpeedWhenHoldKey)
         {
-            r2d.AddForce((Vector2.up) * velocityJump);
-            isOnGround = false;
+          velocityWhenPress = maxSpeedWhenHoldKey;
         }
-        if (r2d.velocity.y < 0)
-        {
-            r2d.velocity += Vector2.up * Physics2D.gravity.y * (velocityFall - 1) * Time.deltaTime;
-        }
-        else if (r2d.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
-        {
-            r2d.velocity += Vector2.up * Physics2D.gravity.y * (smallJump - 1) * Time.deltaTime;
-        }
+      }
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    //reset value when press finsish
+    if (Input.GetKeyUp(KeyCode.Z))
     {
-        if (collision.gameObject.tag == "Ground")
-        {
-            isOnGround = true;
-        }
+      velocityWhenPress = 7f;
+      timeHoldKey = 0f;
+      isSpawnBullet = false;
     }
+  }
 
-    IEnumerator OnNavigation()
+  private void OnMoveToPipe()
+  {
+    if (Input.GetKeyDown(KeyCode.DownArrow))
     {
-        isNavigation = true;
-        yield return new WaitForSeconds(0.1f);
-        isNavigation = false;
+      if (isOnPipe)
+      {
+        Debug.Log(pipe.transform.GetChild(0).transform.position);
+        pipe.GetComponent<PipeScript>().Action();
+
+      }
+      else
+      {
+        Debug.Log("Ground");
+      }
+
     }
+  }
 
 
-    //bắn đạn và chạy nhanh.
-    private void ShootAndSpeed()
-    {
-        // shoot
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            timeHoldKey += Time.deltaTime;
-            if (level == 2 && timeHoldKey < checkTimeHoldKey)
-            {
-                if (!isSpawnBullet)
-                {
-                    isSpawnBullet = true;
-                    Vector2 positionOfBullet;
-                    if (transform.localScale.x > 0)
-                        positionOfBullet = new Vector2(transform.position.x + 1f, transform.position.y);
-                    else
-                        positionOfBullet = new Vector2(transform.position.x - 1f, transform.position.y);
-                    GameObject g = Instantiate(bullet, positionOfBullet, Quaternion.identity);
-                    if (transform.localScale.x > 0)
-                        g.GetComponent<BulletController>().direction = Vector2.right;
-                    else
-                        g.GetComponent<BulletController>().direction = Vector2.left;
-                }
-            }
-        }
-        // hold key z to move faster
-        else if (Input.GetKey(KeyCode.Z))
-        {
-            timeHoldKey += Time.deltaTime;
-            if (timeHoldKey < checkTimeHoldKey)
-            {
+  //thay đổi độ lớn của mario
+  IEnumerator ChangeHighMario()
+  {
+    float delay = 0.1f;
+    animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 0);
+    animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 1);
+    animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
+    yield return new WaitForSeconds(delay);
 
-            }
-            else
-            {
-                velocityWhenPress *= 1.01f;
-                if (velocityWhenPress >= maxSpeedWhenHoldKey)
-                {
-                    velocityWhenPress = maxSpeedWhenHoldKey;
-                }
-            }
-        }
-        //reset value when press finsish
-        if (Input.GetKeyUp(KeyCode.Z))
-        {
-            velocityWhenPress = 7f;
-            timeHoldKey = 0f;
-            isSpawnBullet = false;
-        }
-    }
+    animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 1);
+    animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 0);
+    animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
+    yield return new WaitForSeconds(delay);
 
-    private void OnMoveToPipe()
-    {
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            if (isOnPipe)
-            {
-                Debug.Log(pipe.transform.GetChild(0).transform.position);
-                pipe.GetComponent<PipeScript>().Action();
+    animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 0);
+    animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 1);
+    animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
+    yield return new WaitForSeconds(delay);
 
-            } else
-            {
-                Debug.Log("Ground");
-            }
-            
-        }
-    }
+    animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 1);
+    animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 0);
+    animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
+    yield return new WaitForSeconds(delay);
 
+    animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 0);
+    animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 1);
+    animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
+    yield return new WaitForSeconds(delay);
+  }
 
-    //thay đổi độ lớn của mario
-    IEnumerator ChangeHighMario()
-    {
-        float delay = 0.1f;
-        animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 0);
-        animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 1);
-        animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
-        yield return new WaitForSeconds(delay);
+  IEnumerator ChangeHighMarioWithGun()
+  {
+    float delay = 0.1f;
+    animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 0);
+    animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 0);
+    animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 1);
+    yield return new WaitForSeconds(delay);
 
-        animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 1);
-        animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 0);
-        animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
-        yield return new WaitForSeconds(delay);
+    animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 0);
+    animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 1);
+    animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
+    yield return new WaitForSeconds(delay);
 
-        animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 0);
-        animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 1);
-        animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
-        yield return new WaitForSeconds(delay);
+    animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 0);
+    animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 0);
+    animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 1);
+    yield return new WaitForSeconds(delay);
 
-        animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 1);
-        animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 0);
-        animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
-        yield return new WaitForSeconds(delay);
+    animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 0);
+    animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 1);
+    animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
+    yield return new WaitForSeconds(delay);
 
-        animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 0);
-        animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 1);
-        animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
-        yield return new WaitForSeconds(delay);
-    }
+    animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 0);
+    animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 0);
+    animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 1);
+    yield return new WaitForSeconds(delay);
+  }
 
-    IEnumerator ChangeHighMarioWithGun()
-    {
-        float delay = 0.1f;
-        animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 0);
-        animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 0);
-        animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 1);
-        yield return new WaitForSeconds(delay);
+  IEnumerator ChangeSmallMario()
+  {
+    float delay = 0.1f;
+    animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 1);
+    animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 0);
+    animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
+    yield return new WaitForSeconds(delay);
 
-        animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 0);
-        animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 1);
-        animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
-        yield return new WaitForSeconds(delay);
+    animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 0);
+    animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 1);
+    animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
+    yield return new WaitForSeconds(delay);
 
-        animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 0);
-        animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 0);
-        animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 1);
-        yield return new WaitForSeconds(delay);
+    animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 1);
+    animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 0);
+    animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
+    yield return new WaitForSeconds(delay);
 
-        animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 0);
-        animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 1);
-        animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
-        yield return new WaitForSeconds(delay);
+    animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 0);
+    animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 1);
+    animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
+    yield return new WaitForSeconds(delay);
 
-        animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 0);
-        animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 0);
-        animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 1);
-        yield return new WaitForSeconds(delay);
-    }
-
-    IEnumerator ChangeSmallMario()
-    {
-        float delay = 0.1f;
-        animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 1);
-        animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 0);
-        animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
-        yield return new WaitForSeconds(delay);
-
-        animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 0);
-        animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 1);
-        animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
-        yield return new WaitForSeconds(delay);
-
-        animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 1);
-        animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 0);
-        animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
-        yield return new WaitForSeconds(delay);
-
-        animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 0);
-        animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 1);
-        animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
-        yield return new WaitForSeconds(delay);
-
-        animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 1);
-        animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 0);
-        animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
-        yield return new WaitForSeconds(delay);
-    }
+    animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 1);
+    animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 0);
+    animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
+    yield return new WaitForSeconds(delay);
+  }
 
 
-    public void DestroyMario()
-    {
-        positionDie = transform.localPosition;
-        Instantiate(marioDie, positionDie, Quaternion.identity);
-        Destroy(gameObject);
-    }
+  public void DestroyMario()
+  {
+    positionDie = transform.localPosition;
+    Instantiate(marioDie, positionDie, Quaternion.identity);
+    Destroy(gameObject);
+  }
 }
 
 
