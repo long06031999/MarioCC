@@ -37,7 +37,11 @@ public class MarioController : MonoBehaviour
     //move to pipe
     public bool isOnPipe = false;
     public GameObject pipe;
- 
+
+    //mario die
+    public GameObject marioDie;
+    private Vector2 positionDie;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,39 +58,51 @@ public class MarioController : MonoBehaviour
         OnJump();
         ShootAndSpeed();
         OnMoveToPipe();
-        if (isChangeMario)
+        OnChangeMario();
+        CheckMarioDie();
+    }
+
+    private void CheckMarioDie()
+    {
+        if (transform.localPosition.y <= -10f)
+        {
+            DestroyMario();
+        }
+    }
+
+    private void OnChangeMario()
+    {
+        if (this.isChangeMario)
         {
             switch (level)
             {
                 case 0:
                     {
                         StartCoroutine(ChangeSmallMario());
-                        isChangeMario = false;
+                        this.isChangeMario = false;
                         break;
                     }
                 case 1:
                     {
                         StartCoroutine(ChangeHighMario());
-                        isChangeMario = false;
+                        this.isChangeMario = false;
                         break;
                     }
                 case 2:
                     {
                         StartCoroutine(ChangeHighMarioWithGun());
-                        isChangeMario = false;
+                        this.isChangeMario = false;
                         break;
                     }
                 default:
                     {
-                        isChangeMario = false;
+                        this.isChangeMario = false;
                         break;
                     }
 
             }
         }
     }
-
-    
 
     private void FixedUpdate()
     {
@@ -297,6 +313,14 @@ public class MarioController : MonoBehaviour
         animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 0);
         animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
         yield return new WaitForSeconds(delay);
+    }
+
+
+    public void DestroyMario()
+    {
+        positionDie = transform.localPosition;
+        Instantiate(marioDie, positionDie, Quaternion.identity);
+        Destroy(gameObject);
     }
 }
 

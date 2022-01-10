@@ -39,45 +39,48 @@ public class TurtleDie : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector2 position = transform.localPosition;
-        if (isMoveLeft)
+        if (isFastMove)
         {
-            position.x -= velocity * Time.deltaTime;
-        }
-        else
-        {
-            position.x += velocity * Time.deltaTime;
-        }
-        transform.position = position;
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.tag == "Player" && !isFastMove)
-        {
-            if(collision.contacts[0].normal.x > 0)
+            Vector2 position = transform.localPosition;
+            if (isMoveLeft)
             {
-                //direction = Vector2.right;
-                isMoveLeft = false;
-                isFastMove = true;
+                position.x -= velocity * Time.deltaTime;
             }
             else
             {
-                //direction = Vector2.left;
+                position.x += velocity * Time.deltaTime;
+            }
+            transform.position = position;
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.tag == "Player")
+        {
+            if(collision.contacts[0].normal.x > 0)  
+            {
+                //direction = Vector2.right;
+                isMoveLeft = false;
+            }
+            else
+            {
                 isMoveLeft = true;
-                isFastMove = true;
             }
             if(isFastMove && collision.contacts[0].normal.y < 0) {
                 Destroy(gameObject);
+                return;
             }
+            isFastMove = true;
         }
-        if(isFastMove && collision.collider.tag == "Player")
+        if(isFastMove && collision.collider.tag == "Player" &&
+            (collision.contacts[0].normal.y > 0 || collision.contacts[0].normal.x > 0 || collision.contacts[0].normal.x < 0))
         {
             MarioController marioController = collision.gameObject.GetComponent<MarioController>();
             if (marioController)
             {
                 if (marioController.level == 0)
                 {
-                    Destroy(collision.gameObject);
+                    collision.gameObject.GetComponent<MarioController>().DestroyMario();
                 }
                 else
                 {

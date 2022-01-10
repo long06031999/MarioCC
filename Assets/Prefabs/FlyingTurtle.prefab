@@ -14,7 +14,9 @@ GameObject:
   - component: {fileID: 33277468651817382}
   - component: {fileID: 33277468651817401}
   - component: {fileID: -4238462219556785693}
-  m_Layer: 0
+  - component: {fileID: -1905513981019481350}
+  - component: {fileID: 5066509908416423705}
+  m_Layer: 8
   m_Name: FlyingTurtle
   m_TagString: Enemies
   m_Icon: {fileID: 0}
@@ -144,7 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FlyingTime: 2
-  Speed: 3
+  Speed: 4
   IsHorizontal: 1
   IsBehind: 1
   WaitInEdgeTime: 0
@@ -158,5 +160,33 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f14606733356d14db3e6dae3e020995, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-1905513981019481350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33277468651817405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0be027afaa19bb3d0b76bea3bbbb7a55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectile: {fileID: 6495167529328260038, guid: c2aea8c1b4fcaad29a2383dac7cba460, type: 3}
+  Auto: 1
+  time: 1
+  direction: {x: -1, y: -1}
+--- !u!114 &5066509908416423705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33277468651817405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddb8dcd51d1ac5634a3e42ab5954d599, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

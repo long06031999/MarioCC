@@ -37,7 +37,7 @@ public class TurtleEnemie : MonoBehaviour
             }
             else
             {
-                Destroy(mario);
+                mario.gameObject.GetComponent<MarioController>().DestroyMario();
                 Destroy(gameObject);
             }
         }

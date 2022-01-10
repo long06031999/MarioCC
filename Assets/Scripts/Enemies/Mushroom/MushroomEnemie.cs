@@ -24,16 +24,15 @@ public class MushroomEnemie : MonoBehaviour
         if ( collision.collider.tag == "Player" && collision.contacts[0].normal.y < 0)
         {
             Destroy(gameObject);
-            Instantiate(mushRoomDie, transform.position, Quaternion.identity);
+            Vector2 posisionOfMushroomDie = new Vector2(transform.position.x, transform.position.y - 0.3f);
+            Instantiate(mushRoomDie, posisionOfMushroomDie, Quaternion.identity);
             mushRoomDie.transform.localPosition = positionDie;
         }
         else if(collision.collider.tag == "Player" && (collision.contacts[0].normal.x < 0 || collision.contacts[0].normal.x > 0))
         {
             if (mario.GetComponent<MarioController>().level == 0)
             {
-                //Destroy(mario);
-                Instantiate(mushRoomDie, transform.position, Quaternion.identity);
-                mushRoomDie.transform.localPosition = positionDie;
+                collision.gameObject.GetComponent<MarioController>().DestroyMario();
                 Destroy(gameObject);
             }
             else

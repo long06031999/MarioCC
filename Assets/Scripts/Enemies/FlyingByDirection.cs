@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class FlyingByDirection : MonoBehaviour
 {
+  public bool isThrough = true;
   public float Speed = 5;
   public Vector2 direction = Vector2.up;
   public float distance = 10;
@@ -27,6 +29,14 @@ public class FlyingByDirection : MonoBehaviour
   void Update()
   {
     if (((Vector2)transform.position - startPos).magnitude > distance)
+    {
+      Destroy(gameObject);
+    }
+  }
+
+  private void OnTriggerEnter2D(Collider2D other)
+  {
+    if (!isThrough)
     {
       Destroy(gameObject);
     }
