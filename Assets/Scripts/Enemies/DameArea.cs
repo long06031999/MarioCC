@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class DameArea : MonoBehaviour
 {
-
+  public bool destroyOnCollision = true;
   public int dame = 10;
   // Start is called before the first frame updateprivate GameObject mario;
 
@@ -24,7 +24,11 @@ public class DameArea : MonoBehaviour
   {
     if (collision.gameObject.tag == "Player")
     {
-      Destroy(gameObject);
+      if (destroyOnCollision)
+      {
+
+        Destroy(gameObject);
+      }
       MarioController marioController = collision.GetComponent<MarioController>();
       if (marioController)
       {
@@ -46,7 +50,10 @@ public class DameArea : MonoBehaviour
   {
     if (collision.gameObject.tag == "Player")
     {
-      Destroy(gameObject);
+      if (destroyOnCollision)
+      {
+        Destroy(gameObject);
+      }
       MarioController marioController = collision.gameObject.GetComponent<MarioController>();
       if (marioController)
       {

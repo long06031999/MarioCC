@@ -6,6 +6,7 @@ using UnityEngine;
 public class CanBreak : MonoBehaviour
 {
   public int Stiffness = 2;
+  public bool isBottom = true;
   // Start is called before the first frame update
   void Start()
   {
@@ -18,19 +19,36 @@ public class CanBreak : MonoBehaviour
 
   }
 
-  private void OnCollisionExit2D(Collision2D other)
+  private void OnCollisionEnter2D(Collision2D other)
   {
     if (other.gameObject.tag == "Player")
     {
-
-      if (Stiffness <= 0)
+      bool isCollision = false;
+      if (isBottom)
       {
-        Destroy(gameObject);
+        Debug.Log("normal y: " + other.contacts[0].normal.y);
+        if (other.contacts[0].normal.y > 0)
+        {
+          isCollision = true;
+        }
       }
       else
       {
-        Stiffness -= 1;
+        isCollision = true;
       }
+
+      if (isCollision)
+      {
+        if (Stiffness <= 0)
+        {
+          Destroy(gameObject);
+        }
+        else
+        {
+          Stiffness -= 1;
+        }
+      }
+
     }
   }
 }
