@@ -20,7 +20,6 @@ public class FlyingByDirection : MonoBehaviour
   // Start is called before the first frame update
   void Start()
   {
-    Debug.Log("Start");
     GetComponent<Rigidbody2D>().AddForce(direction * Speed);
     startPos = transform.position;
   }
