@@ -29,7 +29,7 @@ public class ChangeScene : MonoBehaviour
     if (timer <= 0)
     {
       Debug.Log("Scene Count: " + SceneManager.sceneCount);
-      SceneManager.LoadScene("Level 2");
+      SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
     else
     {
