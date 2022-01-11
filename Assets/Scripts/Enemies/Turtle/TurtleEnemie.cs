@@ -29,17 +29,8 @@ public class TurtleEnemie : MonoBehaviour
         }
         else if (collision.collider.tag == "Player" && (collision.contacts[0].normal.x < 0 || collision.contacts[0].normal.x > 0))
         {
-            if (mario.GetComponent<MarioController>().level > 0)
-            {
-                mario.GetComponent<MarioController>().level -= 1;
-                mario.GetComponent<MarioController>().isChangeMario = true;
-                Destroy(gameObject);
-            }
-            else
-            {
-                mario.gameObject.GetComponent<MarioController>().DestroyMario();
-                Destroy(gameObject);
-            }
+            collision.gameObject.GetComponent<MarioController>().Health -= 40;
+            Destroy(gameObject);
         }
     }
 }

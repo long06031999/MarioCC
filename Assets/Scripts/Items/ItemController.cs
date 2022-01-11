@@ -55,16 +55,21 @@ public class ItemController : MonoBehaviour
     {
         if (collision.collider.tag == "Player")
         {
-            if (mario.GetComponent<MarioController>().level < 2)
+            /*if (mario.GetComponent<MarioController>().level < 2)
             {
                 mario.GetComponent<MarioController>().level += 1;
                 mario.GetComponent<MarioController>().isChangeMario = true;
+                mario.GetComponent<MarioController>().MaxHealth += 100;
+                mario.GetComponent<MarioController>().Health += 100;
             }
             else
             {
                 mario.GetComponent<MarioController>().level = 2;
                 mario.GetComponent<MarioController>().isChangeMario = true;
-            }
+                mario.GetComponent<MarioController>().Health += 100;
+            }*/
+
+            mario.GetComponent<MarioController>().HandleHealthPlayerWhenEatItem();
             Destroy(gameObject);
         }
     }

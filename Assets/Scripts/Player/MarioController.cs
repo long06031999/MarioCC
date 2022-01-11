@@ -27,14 +27,45 @@ public class MarioController : MonoBehaviour
         if (value > 0 && value <= MaxHealth)
         {
           health = value;
+          if (health <= 100 && level != 0)
+          {
+            level = 0;
+            isChangeMario = true;
+            MaxHealth = 100;
+          }
+          else if (health > 100 && health <= 200 && level != 1)
+          {
+            level = 1;
+            isChangeMario = true;
+            MaxHealth = 200;
+          }
+          else if (health > 200 && health <= 300 && level != 2)
+          {
+            level = 2;
+            isChangeMario = true;
+            MaxHealth = 300;
+          }
         }
-
         float percent = (float)health / MaxHealth;
         Debug.Log("Percent: " + percent);
         GetComponentInChildren<Image>().rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, originalImageSize * percent);
       }
     }
   }
+
+  public void HandleHealthPlayerWhenEatItem()
+  {
+    if (level < 2)
+    {
+      MaxHealth += 100;
+      Health = MaxHealth;
+    }
+    else
+    {
+      Health += 100;
+    }
+  }
+
 
   //default value setting
   private float velocityWhenPress = 7;
@@ -167,7 +198,7 @@ public class MarioController : MonoBehaviour
     if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
     {
       // //Test
-      // Health -= 10;
+      //Health -= 10;
       // //Test
       r2d.AddForce((Vector2.up) * velocityJump);
       isOnGround = false;
@@ -211,12 +242,15 @@ public class MarioController : MonoBehaviour
         {
           isSpawnBullet = true;
           Vector2 positionOfBullet;
-          if (transform.localScale.x > 0)
+          if (!gameObject.GetComponent<SpriteRenderer>().flipX)
             positionOfBullet = new Vector2(transform.position.x + 1f, transform.position.y);
           else
             positionOfBullet = new Vector2(transform.position.x - 1f, transform.position.y);
           GameObject g = Instantiate(bullet, positionOfBullet, Quaternion.identity);
-          if (transform.localScale.x > 0)
+
+          // because mario's default face direction is always right and default flipX = false,
+          // so ! for exact direction
+          if (!gameObject.GetComponent<SpriteRenderer>().flipX)
             g.GetComponent<BulletController>().direction = Vector2.right;
           else
             g.GetComponent<BulletController>().direction = Vector2.left;
@@ -364,5 +398,4 @@ public class MarioController : MonoBehaviour
     Destroy(gameObject);
   }
 }
-
 
