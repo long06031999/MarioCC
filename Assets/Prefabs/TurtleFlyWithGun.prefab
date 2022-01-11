@@ -184,5 +184,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 5884117580309316966, guid: 99e4547b4cbbb7e43b963b3e69511306, type: 3}
   Auto: 1
-  time: 2
+  time: 0.8
   direction: {x: 0, y: 1}

@@ -206,7 +206,8 @@ public class MarioController : MonoBehaviour
             // //Test
             r2d.AddForce((Vector2.up) * velocityJump);
             isOnGround = false;
-            CreateAudio("smb_1-up");
+           if(level == 0) CreateAudio("smb_jump-small");
+           else CreateAudio("smb_jump-super");
         }
         if (r2d.velocity.y < 0)
         {
@@ -259,6 +260,7 @@ public class MarioController : MonoBehaviour
                         g.GetComponent<BulletController>().direction = Vector2.right;
                     else
                         g.GetComponent<BulletController>().direction = Vector2.left;
+                    CreateAudio("smb_fireball");
                 }
             }
         }

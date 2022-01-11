@@ -41,6 +41,7 @@ public class CanBreak : MonoBehaviour
       {
         if (Stiffness <= 0)
         {
+          other.gameObject.GetComponent<MarioController>().CreateAudio("smb_breakblock");
           Destroy(gameObject);
         }
         else

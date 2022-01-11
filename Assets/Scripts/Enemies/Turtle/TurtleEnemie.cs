@@ -7,10 +7,12 @@ public class TurtleEnemie : MonoBehaviour
     private Vector2 positionDie;
     public GameObject turtleDie;
     private GameObject mario;
+    private AudioSource audioSource;
 
     private void Awake()
     {
         mario = GameObject.FindGameObjectWithTag("Player");
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -23,9 +25,10 @@ public class TurtleEnemie : MonoBehaviour
     {
         if (collision.collider.tag == "Player" && collision.contacts[0].normal.y < 0)
         {
-            Destroy(gameObject);
+            audioSource.PlayOneShot(Resources.Load<AudioClip>("Audio/smb_kick"));
             Instantiate(turtleDie, transform.position, Quaternion.identity);
             turtleDie.transform.localPosition = positionDie;
+            Destroy(gameObject);
         }
         else if (collision.collider.tag == "Player" && (collision.contacts[0].normal.x < 0 || collision.contacts[0].normal.x > 0))
         {

@@ -9,6 +9,8 @@ public class MarioDie : MonoBehaviour
     float speed = 15f;
     float bounce = 50f;
     // Update is called once per frame
+
+   
     void Update()
     {
         StartCoroutine(AnimationMarioDie());
@@ -26,7 +28,7 @@ public class MarioDie : MonoBehaviour
             }
             yield return null;
             transform.localPosition = new Vector2(transform.localPosition.x, transform.localPosition.y - speed * Time.deltaTime);
-            if (transform.localPosition.y <= - 15f)
+            if (transform.localPosition.y <= - 30f)
             {
                 Destroy(gameObject);
                 break;

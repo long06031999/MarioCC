@@ -70,6 +70,7 @@ public class ItemController : MonoBehaviour
             }*/
 
             mario.GetComponent<MarioController>().HandleHealthPlayerWhenEatItem();
+            mario.GetComponent<MarioController>().CreateAudio("smb_1-up");
             Destroy(gameObject);
         }
     }
