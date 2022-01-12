@@ -6,6 +6,28 @@ using UnityEngine.UI;
 
 public class MarioController : MonoBehaviour
 {
+  public bool IsSlowDown
+  {
+    get
+    {
+      if (marioStatus.GetType() == typeof(SlowDownMarioSpeed))
+      {
+        return true;
+      }
+      else { return false; }
+    }
+    set
+    {
+      if (value == true)
+      {
+        marioStatus = new SlowDownMarioSpeed();
+      }
+      else
+      {
+        marioStatus = new NormalMarioSpeed();
+      }
+    }
+  }
   private const float maxSpeedWhenHoldKey = 12;
   private const float checkTimeHoldKey = 0.02f;
 
@@ -68,9 +90,10 @@ public class MarioController : MonoBehaviour
 
 
   //default value setting
-  private float velocityWhenPress = 7;
+  // private float velocityWhenPress = 7;
 
-  private float velocityJump = 500;
+  // private float velocityJump = 500;
+  public MarioStatus marioStatus = new NormalMarioSpeed();
   private float velocityFall = 5;
   private float smallJump = 5;
 
@@ -185,8 +208,8 @@ public class MarioController : MonoBehaviour
   private void OnMove()
   {
     float velocityKeyInput = Input.GetAxis("Horizontal");
-    r2d.velocity = new Vector2(velocityWhenPress * velocityKeyInput, r2d.velocity.y);
-    velocity = Mathf.Abs(velocityWhenPress * velocityKeyInput);
+    r2d.velocity = new Vector2(marioStatus.velocityWhenPress * velocityKeyInput, r2d.velocity.y);
+    velocity = Mathf.Abs(marioStatus.velocityWhenPress * velocityKeyInput);
     if (velocityKeyInput > 0 && !isRight) OnDirection();
     if (velocityKeyInput < 0 && isRight) OnDirection();
   }
@@ -195,7 +218,7 @@ public class MarioController : MonoBehaviour
   {
     isRight = !isRight;
     gameObject.GetComponent<SpriteRenderer>().flipX = !isRight;
-    if (velocityWhenPress > 1f) StartCoroutine(OnNavigation());
+    if (marioStatus.velocityWhenPress > 1f) StartCoroutine(OnNavigation());
   }
   private void OnJump()
   {
@@ -204,7 +227,7 @@ public class MarioController : MonoBehaviour
       // //Test
       //Health -= 10;
       // //Test
-      r2d.AddForce((Vector2.up) * velocityJump);
+      r2d.AddForce((Vector2.up) * marioStatus.velocityJump);
       isOnGround = false;
       if (level == 0) CreateAudio("smb_jump-small");
       else CreateAudio("smb_jump-super");
@@ -274,17 +297,17 @@ public class MarioController : MonoBehaviour
       }
       else
       {
-        velocityWhenPress *= 1.01f;
-        if (velocityWhenPress >= maxSpeedWhenHoldKey)
+        marioStatus.velocityWhenPress *= 1.01f;
+        if (marioStatus.velocityWhenPress >= maxSpeedWhenHoldKey)
         {
-          velocityWhenPress = maxSpeedWhenHoldKey;
+          marioStatus.velocityWhenPress = maxSpeedWhenHoldKey;
         }
       }
     }
     //reset value when press finsish
     if (Input.GetKeyUp(KeyCode.Z))
     {
-      velocityWhenPress = 7f;
+      marioStatus.velocityWhenPress = 7f;
       timeHoldKey = 0f;
       isSpawnBullet = false;
     }
@@ -411,3 +434,26 @@ public class MarioController : MonoBehaviour
   }
 }
 
+public abstract class MarioStatus
+{
+  public float velocityWhenPress;
+  public float velocityJump;
+
+  protected MarioStatus() { }
+
+  protected MarioStatus(float moveSpeed, float jumpHeight)
+  {
+    velocityWhenPress = moveSpeed;
+    velocityJump = jumpHeight;
+  }
+}
+
+public class NormalMarioSpeed : MarioStatus
+{
+  public NormalMarioSpeed() : base(7, 500) { }
+}
+
+public class SlowDownMarioSpeed : MarioStatus
+{
+  public SlowDownMarioSpeed() : base(3, 400) { }
+}

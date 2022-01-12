@@ -22,7 +22,9 @@ public class SlowdownArea : MonoBehaviour
 
     if (controller)
     {
-      Debug.Log("Enter");
+      controller.IsSlowDown = true;
+
+      Debug.Log("Speed: " + controller.marioStatus.velocityJump);
     }
   }
 
@@ -38,11 +40,11 @@ public class SlowdownArea : MonoBehaviour
 
   private void OnCollisionExit2D(Collision2D other)
   {
-    MarioController controller = other.gameObject.GetComponent<MarioController>();
+    // MarioController controller = other.gameObject.GetComponent<MarioController>();
 
-    if (controller)
-    {
-      Debug.Log("Exit");
-    }
+    // if (controller)
+    // {
+    //   controller.IsSlowDown = false;
+    // }
   }
 }
