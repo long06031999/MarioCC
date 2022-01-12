@@ -44320,11 +44320,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2725520733267292031, guid: c9753f762b85cdc4f98161b1acd3be37, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 345.01
+      value: 2.42
       objectReference: {fileID: 0}
     - target: {fileID: 2725520733267292031, guid: c9753f762b85cdc4f98161b1acd3be37, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.07
+      value: 0.95
       objectReference: {fileID: 0}
     - target: {fileID: 2725520733267292031, guid: c9753f762b85cdc4f98161b1acd3be37, type: 3}
       propertyPath: m_LocalPosition.z
@@ -53628,9 +53628,9 @@ PlatformEffector2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RotationalOffset: 0
-  m_UseOneWay: 1
+  m_UseOneWay: 0
   m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
+  m_SurfaceArc: 360
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1

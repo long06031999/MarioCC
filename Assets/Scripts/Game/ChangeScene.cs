@@ -29,7 +29,10 @@ public class ChangeScene : MonoBehaviour
     if (timer <= 0)
     {
       Debug.Log("Scene Count: " + SceneManager.sceneCount);
-      SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+      int nextScene = SceneManager.GetActiveScene().buildIndex + 1;
+      // SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(nextScene));
+      // SceneManager.MoveGameObjectToScene(other.gameObject, SceneManager.GetSceneByBuildIndex(nextScene));
+      SceneManager.LoadScene(nextScene);
     }
     else
     {
