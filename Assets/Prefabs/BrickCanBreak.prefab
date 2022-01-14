@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8fd67808393a993f91bcb837b491f29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Stiffness: 2
+  Stiffness: 1
   isBottom: 1
 --- !u!251 &471160798299271617
 PlatformEffector2D:

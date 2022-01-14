@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class MarioController : MonoBehaviour
 {
+  public double money;
   public bool IsSlowDown
   {
     get
@@ -249,6 +250,22 @@ public class MarioController : MonoBehaviour
       isOnGround = true;
     }
   }
+
+  // private void OnCollisionStay2D(Collision2D other)
+  // {
+  //   if (other.gameObject.tag == "Ground" && isOnGround == false)
+  //   {
+  //     isOnGround = true;
+  //   }
+  // }
+
+  // private void OnCollisionExit2D(Collision2D other)
+  // {
+  //   if (other.gameObject.tag == "Ground" && isOnGround == true)
+  //   {
+  //     isOnGround = false;
+  //   }
+  // }
 
   IEnumerator OnNavigation()
   {

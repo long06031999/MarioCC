@@ -20,7 +20,7 @@ public class SlowdownArea : MonoBehaviour
   {
     MarioController controller = other.gameObject.GetComponent<MarioController>();
 
-    if (controller)
+    if (controller && !controller.IsSlowDown)
     {
       controller.IsSlowDown = true;
 
