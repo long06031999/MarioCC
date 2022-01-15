@@ -19,7 +19,8 @@ public class RestartControl : MonoBehaviour
 
   public void Restart()
   {
-    SceneManager.LoadSceneAsync("Level 1", LoadSceneMode.Single);
+    Debug.Log("Restart " + SceneManager.GetActiveScene().buildIndex);
+    SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
   }
 
   public void MainMenu()
