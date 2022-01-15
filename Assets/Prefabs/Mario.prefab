@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2725520733267292031}
   - component: {fileID: 2725520733267292030}
-  - component: {fileID: 2725520733267292029}
   - component: {fileID: 2725520733267292028}
   - component: {fileID: 2725520733267292027}
   - component: {fileID: 2725520733267292016}
@@ -90,22 +89,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &2725520733267292029
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2725520733267292026}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.0013815165, y: -0.46377486}
-  serializedVersion: 2
-  m_Radius: 0.06888443
 --- !u!50 &2725520733267292028
 Rigidbody2D:
   serializedVersion: 4
@@ -184,6 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7fc345e6380e8c4b8a139378073b36b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  money: 0
   MaxHealth: 100
   level: 0
   isChangeMario: 0
