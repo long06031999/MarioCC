@@ -7,13 +7,13 @@ public class StartBossGame : MonoBehaviour
   // Start is called before the first frame update
   void Start()
   {
-    Time.timeScale = 0f;
+    GameManager.Instance.PauseGame();
   }
 
   // Update is called once per frame
   public void ResumeGame()
   {
-    Time.timeScale = 1f;
+    GameManager.Instance.ResumeGame();
     gameObject.SetActive(false);
   }
 }

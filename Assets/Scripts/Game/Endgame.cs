@@ -7,21 +7,10 @@ public class Endgame : MonoBehaviour
 {
 
   public GameObject EndingMenu;
-  // Start is called before the first frame update
-  void Start()
-  {
-
-  }
-
-  // Update is called once per frame
-  void Update()
-  {
-
-  }
 
   private void OnCollisionEnter2D(Collision2D other)
   {
-    Time.timeScale = 0f;
+    GameManager.Instance.PauseGame();
     EndingMenu.SetActive(true);
   }
 }
