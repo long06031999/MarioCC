@@ -35,22 +35,16 @@ public class PauseControl : MonoBehaviour
 
   public static void PauseGame()
   {
-    if (PauseControl.gameIsPaused)
-    {
-      Time.timeScale = 0f;
-      SceneManager.LoadScene("Pause", LoadSceneMode.Additive);
-    }
-    else
-    {
-      Time.timeScale = 1;
-      SceneManager.UnloadSceneAsync("Pause");
-    }
+    SceneManager.LoadScene("Pause", LoadSceneMode.Additive);
+    GameManager.Instance.PauseGame();
   }
 
   public static void ResumeGame()
   {
     PauseControl.gameIsPaused = !PauseControl.gameIsPaused;
-    PauseControl.PauseGame();
+
+    SceneManager.UnloadSceneAsync("Pause");
+    GameManager.Instance.ResumeGame();
   }
 
 

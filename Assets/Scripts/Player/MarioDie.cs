@@ -20,23 +20,26 @@ public class MarioDie : MonoBehaviour
 
   IEnumerator AnimationMarioDie()
   {
+    GetComponent<Rigidbody2D>().AddForce(Vector2.up * 300);
 
-    while (true)
-    {
-      transform.localPosition = new Vector2(transform.localPosition.x, transform.localPosition.y + speed * Time.deltaTime);
-      if (transform.localPosition.y >= bounce + 1)
-      {
-        break;
-      }
-      yield return null;
-      transform.localPosition = new Vector2(transform.localPosition.x, transform.localPosition.y - speed * Time.deltaTime);
-      if (transform.localPosition.y <= -30f)
-      {
-        Destroy(gameObject);
-        break;
-      }
-      yield return null;
-    }
+    yield return new WaitForSeconds(2);
+    Destroy(gameObject);
+    // while (true)
+    // {
+    //   transform.localPosition = new Vector2(transform.localPosition.x, transform.localPosition.y + speed * Time.deltaTime);
+    //   if (transform.localPosition.y >= bounce + 1)
+    //   {
+    //     break;
+    //   }
+    //   yield return null;
+    //   transform.localPosition = new Vector2(transform.localPosition.x, transform.localPosition.y - speed * Time.deltaTime);
+    //   if (transform.localPosition.y <= -30f)
+    //   {
+    //     Destroy(gameObject);
+    //     break;
+    //   }
+    //   yield return null;
+    // }
 
     SceneManager.LoadScene("DieMenu", LoadSceneMode.Additive);
   }
