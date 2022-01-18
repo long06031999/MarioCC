@@ -1,22 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Menu : MonoBehaviour
 {
 
+  PlayerInputAction playerInputAction;
   public GameObject PauseMenu;
 
   private void Start()
   {
+    playerInputAction = new PlayerInputAction();
+    playerInputAction.Enable();
+
+    playerInputAction.PlayerInputActions.OpenPauseMenu.performed += OnOpenPauseMenu;
+  }
+
+  public void OnOpenPauseMenu(InputAction.CallbackContext context)
+  {
+    Debug.Log("Escape");
+    OpenPauseMenu();
   }
   private void Update()
   {
-    if (Input.GetKeyDown(KeyCode.Escape))
-    {
-      Debug.Log("Escape");
-      OpenPauseMenu();
-    }
+    // if (Input.GetKeyDown(KeyCode.Escape))
+    // {
+    // Debug.Log("Escape");
+    // OpenPauseMenu();
+    // }
   }
 
   public void PauseGame()

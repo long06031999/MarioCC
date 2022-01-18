@@ -13,7 +13,7 @@ public class MarioDie : MonoBehaviour
   // Update is called once per frame
 
 
-  void Update()
+  void Start()
   {
     StartCoroutine(AnimationMarioDie());
   }

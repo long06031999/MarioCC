@@ -3,10 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class MarioController : MonoBehaviour
 {
+
+  PlayerInputAction playerInputAction;
   public double money;
+
+  int moveDirection = 0;
   public bool IsSlowDown
   {
     get
@@ -134,13 +139,96 @@ public class MarioController : MonoBehaviour
     image = GetComponentInChildren<Image>();
     originalImageSize = image.rectTransform.rect.width;
     Debug.Log(image);
+
+    animator = GetComponent<Animator>();
+    r2d = GetComponent<Rigidbody2D>();
+    audioSource = GetComponent<AudioSource>();
+
+    // Init Player Input Action
+    playerInputAction = new PlayerInputAction();
+    playerInputAction.Enable();
+
+    playerInputAction.PlayerInputActions.MoveLeft.performed += MoveLeftPerformed;
+    playerInputAction.PlayerInputActions.MoveLeft.canceled += MoveLeftCanceled;
+    playerInputAction.PlayerInputActions.MoveRight.performed += MoveRightPerformed;
+    playerInputAction.PlayerInputActions.MoveRight.canceled += MoveRightCanceled;
+    playerInputAction.PlayerInputActions.Jump.performed += JumpPerformed;
+    playerInputAction.PlayerInputActions.Jump.canceled += JumpCanceled;
+    playerInputAction.PlayerInputActions.Teleport.performed += TeleportPerformed;
+    playerInputAction.PlayerInputActions.Teleport.canceled += TeleportCanceled;
+    playerInputAction.PlayerInputActions.Fire.performed += FirePerformed;
+    playerInputAction.PlayerInputActions.Fire.canceled += FireCanceled;
   }
   // Start is called before the first frame update
   void Start()
   {
-    animator = GetComponent<Animator>();
-    r2d = GetComponent<Rigidbody2D>();
-    audioSource = GetComponent<AudioSource>();
+
+  }
+
+  public void MoveLeftPerformed(InputAction.CallbackContext context)
+  {
+    moveDirection = -1;
+  }
+  public void MoveLeftCanceled(InputAction.CallbackContext context)
+  {
+    moveDirection = 0;
+  }
+
+  public void MoveRightPerformed(InputAction.CallbackContext context)
+  {
+    moveDirection = 1;
+  }
+  public void MoveRightCanceled(InputAction.CallbackContext context)
+  {
+    moveDirection = 0;
+  }
+  public void JumpPerformed(InputAction.CallbackContext context)
+  {
+    OnJump();
+  }
+  public void JumpCanceled(InputAction.CallbackContext context)
+  {
+
+  }
+  public void FirePerformed(InputAction.CallbackContext context)
+  {
+    Debug.Log("Fire...");
+    timeHoldKey += Time.deltaTime;
+    if (level == 2 && timeHoldKey < checkTimeHoldKey)
+    {
+      if (!isSpawnBullet && bullet && this)
+      {
+        isSpawnBullet = true;
+        Vector2 positionOfBullet;
+        if (!gameObject.GetComponent<SpriteRenderer>().flipX)
+          positionOfBullet = new Vector2(transform.position.x + 1f, transform.position.y);
+        else
+          positionOfBullet = new Vector2(transform.position.x - 1f, transform.position.y);
+        GameObject g = Instantiate(bullet, positionOfBullet, Quaternion.identity);
+
+        // because mario's default face direction is always right and default flipX = false,
+        // so ! for exact direction
+        if (!gameObject.GetComponent<SpriteRenderer>().flipX)
+          g.GetComponent<BulletController>().direction = Vector2.right;
+        else
+          g.GetComponent<BulletController>().direction = Vector2.left;
+        CreateAudio("smb_fireball");
+      }
+    }
+  }
+  public void FireCanceled(InputAction.CallbackContext context)
+  {
+    marioStatus.velocityWhenPress = 7f;
+    timeHoldKey = 0f;
+    isSpawnBullet = false;
+  }
+  public void TeleportPerformed(InputAction.CallbackContext context)
+  {
+    OnMoveToPipe();
+  }
+  public void TeleportCanceled(InputAction.CallbackContext context)
+  {
+
   }
 
   void Die()
@@ -153,9 +241,9 @@ public class MarioController : MonoBehaviour
     animator.SetFloat("velocity", velocity);
     animator.SetBool("isOnGround", isOnGround);
     animator.SetBool("isNavigation", isNavigation);
-    OnJump();
+    // OnJump();
     ShootAndSpeed();
-    OnMoveToPipe();
+    // OnMoveToPipe();
     OnChangeMario();
     CheckMarioDie();
   }
@@ -208,11 +296,11 @@ public class MarioController : MonoBehaviour
   }
   private void OnMove()
   {
-    float velocityKeyInput = Input.GetAxis("Horizontal");
-    r2d.velocity = new Vector2(marioStatus.velocityWhenPress * velocityKeyInput, r2d.velocity.y);
-    velocity = Mathf.Abs(marioStatus.velocityWhenPress * velocityKeyInput);
-    if (velocityKeyInput > 0 && !isRight) OnDirection();
-    if (velocityKeyInput < 0 && isRight) OnDirection();
+    // float velocityKeyInput = Input.GetAxis("Horizontal");
+    r2d.velocity = new Vector2(marioStatus.velocityWhenPress * moveDirection, r2d.velocity.y);
+    velocity = Mathf.Abs(marioStatus.velocityWhenPress * moveDirection);
+    if (moveDirection > 0 && !isRight) OnDirection();
+    if (moveDirection < 0 && isRight) OnDirection();
   }
 
   private void OnDirection()
@@ -223,23 +311,28 @@ public class MarioController : MonoBehaviour
   }
   private void OnJump()
   {
-    if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
+    // //Test
+    //Health -= 10;
+    // //Test
+    if (isOnGround)
     {
-      // //Test
-      //Health -= 10;
-      // //Test
-      r2d.AddForce((Vector2.up) * marioStatus.velocityJump);
-      isOnGround = false;
-      if (level == 0) CreateAudio("smb_jump-small");
-      else CreateAudio("smb_jump-super");
-    }
-    if (r2d.velocity.y < 0)
-    {
-      r2d.velocity += Vector2.up * Physics2D.gravity.y * (velocityFall - 1) * Time.deltaTime;
-    }
-    else if (r2d.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
-    {
-      r2d.velocity += Vector2.up * Physics2D.gravity.y * (smallJump - 1) * Time.deltaTime;
+      if (r2d)
+      {
+        r2d.AddForce((Vector2.up) * marioStatus.velocityJump);
+        isOnGround = false;
+        if (level == 0) CreateAudio("smb_jump-small");
+        else CreateAudio("smb_jump-super");
+
+        if (r2d.velocity.y < 0)
+        {
+          r2d.velocity += Vector2.up * Physics2D.gravity.y * (velocityFall - 1) * Time.deltaTime;
+        }
+        else if (r2d.velocity.y > 0)
+        {
+          r2d.velocity += Vector2.up * Physics2D.gravity.y * (smallJump - 1) * Time.deltaTime;
+        }
+      }
+
     }
   }
 
@@ -279,72 +372,68 @@ public class MarioController : MonoBehaviour
   private void ShootAndSpeed()
   {
     // shoot
-    if (Input.GetKeyDown(KeyCode.Z))
-    {
-      timeHoldKey += Time.deltaTime;
-      if (level == 2 && timeHoldKey < checkTimeHoldKey)
-      {
-        if (!isSpawnBullet)
-        {
-          isSpawnBullet = true;
-          Vector2 positionOfBullet;
-          if (!gameObject.GetComponent<SpriteRenderer>().flipX)
-            positionOfBullet = new Vector2(transform.position.x + 1f, transform.position.y);
-          else
-            positionOfBullet = new Vector2(transform.position.x - 1f, transform.position.y);
-          GameObject g = Instantiate(bullet, positionOfBullet, Quaternion.identity);
+    // if (Input.GetKeyDown(KeyCode.Z))
+    // {
+    //   // timeHoldKey += Time.deltaTime;
+    //   // if (level == 2 && timeHoldKey < checkTimeHoldKey)
+    //   // {
+    //   //   if (!isSpawnBullet)
+    //   //   {
+    //   //     isSpawnBullet = true;
+    //   //     Vector2 positionOfBullet;
+    //   //     if (!gameObject.GetComponent<SpriteRenderer>().flipX)
+    //   //       positionOfBullet = new Vector2(transform.position.x + 1f, transform.position.y);
+    //   //     else
+    //   //       positionOfBullet = new Vector2(transform.position.x - 1f, transform.position.y);
+    //   //     GameObject g = Instantiate(bullet, positionOfBullet, Quaternion.identity);
 
-          // because mario's default face direction is always right and default flipX = false,
-          // so ! for exact direction
-          if (!gameObject.GetComponent<SpriteRenderer>().flipX)
-            g.GetComponent<BulletController>().direction = Vector2.right;
-          else
-            g.GetComponent<BulletController>().direction = Vector2.left;
-          CreateAudio("smb_fireball");
-        }
-      }
-    }
+    //   //     // because mario's default face direction is always right and default flipX = false,
+    //   //     // so ! for exact direction
+    //   //     if (!gameObject.GetComponent<SpriteRenderer>().flipX)
+    //   //       g.GetComponent<BulletController>().direction = Vector2.right;
+    //   //     else
+    //   //       g.GetComponent<BulletController>().direction = Vector2.left;
+    //   //     CreateAudio("smb_fireball");
+    //   //   }
+    //   // }
+    // }
     // hold key z to move faster
-    else if (Input.GetKey(KeyCode.Z))
-    {
-      timeHoldKey += Time.deltaTime;
-      if (timeHoldKey < checkTimeHoldKey)
-      {
+    // if (Input.GetKey(KeyCode.Z))
+    // {
+    //   timeHoldKey += Time.deltaTime;
+    //   if (timeHoldKey < checkTimeHoldKey)
+    //   {
 
-      }
-      else
-      {
-        marioStatus.velocityWhenPress *= 1.01f;
-        if (marioStatus.velocityWhenPress >= maxSpeedWhenHoldKey)
-        {
-          marioStatus.velocityWhenPress = maxSpeedWhenHoldKey;
-        }
-      }
-    }
+    //   }
+    //   else
+    //   {
+    //     marioStatus.velocityWhenPress *= 1.01f;
+    //     if (marioStatus.velocityWhenPress >= maxSpeedWhenHoldKey)
+    //     {
+    //       marioStatus.velocityWhenPress = maxSpeedWhenHoldKey;
+    //     }
+    //   }
+    // }
     //reset value when press finsish
-    if (Input.GetKeyUp(KeyCode.Z))
-    {
-      marioStatus.velocityWhenPress = 7f;
-      timeHoldKey = 0f;
-      isSpawnBullet = false;
-    }
+    // if (Input.GetKeyUp(KeyCode.Z))
+    // {
+    //   marioStatus.velocityWhenPress = 7f;
+    //   timeHoldKey = 0f;
+    //   isSpawnBullet = false;
+    // }
   }
 
   private void OnMoveToPipe()
   {
-    if (Input.GetKeyDown(KeyCode.DownArrow))
+    if (isOnPipe)
     {
-      if (isOnPipe)
-      {
-        Debug.Log(pipe.transform.GetChild(0).transform.position);
-        pipe.GetComponent<PipeScript>().Action();
+      Debug.Log(pipe.transform.GetChild(0).transform.position);
+      pipe.GetComponent<PipeScript>().Action();
 
-      }
-      else
-      {
-        Debug.Log("Ground");
-      }
-
+    }
+    else
+    {
+      Debug.Log("Ground");
     }
   }
 

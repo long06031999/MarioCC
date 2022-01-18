@@ -9,6 +9,7 @@ TagManager:
   - Collision
   - Enemies
   - Door
+  - Boss
   layers:
   - Default
   - TransparentFX
