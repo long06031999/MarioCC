@@ -27,11 +27,11 @@ public class PauseControl : MonoBehaviour
   //    += OnOpenPauseMenu;
   // }
 
-  public void OnOpenPauseMenu(InputAction.CallbackContext context)
-  {
-    PauseControl.gameIsPaused = !PauseControl.gameIsPaused;
-    PauseGame();
-  }
+  // public void OnOpenPauseMenu(InputAction.CallbackContext context)
+  // {
+  //   PauseControl.gameIsPaused = !PauseControl.gameIsPaused;
+  //   // PauseGame();
+  // }
 
   void Update()
   {
@@ -41,11 +41,11 @@ public class PauseControl : MonoBehaviour
     // }
   }
 
-  public static void PauseGame()
-  {
-    SceneManager.LoadScene("Pause", LoadSceneMode.Additive);
-    GameManager.Instance.PauseGame();
-  }
+  // public static void PauseGame()
+  // {
+  //   SceneManager.LoadScene("Pause", LoadSceneMode.Additive);
+  //   GameManager.Instance.PauseGame();
+  // }
 
   public static void ResumeGame()
   {
