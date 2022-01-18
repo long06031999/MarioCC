@@ -7,8 +7,9 @@ using UnityEngine.InputSystem;
 
 public class MarioController : MonoBehaviour
 {
-
   PlayerInputAction playerInputAction;
+
+  public GameObject pauseMenu;
   public double money;
 
   int moveDirection = 0;
@@ -145,8 +146,11 @@ public class MarioController : MonoBehaviour
     audioSource = GetComponent<AudioSource>();
 
     // Init Player Input Action
-    playerInputAction = new PlayerInputAction();
-    playerInputAction.Enable();
+    if (playerInputAction == null)
+    {
+      playerInputAction = new PlayerInputAction();
+      playerInputAction.Enable();
+    }
 
     playerInputAction.PlayerInputActions.MoveLeft.performed += MoveLeftPerformed;
     playerInputAction.PlayerInputActions.MoveLeft.canceled += MoveLeftCanceled;
@@ -158,6 +162,7 @@ public class MarioController : MonoBehaviour
     playerInputAction.PlayerInputActions.Teleport.canceled += TeleportCanceled;
     playerInputAction.PlayerInputActions.Fire.performed += FirePerformed;
     playerInputAction.PlayerInputActions.Fire.canceled += FireCanceled;
+    playerInputAction.PlayerInputActions.OpenPauseMenu.performed += OpenPauseMenuPerformed;
   }
   // Start is called before the first frame update
   void Start()
@@ -231,6 +236,14 @@ public class MarioController : MonoBehaviour
 
   }
 
+  public void OpenPauseMenuPerformed(InputAction.CallbackContext context)
+  {
+    if (pauseMenu)
+    {
+      pauseMenu.SetActive(true);
+      GameManager.Instance.PauseGame();
+    }
+  }
   void Die()
   {
     DestroyMario();

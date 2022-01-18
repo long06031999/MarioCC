@@ -7,17 +7,25 @@ using UnityEngine.InputSystem;
 public class PauseControl : MonoBehaviour
 {
 
-  PlayerInputAction playerInputAction;
+  // PlayerInputAction playerInputAction;
   public static bool gameIsPaused;
   public static Scene scene;
 
-  private void Awake()
-  {
-    playerInputAction = new PlayerInputAction();
-    playerInputAction.Enable();
+  // private void Awake()
+  // {
 
-    playerInputAction.PlayerInputActions.OpenPauseMenu.performed += OnOpenPauseMenu;
-  }
+  //   if (MarioController.playerInputAction == null)
+  //   {
+  //     MarioController.playerInputAction = new PlayerInputAction();
+  //     MarioController.playerInputAction.Enable();
+  //   }
+
+  //   if (MarioController.playerInputAction.PlayerInputActions.OpenPauseMenu.performed == null)
+  //   {
+
+  //   }
+  //    += OnOpenPauseMenu;
+  // }
 
   public void OnOpenPauseMenu(InputAction.CallbackContext context)
   {
@@ -42,15 +50,14 @@ public class PauseControl : MonoBehaviour
   public static void ResumeGame()
   {
     PauseControl.gameIsPaused = !PauseControl.gameIsPaused;
-
-    SceneManager.UnloadSceneAsync("Pause");
     GameManager.Instance.ResumeGame();
   }
 
 
   public void GoToMainMenu()
   {
-    SceneManager.LoadScene(0);
+
     PauseControl.ResumeGame();
+    SceneManager.LoadScene(0);
   }
 }

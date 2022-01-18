@@ -6,16 +6,18 @@ using UnityEngine.InputSystem;
 public class Menu : MonoBehaviour
 {
 
-  PlayerInputAction playerInputAction;
+  // PlayerInputAction playerInputAction;
   public GameObject PauseMenu;
 
-  private void Start()
-  {
-    playerInputAction = new PlayerInputAction();
-    playerInputAction.Enable();
-
-    playerInputAction.PlayerInputActions.OpenPauseMenu.performed += OnOpenPauseMenu;
-  }
+  // private void Start()
+  // {
+  //   if (MarioController.playerInputAction == null)
+  //   {
+  //     MarioController.playerInputAction = new PlayerInputAction();
+  //     MarioController.playerInputAction.Enable();
+  //   }
+  //   MarioController.playerInputAction.PlayerInputActions.OpenPauseMenu.performed += OnOpenPauseMenu;
+  // }
 
   public void OnOpenPauseMenu(InputAction.CallbackContext context)
   {
