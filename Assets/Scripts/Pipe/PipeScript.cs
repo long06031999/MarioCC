@@ -25,6 +25,7 @@ public class PipeScript : MonoBehaviour
     {
       marioController = collision.gameObject.GetComponent<MarioController>();
       marioController.isOnPipe = true;
+      marioController.downButton.SetActive(true);
       marioController.pipe = gameObject;
     }
   }
@@ -34,6 +35,7 @@ public class PipeScript : MonoBehaviour
     if (marioController)
     {
       marioController.isOnPipe = false;
+      marioController.downButton.SetActive(false);
       marioController.pipe = null;
       marioController = null;
     }

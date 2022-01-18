@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 
 public class MarioController : MonoBehaviour
 {
+  public GameObject fireButton, downButton;
   PlayerInputAction playerInputAction;
 
   public GameObject pauseMenu;
@@ -279,23 +280,27 @@ public class MarioController : MonoBehaviour
           {
             StartCoroutine(ChangeSmallMario());
             this.isChangeMario = false;
+            fireButton.SetActive(false);
             break;
           }
         case 1:
           {
             StartCoroutine(ChangeHighMario());
             this.isChangeMario = false;
+            fireButton.SetActive(false);
             break;
           }
         case 2:
           {
             StartCoroutine(ChangeHighMarioWithGun());
             this.isChangeMario = false;
+            fireButton.SetActive(true);
             break;
           }
         default:
           {
             this.isChangeMario = false;
+            fireButton.SetActive(false);
             break;
           }
 
