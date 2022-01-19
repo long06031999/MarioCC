@@ -110,7 +110,15 @@ public class MainMenu : MonoBehaviour
   {
     Top top = GameManager.Instance.GetTopChallenge();
 
-    TopText.text = top.name + ": " + top.ponit + "s";
+    if (top != null)
+    {
+
+      TopText.text = top.name + ": " + top.ponit + "s";
+    }
+    else
+    {
+      TopText.text = "none";
+    }
   }
 
   IEnumerator LoadingSavedGame()
