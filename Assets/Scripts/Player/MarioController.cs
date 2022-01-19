@@ -377,7 +377,9 @@ public class MarioController : MonoBehaviour
   {
     if (collision.gameObject.tag == "Ground")
     {
-      isOnGround = true;
+      // Debug.Log("collision " + collision.contacts[0].normal.y);
+      if (collision.contacts[0].normal.y >= 0.9)
+        isOnGround = true;
     }
   }
 

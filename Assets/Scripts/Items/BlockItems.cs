@@ -24,7 +24,7 @@ public class BlockItems : MonoBehaviour
 
   private void OnCollisionEnter2D(Collision2D collision)
   {
-    if (collision.collider.tag == "Collision" && collision.contacts[0].normal.y > 0)
+    if (collision.collider.tag == "Player" && collision.contacts[0].normal.y > 0)
     {
       originalPosition = transform.position;
       CreateItem(collision.gameObject);
