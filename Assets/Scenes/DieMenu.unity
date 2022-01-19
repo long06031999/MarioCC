@@ -445,6 +445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc556c3e44282b700a7215698fe98a21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  marioPrefab: {fileID: 2725520733267292026, guid: c9753f762b85cdc4f98161b1acd3be37, type: 3}
 --- !u!1 &612380976
 GameObject:
   m_ObjectHideFlags: 0

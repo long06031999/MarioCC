@@ -8,10 +8,14 @@ using UnityEngine.InputSystem;
 public class MarioController : MonoBehaviour
 {
   public GameObject fireButton, downButton;
+
+  public Text timeTextUI;
   PlayerInputAction playerInputAction;
 
   public GameObject pauseMenu;
   public double money;
+
+  public float TotalTime;
 
   int moveDirection = 0;
   public bool IsSlowDown
@@ -164,6 +168,17 @@ public class MarioController : MonoBehaviour
     playerInputAction.PlayerInputActions.Fire.performed += FirePerformed;
     playerInputAction.PlayerInputActions.Fire.canceled += FireCanceled;
     playerInputAction.PlayerInputActions.OpenPauseMenu.performed += OpenPauseMenuPerformed;
+
+    if (GameManager.Instance.ReloadGame)
+    {
+      ReloadData();
+    }
+  }
+
+  void SetTotalTime()
+  {
+    TotalTime += Time.deltaTime;
+    timeTextUI.text = TotalTime.ToString();
   }
   // Start is called before the first frame update
   void Start()
@@ -230,7 +245,10 @@ public class MarioController : MonoBehaviour
   }
   public void TeleportPerformed(InputAction.CallbackContext context)
   {
-    OnMoveToPipe();
+    if (this)
+    {
+      OnMoveToPipe();
+    }
   }
   public void TeleportCanceled(InputAction.CallbackContext context)
   {
@@ -252,6 +270,7 @@ public class MarioController : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
+    SetTotalTime();
     animator.SetFloat("velocity", velocity);
     animator.SetBool("isOnGround", isOnGround);
     animator.SetBool("isNavigation", isNavigation);
@@ -555,6 +574,12 @@ public class MarioController : MonoBehaviour
   public void CreateAudio(String fileName)
   {
     audioSource.PlayOneShot(Resources.Load<AudioClip>("Audio/" + fileName));
+  }
+
+  public void ReloadData()
+  {
+    // GameManager.Instance.LoadSavedGame(this);
+    // GameManager.Instance.ReloadGame = false;
   }
 }
 

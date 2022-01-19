@@ -19,11 +19,11 @@ public class Menu : MonoBehaviour
   //   MarioController.playerInputAction.PlayerInputActions.OpenPauseMenu.performed += OnOpenPauseMenu;
   // }
 
-  public void OnOpenPauseMenu(InputAction.CallbackContext context)
-  {
-    Debug.Log("Escape");
-    OpenPauseMenu();
-  }
+  // public void OnOpenPauseMenu(InputAction.CallbackContext context)
+  // {
+  //   Debug.Log("Escape");
+  //   OpenPauseMenu();
+  // }
   private void Update()
   {
     // if (Input.GetKeyDown(KeyCode.Escape))
@@ -44,10 +44,17 @@ public class Menu : MonoBehaviour
     PauseMenu.SetActive(false);
   }
 
-  private void OpenPauseMenu()
+  // private void OpenPauseMenu()
+  // {
+  //   GameManager.Instance.PauseGame();
+  //   PauseMenu.SetActive(true);
+  // }
+
+  public void SaveGame()
   {
-    GameManager.Instance.PauseGame();
-    PauseMenu.SetActive(true);
+    MarioController marioController = GameObject.FindObjectOfType<MarioController>();
+    GameManager.Instance.SaveGame(marioController);
+    ReturnMainMenu();
   }
 
   public void ReturnMainMenu()

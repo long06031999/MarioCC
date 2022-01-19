@@ -4,82 +4,82 @@ using UnityEngine;
 
 public class ItemController : MonoBehaviour
 {
-    private float velocity;
-    private bool isMoveLeft = true;
-    private Vector2 direction;
-    private GameObject mario;
-    public bool isItemCanMove = true;
+  private float velocity;
+  private bool isMoveLeft = true;
+  private Vector2 direction;
+  private GameObject mario;
+  public bool isItemCanMove = true;
 
-    private void Awake()
+  private void Awake()
+  {
+    mario = GameObject.FindGameObjectWithTag("Player");
+  }
+  void Start()
+  {
+    if (isItemCanMove)
     {
-        mario = GameObject.FindGameObjectWithTag("Player");
+      velocity = 2f;
+      direction = transform.position;
+      InvokeRepeating("time", 0.2f, 0.2f);
     }
-    void Start()
+  }
+
+  void time()
+  {
+    if (transform.position.x == direction.x)
     {
-        if (isItemCanMove)
-        {
-            velocity = 2f;
-            direction = transform.position;
-            InvokeRepeating("time", 0.2f, 0.2f);
-        }
+      onDirection();
     }
-
-    void time()
+    else
     {
-        if (transform.position.x == direction.x)
-        {
-            onDirection();
-        }
-        else
-        {
-            direction = transform.position;
-        }
+      direction = transform.position;
     }
+  }
 
 
-    private void FixedUpdate()
+  private void FixedUpdate()
+  {
+    Vector2 position = transform.localPosition;
+    if (isMoveLeft)
     {
-        Vector2 position = transform.localPosition;
-        if (isMoveLeft)
-        {
-            position.x -= velocity * Time.deltaTime;
-        }
-        else
-        {
-            position.x += velocity * Time.deltaTime;
-        }
-        transform.position = position;
+      position.x -= velocity * Time.deltaTime;
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    else
     {
-        if (collision.collider.tag == "Player")
-        {
-            /*if (mario.GetComponent<MarioController>().level < 2)
-            {
-                mario.GetComponent<MarioController>().level += 1;
-                mario.GetComponent<MarioController>().isChangeMario = true;
-                mario.GetComponent<MarioController>().MaxHealth += 100;
-                mario.GetComponent<MarioController>().Health += 100;
-            }
-            else
-            {
-                mario.GetComponent<MarioController>().level = 2;
-                mario.GetComponent<MarioController>().isChangeMario = true;
-                mario.GetComponent<MarioController>().Health += 100;
-            }*/
-
-            mario.GetComponent<MarioController>().HandleHealthPlayerWhenEatItem();
-            mario.GetComponent<MarioController>().CreateAudio("smb_1-up");
-            Destroy(gameObject);
-        }
+      position.x += velocity * Time.deltaTime;
     }
+    transform.position = position;
+  }
 
-    void onDirection()
+  private void OnCollisionEnter2D(Collision2D collision)
+  {
+    if (collision.collider.tag == "Player")
     {
-        isMoveLeft = !isMoveLeft;
-        Vector2 direction = transform.localScale;
-        direction.x *= -1;
-        transform.localScale = direction;
+      /*if (mario.GetComponent<MarioController>().level < 2)
+      {
+          mario.GetComponent<MarioController>().level += 1;
+          mario.GetComponent<MarioController>().isChangeMario = true;
+          mario.GetComponent<MarioController>().MaxHealth += 100;
+          mario.GetComponent<MarioController>().Health += 100;
+      }
+      else
+      {
+          mario.GetComponent<MarioController>().level = 2;
+          mario.GetComponent<MarioController>().isChangeMario = true;
+          mario.GetComponent<MarioController>().Health += 100;
+      }*/
+
+      collision.gameObject.GetComponent<MarioController>().HandleHealthPlayerWhenEatItem();
+      collision.gameObject.GetComponent<MarioController>().CreateAudio("smb_1-up");
+      Destroy(gameObject);
     }
+  }
+
+  void onDirection()
+  {
+    isMoveLeft = !isMoveLeft;
+    Vector2 direction = transform.localScale;
+    direction.x *= -1;
+    transform.localScale = direction;
+  }
 }

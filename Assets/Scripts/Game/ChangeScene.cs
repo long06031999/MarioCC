@@ -26,20 +26,20 @@ public class ChangeScene : MonoBehaviour
 
   private void OnTriggerStay2D(Collider2D other)
   {
-    if (timer <= 0)
-    {
-      Debug.Log("Scene Count: " + SceneManager.sceneCount);
-      int nextScene = SceneManager.GetActiveScene().buildIndex + 1;
-      // SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(nextScene));
-      // SceneManager.MoveGameObjectToScene(other.gameObject, SceneManager.GetSceneByBuildIndex(nextScene));
-      SceneManager.LoadScene(nextScene);
-    }
-    else
-    {
-      timer -= Time.deltaTime;
-    }
-  }
+    if (other.tag == "Player")
+      if (timer <= 0)
+      {
+        Debug.Log("Scene Count: " + SceneManager.sceneCount);
+        int nextScene = SceneManager.GetActiveScene().buildIndex + 1;
+        StartCoroutine(GameManager.Instance.MoveGameObjectToScene(other.gameObject, nextScene));
 
+        timer = waitingTime;
+      }
+      else
+      {
+        timer -= Time.deltaTime;
+      }
+  }
   private void OnTriggerExit2D(Collider2D other)
   {
     timer = waitingTime;

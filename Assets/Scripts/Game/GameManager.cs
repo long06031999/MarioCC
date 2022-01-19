@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public class GameManager
 {
   private static bool GameIsPause = false;
   public static bool IsPause { get { return GameIsPause; } }
+  public bool ReloadGame = false;
   private static GameManager _instance;
   public static GameManager Instance
   {
@@ -37,23 +41,105 @@ public class GameManager
 
   }
 
-  public void LoadGame()
-  {
-
-  }
 
   public void FinishGame()
   {
     StorePlayerScore();
     SceneManager.LoadScene(0);
   }
-  public void StartGame() { }
+  public void StartGame()
+  {
+    ReloadGame = false;
+  }
 
   public void GoToScene(int Scene)
   {
     SceneManager.LoadScene(Scene);
   }
 
+  public void SaveGame(MarioController marioController)
+  {
+    // Get Player Data
+    int sceneIndex = marioController.gameObject.scene.buildIndex;
+    PlayerData playerData = new PlayerData(marioController.Health, marioController.MaxHealth, marioController.transform.position,
+      sceneIndex, marioController.TotalTime, marioController.level);
+
+    // Create File
+    string path = Path.Combine(Application.persistentDataPath, "player.hd");
+    FileStream fileStream = File.Create(path);
+
+    // Write
+    BinaryFormatter binaryFormatter = new BinaryFormatter();
+    binaryFormatter.Serialize(fileStream, playerData);
+
+    fileStream.Close();
+    Debug.Log("...Saved");
+  }
+
+  public IEnumerator LoadSavedScene(GameObject mario)
+  {
+    ReloadGame = true;
+    string path = Path.Combine(Application.persistentDataPath, "player.hd");
+    FileStream fileStream = File.OpenRead(path);
+    if (fileStream != null)
+    {
+      BinaryFormatter binaryFormatter = new BinaryFormatter();
+      PlayerData playerData = (PlayerData)binaryFormatter.Deserialize(fileStream);
+
+      LoadSavedGame(mario.GetComponent<MarioController>());
+
+      yield return MoveGameObjectToScene(mario, playerData.sceneIndex);
+    }
+    else
+    {
+      yield return null;
+    }
+  }
+
+  public int LoadSavedGame(MarioController controller)
+  {
+    //Open File;
+    string path = Path.Combine(Application.persistentDataPath, "player.hd");
+    FileStream fileStream = File.OpenRead(path);
+    if (fileStream != null)
+    {
+      BinaryFormatter binaryFormatter = new BinaryFormatter();
+      PlayerData playerData = (PlayerData)binaryFormatter.Deserialize(fileStream);
+
+      // Setup controller
+      controller.Health = playerData.health;
+      controller.MaxHealth = playerData.maxHealth;
+      controller.transform.position = new Vector2(playerData.position[0], playerData.position[1]);
+      controller.level = playerData.level;
+      controller.isChangeMario = true;
+      controller.TotalTime = playerData.totalTime;
+      return playerData.sceneIndex;
+    }
+    return 1;
+  }
+
+  public IEnumerator MoveGameObjectToScene(GameObject other, int sceneIndex)
+  {
+    // SceneManager.LoadScene(nextScene);
+
+    // Set the current Scene to be able to unload it later
+    Scene currentScene = SceneManager.GetActiveScene();
+
+    // The Application loads the Scene in the background at the same time as the current Scene.
+    AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
+
+    // Wait until the last operation fully loads to return anything
+    while (!asyncLoad.isDone)
+    {
+      yield return null;
+    }
+
+    other.transform.position = new Vector2(0, 5);
+    // Move the GameObject (you attach this in the Inspector) to the newly loaded Scene
+    SceneManager.MoveGameObjectToScene(other, SceneManager.GetSceneByBuildIndex(sceneIndex));
+    // Unload the previous Scene
+    SceneManager.UnloadSceneAsync(currentScene);
+  }
   //=====PRIVATE METHOD=====
   void StorePlayerScore()
   {

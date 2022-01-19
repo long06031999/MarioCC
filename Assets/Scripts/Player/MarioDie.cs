@@ -41,7 +41,7 @@ public class MarioDie : MonoBehaviour
     //   yield return null;
     // }
 
-    SceneManager.LoadScene("DieMenu", LoadSceneMode.Additive);
+    SceneManager.LoadScene("DieMenu");
   }
 
 }

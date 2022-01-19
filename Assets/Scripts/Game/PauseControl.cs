@@ -60,4 +60,11 @@ public class PauseControl : MonoBehaviour
     PauseControl.ResumeGame();
     SceneManager.LoadScene(0);
   }
+
+  public void SaveGame()
+  {
+    MarioController marioController = GameObject.FindObjectOfType<MarioController>();
+    GameManager.Instance.SaveGame(marioController);
+    GoToMainMenu();
+  }
 }
