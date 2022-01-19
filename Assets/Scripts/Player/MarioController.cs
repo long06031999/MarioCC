@@ -283,10 +283,10 @@ public class MarioController : MonoBehaviour
 
   private void CheckMarioDie()
   {
-    if (transform.localPosition.y <= -10f)
+    /*if (transform.localPosition.y <= -10f)
     {
       DestroyMario();
-    }
+    }*/
   }
 
   private void OnChangeMario()
