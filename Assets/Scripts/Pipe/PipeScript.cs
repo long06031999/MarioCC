@@ -7,6 +7,7 @@ public class PipeScript : MonoBehaviour
 
   public bool isOnPipe = false;
   MarioController marioController;
+  public bool isHorizontal = false;
   // Start is called before the first frame update
   void Start()
   {
@@ -28,7 +29,13 @@ public class PipeScript : MonoBehaviour
       marioController.downButton.SetActive(true);
       marioController.pipe = gameObject;
     }
-  }
+
+    if (collision.contacts[0].normal.x > 0 && collision.gameObject.tag == "Player" && isHorizontal)
+     {
+            marioController = collision.gameObject.GetComponent<MarioController>();
+            Action();
+        }
+    }
 
   private void OnCollisionExit2D(Collision2D collision)
   {
