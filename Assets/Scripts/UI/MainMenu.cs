@@ -9,6 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public class MainMenu : MonoBehaviour
 {
+  public Text TopText;
   public AudioMixer audioMixer;
   public Slider slider;
   public Text VolumeValueLabel;
@@ -103,6 +104,13 @@ public class MainMenu : MonoBehaviour
     // GameObject gameObject = Instantiate(mario, new Vector2(0, 5), Quaternion.identity);
     // GameManager.Instance.LoadSavedScene(gameObject);
     StartCoroutine(LoadingSavedGame());
+  }
+
+  public void SetTopText()
+  {
+    Top top = GameManager.Instance.GetTopChallenge();
+
+    TopText.text = top.name + ": " + top.ponit + "s";
   }
 
   IEnumerator LoadingSavedGame()

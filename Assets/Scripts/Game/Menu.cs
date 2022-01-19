@@ -7,7 +7,7 @@ public class Menu : MonoBehaviour
 {
 
   // PlayerInputAction playerInputAction;
-  public GameObject PauseMenu;
+  // public GameObject PauseMenu;
 
   // private void Start()
   // {
@@ -38,11 +38,11 @@ public class Menu : MonoBehaviour
     GameManager.Instance.PauseGame();
   }
 
-  public void ResumeGame()
-  {
-    GameManager.Instance.ResumeGame();
-    PauseMenu.SetActive(false);
-  }
+  // public void ResumeGame()
+  // {
+  //   GameManager.Instance.ResumeGame();
+  //   // PauseMenu.SetActive(false);
+  // }
 
   // private void OpenPauseMenu()
   // {

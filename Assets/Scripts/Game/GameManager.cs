@@ -76,6 +76,37 @@ public class GameManager
     Debug.Log("...Saved");
   }
 
+  public void SaveTopChallenge(float ponit, string name)
+  {
+    // Get Player Data
+    Top top = new Top(ponit, name);
+
+    // Create File
+    string path = Path.Combine(Application.persistentDataPath, "top.hd");
+    FileStream fileStream = File.Create(path);
+
+    // Write
+    BinaryFormatter binaryFormatter = new BinaryFormatter();
+    binaryFormatter.Serialize(fileStream, top);
+
+    fileStream.Close();
+    Debug.Log("...Saved");
+  }
+
+  public Top GetTopChallenge()
+  {
+    string path = Path.Combine(Application.persistentDataPath, "top.hd");
+    FileStream fileStream = File.OpenRead(path);
+    if (fileStream != null)
+    {
+      BinaryFormatter binaryFormatter = new BinaryFormatter();
+      Top top = (Top)binaryFormatter.Deserialize(fileStream);
+
+      return top;
+    }
+    else { return null; }
+  }
+
   public IEnumerator LoadSavedScene(GameObject mario)
   {
     ReloadGame = true;
@@ -144,5 +175,18 @@ public class GameManager
   void StorePlayerScore()
   {
 
+  }
+}
+
+[Serializable]
+public class Top
+{
+  public float ponit;
+  public string name;
+
+  public Top(float ponit, string name)
+  {
+    this.ponit = ponit;
+    this.name = name;
   }
 }

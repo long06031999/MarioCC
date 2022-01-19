@@ -6,7 +6,7 @@ public class Boss : MonoBehaviour
 {
   public float timer = 60f;
 
-  MarioController marioController;
+  GameObject mario;
   public GameObject TilemapBlock;
   bool isCombatWithBoss = false;
 
@@ -22,23 +22,22 @@ public class Boss : MonoBehaviour
   // Start is called before the first frame update
   void Start()
   {
-    marioController = GameObject.FindGameObjectWithTag("Player").GetComponent<MarioController>();
+    // mario = GameObject.FindGameObjectWithTag("Player").GetComponent<mario>();
   }
 
   // Update is called once per frame
   void Update()
   {
-    if (marioController)
+    if (mario)
     {
-
-      if (((marioController.transform.position.x > -9 && marioController.transform.position.y < -2) || marioController.transform.position.x > -8) && !isCombatWithBoss)
+      if (((mario.transform.position.x > 4.3 && mario.transform.position.y < 2) || mario.transform.position.x > 4.5) && !isCombatWithBoss)
       {
         isCombatWithBoss = true;
         CombatWithBoss();
       }
       if (isCombatWithBoss)
       {
-        playerDirection = marioController.transform.position - gameObject.transform.position;
+        playerDirection = mario.transform.position - gameObject.transform.position;
         if (timer % FirstTile <= Time.deltaTime)
         {
           FirstProjectile();
@@ -59,6 +58,11 @@ public class Boss : MonoBehaviour
 
       }
     }
+    else
+    {
+      mario = GameObject.FindGameObjectWithTag("Player");
+    }
+
   }
 
   void CombatWithBoss()
@@ -66,7 +70,7 @@ public class Boss : MonoBehaviour
     TilemapBlock.SetActive(true);
     CameraScript cameraScript = GameObject.FindObjectOfType<CameraScript>();
     cameraScript.followPlayer = false;
-    cameraScript.transform.position = new Vector3(2.5f, 1.5f, -10);
+    cameraScript.transform.position = new Vector3(15.64f, 5.49f, -10);
   }
 
   void WinGame()
