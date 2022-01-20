@@ -1216,7 +1216,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 17a8c8d41d9240a1e9a3a6bbf0032881, type: 3}
     m_FontSize: 50
     m_FontStyle: 1
     m_BestFit: 0
@@ -2199,6 +2199,7 @@ MonoBehaviour:
   BulletTextUI: {fileID: 1553005225318632448}
   ProgressImage: {fileID: 4666868167250572267}
   MaxBulletNumber: 5
+  bulletNumber: 5
   countDown: 10
   countDownTimer: 10
   CurrentHealthImage: {fileID: 1217517813276467905}
@@ -2557,7 +2558,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 17a8c8d41d9240a1e9a3a6bbf0032881, type: 3}
     m_FontSize: 72
     m_FontStyle: 1
     m_BestFit: 0
@@ -2683,7 +2684,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 17a8c8d41d9240a1e9a3a6bbf0032881, type: 3}
     m_FontSize: 50
     m_FontStyle: 2
     m_BestFit: 0

@@ -37,17 +37,6 @@ public class BulletController : MonoBehaviour
     {
       Destroy(collision.gameObject);
     }
-    StartCoroutine(PlayEffect());
-  }
-
-  IEnumerator PlayEffect()
-  {
-    ParticleSystem particleSystem = GetComponentInChildren<ParticleSystem>();
-    if (particleSystem)
-    {
-      particleSystem.Play();
-    }
-    yield return new WaitForSeconds(particleSystem.time);
     Destroy(gameObject);
   }
 }

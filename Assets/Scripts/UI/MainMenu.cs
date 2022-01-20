@@ -9,11 +9,24 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public class MainMenu : MonoBehaviour
 {
-  public Text TopText;
+  bool IsMain = true;
+
+  [Header("Menu Layout Area")]
+  public GameObject MainMenuLayout;
+  public GameObject OptionsMenuLayout;
+
+  [Header("Main Menu Area")]
+
+  [Header("Options Menu Area")]
+  public Button OptionsButton;
+
+  [Header("Settings Area")]
   public AudioMixer audioMixer;
   public Slider slider;
   public Text VolumeValueLabel;
+  public Text TopText;
 
+  [Header("Game Area")]
   public GameObject mario;
 
   private void Awake()
@@ -83,6 +96,32 @@ public class MainMenu : MonoBehaviour
   public void Quit()
   {
     Application.Quit();
+  }
+
+  public void OnOptionsButtonClicked()
+  {
+    if (IsMain)
+    {
+      LoadOptionsMenu();
+    }
+    else
+    {
+      LoadMainMenu();
+    }
+  }
+
+  public void LoadOptionsMenu()
+  {
+    IsMain = false;
+    MainMenuLayout.SetActive(false);
+    OptionsMenuLayout.SetActive(true);
+  }
+
+  public void LoadMainMenu()
+  {
+    IsMain = true;
+    MainMenuLayout.SetActive(true);
+    OptionsMenuLayout.SetActive(false);
   }
 
   public void SetVolume(float Volume)

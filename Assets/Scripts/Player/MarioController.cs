@@ -10,10 +10,10 @@ public class MarioController : MonoBehaviour
   [Header("Bullet")]
   public Text BulletTextUI;
   public Image ProgressImage;
-  public int MaxBulletNumber = 3;
-  public int bulletNumber = 3;
-  public float countDown = 3f;
-  [SerializeField] private float countDownTimer = 3f;
+  public int MaxBulletNumber = 5;
+  public int bulletNumber = 5;
+  public float countDown = 10f;
+  private float countDownTimer = 10f;
 
   [Header("Health")]
   public Image CurrentHealthImage;
