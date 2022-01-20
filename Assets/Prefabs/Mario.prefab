@@ -66,7 +66,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 17a8c8d41d9240a1e9a3a6bbf0032881, type: 3}
     m_FontSize: 72
     m_FontStyle: 1
     m_BestFit: 0
@@ -354,7 +354,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 17a8c8d41d9240a1e9a3a6bbf0032881, type: 3}
     m_FontSize: 72
     m_FontStyle: 1
     m_BestFit: 0
@@ -1208,7 +1208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.39215687, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1475,7 +1475,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 17a8c8d41d9240a1e9a3a6bbf0032881, type: 3}
     m_FontSize: 72
     m_FontStyle: 1
     m_BestFit: 0
@@ -2009,7 +2009,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.02324449, g: 0, b: 0.509434, a: 1}
+  m_Color: {r: 0.02324449, g: 0, b: 0.509434, a: 0.49803922}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2201,7 +2201,6 @@ MonoBehaviour:
   MaxBulletNumber: 5
   bulletNumber: 5
   countDown: 10
-  countDownTimer: 10
   CurrentHealthImage: {fileID: 1217517813276467905}
   HealthTextDetail: {fileID: 103122392846526627}
   fireButton: {fileID: 1030118823}
