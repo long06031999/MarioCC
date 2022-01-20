@@ -12,7 +12,8 @@ public class PlayerData
   public int sceneIndex;
   public float totalTime;
   public int level;
-  public PlayerData(int health, int maxHealth, Vector2 position, int sceneIndex, float totalTime, int level)
+  public int bulletNumber;
+  public PlayerData(int health, int maxHealth, Vector2 position, int sceneIndex, float totalTime, int level, int bulletNumber)
   {
     this.health = health;
     this.position = new float[2];
@@ -22,5 +23,6 @@ public class PlayerData
     this.totalTime = totalTime;
     this.level = level;
     this.maxHealth = maxHealth;
+    this.bulletNumber = bulletNumber;
   }
 }

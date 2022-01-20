@@ -62,7 +62,7 @@ public class GameManager
     // Get Player Data
     int sceneIndex = marioController.gameObject.scene.buildIndex;
     PlayerData playerData = new PlayerData(marioController.Health, marioController.MaxHealth, marioController.transform.position,
-      sceneIndex, marioController.TotalTime, marioController.level);
+      sceneIndex, marioController.TotalTime, marioController.level, marioController.bulletNumber);
 
     // Create File
     string path = Path.Combine(Application.persistentDataPath, "player.hd");

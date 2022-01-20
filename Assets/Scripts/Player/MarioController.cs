@@ -7,6 +7,13 @@ using UnityEngine.InputSystem;
 
 public class MarioController : MonoBehaviour
 {
+  [Header("Bullet")]
+  public Text BulletTextUI;
+  public Image ProgressImage;
+  public int MaxBulletNumber = 3;
+  public int bulletNumber = 3;
+  public float countDown = 3f;
+  [SerializeField] private float countDownTimer = 3f;
 
   [Header("Health")]
   public Image CurrentHealthImage;
@@ -23,6 +30,7 @@ public class MarioController : MonoBehaviour
 
   public float TotalTime;
   PlayerInputAction playerInputAction;
+
 
   int moveDirection = 0;
   public bool IsSlowDown
@@ -87,10 +95,11 @@ public class MarioController : MonoBehaviour
             MaxHealth = 300;
           }
         }
-        float percent = (float)health / MaxHealth;
-        Debug.Log("Percent: " + percent);
-        CurrentHealthImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, originalImageSize * percent);
-        HealthTextDetail.text = Health + " / " + MaxHealth;
+        // float percent = (float)health / MaxHealth;
+        // Debug.Log("Percent: " + percent);
+        // CurrentHealthImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, originalImageSize * percent);
+        // HealthTextDetail.text = Health + " / " + MaxHealth;
+        NotifyDataChanged();
       }
     }
   }
@@ -183,12 +192,12 @@ public class MarioController : MonoBehaviour
   void SetTotalTime()
   {
     TotalTime += Time.deltaTime;
-    timeTextUI.text = TotalTime.ToString();
+    timeTextUI.text = Mathf.Floor(TotalTime) + "s";
   }
   // Start is called before the first frame update
   void Start()
   {
-
+    NotifyDataChanged();
   }
 
   public void MoveLeftPerformed(InputAction.CallbackContext context)
@@ -220,28 +229,34 @@ public class MarioController : MonoBehaviour
   {
     // timeHoldKey += Time.deltaTime;
     // if (level == 2 && timeHoldKey < checkTimeHoldKey)
-    if (level == 2)
+    if (this && level == 2)
     {
 
-      Debug.Log("Fire...");
-      if (!isSpawnBullet && bullet && this)
+      if (bulletNumber > 0)
       {
-        isSpawnBullet = true;
-        Vector2 positionOfBullet;
-        if (!gameObject.GetComponent<SpriteRenderer>().flipX)
-          positionOfBullet = new Vector2(transform.position.x + 1f, transform.position.y);
-        else
-          positionOfBullet = new Vector2(transform.position.x - 1f, transform.position.y);
-        GameObject g = Instantiate(bullet, positionOfBullet, Quaternion.identity);
+        bulletNumber--;
+        NotifyDataChanged();
 
-        // because mario's default face direction is always right and default flipX = false,
-        // so ! for exact direction
-        if (!gameObject.GetComponent<SpriteRenderer>().flipX)
-          g.GetComponent<BulletController>().direction = Vector2.right;
-        else
-          g.GetComponent<BulletController>().direction = Vector2.left;
-        CreateAudio("smb_fireball");
+        if (!isSpawnBullet && bullet && this)
+        {
+          isSpawnBullet = true;
+          Vector2 positionOfBullet;
+          if (!gameObject.GetComponent<SpriteRenderer>().flipX)
+            positionOfBullet = new Vector2(transform.position.x + 1f, transform.position.y);
+          else
+            positionOfBullet = new Vector2(transform.position.x - 1f, transform.position.y);
+          GameObject g = Instantiate(bullet, positionOfBullet, Quaternion.identity);
+
+          // because mario's default face direction is always right and default flipX = false,
+          // so ! for exact direction
+          if (!gameObject.GetComponent<SpriteRenderer>().flipX)
+            g.GetComponent<BulletController>().direction = Vector2.right;
+          else
+            g.GetComponent<BulletController>().direction = Vector2.left;
+          CreateAudio("smb_fireball");
+        }
       }
+
     }
   }
   public void FireCanceled(InputAction.CallbackContext context)
@@ -306,27 +321,30 @@ public class MarioController : MonoBehaviour
           {
             StartCoroutine(ChangeSmallMario());
             this.isChangeMario = false;
-            fireButton.SetActive(false);
+            // fireButton.SetActive(false);
+            // BulletTextUI.gameObject.SetActive(false);
             break;
           }
         case 1:
           {
             StartCoroutine(ChangeHighMario());
             this.isChangeMario = false;
-            fireButton.SetActive(false);
+            // fireButton.SetActive(false);
+            // BulletTextUI.gameObject.SetActive(false);
             break;
           }
         case 2:
           {
             StartCoroutine(ChangeHighMarioWithGun());
             this.isChangeMario = false;
-            fireButton.SetActive(true);
+            // fireButton.SetActive(true);
+            // BulletTextUI.gameObject.SetActive(true);
             break;
           }
         default:
           {
             this.isChangeMario = false;
-            fireButton.SetActive(false);
+            // fireButton.SetActive(false);
             break;
           }
 
@@ -337,6 +355,26 @@ public class MarioController : MonoBehaviour
   private void FixedUpdate()
   {
     OnMove();
+    ReloadBulletNumber();
+  }
+
+  void ReloadBulletNumber()
+  {
+    if (bulletNumber < MaxBulletNumber)
+    {
+      if (countDownTimer <= 0)
+      {
+        countDownTimer = countDown;
+
+        bulletNumber += 1;
+        NotifyDataChanged();
+      }
+      else
+      {
+        countDownTimer -= Time.fixedDeltaTime;
+        ProgressImage.fillAmount = countDownTimer / countDown;
+      }
+    }
   }
   private void OnMove()
   {
@@ -589,6 +627,30 @@ public class MarioController : MonoBehaviour
   {
     // GameManager.Instance.LoadSavedGame(this);
     // GameManager.Instance.ReloadGame = false;
+  }
+
+  public void NotifyDataChanged()
+  {
+    if (this && level < 2)
+    {
+      BulletTextUI.gameObject.SetActive(false);
+      fireButton.SetActive(false);
+      ProgressImage.gameObject.SetActive(false);
+    }
+    else
+    {
+      BulletTextUI.gameObject.SetActive(true);
+      fireButton.SetActive(true);
+      ProgressImage.gameObject.SetActive(true);
+    }
+    // Update Health
+    float percent = (float)health / MaxHealth;
+    Debug.Log("Percent: " + percent);
+    CurrentHealthImage.fillAmount = percent;
+    HealthTextDetail.text = Health + " / " + MaxHealth;
+
+    // Update Bullet
+    BulletTextUI.text = bulletNumber.ToString();
   }
 }
 
