@@ -7,15 +7,22 @@ using UnityEngine.InputSystem;
 
 public class MarioController : MonoBehaviour
 {
+
+  [Header("Health")]
+  public Image CurrentHealthImage;
+  public Text HealthTextDetail;
+  [Space]
+  [Header("Android UI")]
   public GameObject fireButton, downButton;
 
-  public Text timeTextUI;
-  PlayerInputAction playerInputAction;
-
   public GameObject pauseMenu;
+  [Header("Time")]
+  public Text timeTextUI;
+
   public double money;
 
   public float TotalTime;
+  PlayerInputAction playerInputAction;
 
   int moveDirection = 0;
   public bool IsSlowDown
@@ -82,7 +89,8 @@ public class MarioController : MonoBehaviour
         }
         float percent = (float)health / MaxHealth;
         Debug.Log("Percent: " + percent);
-        GetComponentInChildren<Image>().rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, originalImageSize * percent);
+        CurrentHealthImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, originalImageSize * percent);
+        HealthTextDetail.text = Health + " / " + MaxHealth;
       }
     }
   }
@@ -92,12 +100,9 @@ public class MarioController : MonoBehaviour
     if (level < 2)
     {
       MaxHealth += 100;
-      Health = MaxHealth;
     }
-    else
-    {
-      Health += 100;
-    }
+    Health += 100;
+
   }
 
 
@@ -213,10 +218,12 @@ public class MarioController : MonoBehaviour
   }
   public void FirePerformed(InputAction.CallbackContext context)
   {
-    Debug.Log("Fire...");
-    timeHoldKey += Time.deltaTime;
-    if (level == 2 && timeHoldKey < checkTimeHoldKey)
+    // timeHoldKey += Time.deltaTime;
+    // if (level == 2 && timeHoldKey < checkTimeHoldKey)
+    if (level == 2)
     {
+
+      Debug.Log("Fire...");
       if (!isSpawnBullet && bullet && this)
       {
         isSpawnBullet = true;

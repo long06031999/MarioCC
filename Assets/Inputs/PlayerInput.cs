@@ -130,7 +130,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""eb0d0eae-5722-4df5-b5f5-d4b65a47c2c2"",
-                    ""path"": ""<Touchscreen>/primaryTouch/tap"",
+                    ""path"": ""<Touchscreen>/touch5/tap"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
