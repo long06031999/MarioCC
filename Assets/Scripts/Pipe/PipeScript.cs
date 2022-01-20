@@ -8,10 +8,11 @@ public class PipeScript : MonoBehaviour
   public bool isOnPipe = false;
   MarioController marioController;
   public bool isHorizontal = false;
+    private CameraScript cameraScript;
   // Start is called before the first frame update
   void Start()
   {
-
+        cameraScript = GameObject.FindWithTag("MainCamera").GetComponent<CameraScript>();
   }
 
   // Update is called once per frame
@@ -34,6 +35,7 @@ public class PipeScript : MonoBehaviour
      {
             marioController = collision.gameObject.GetComponent<MarioController>();
             Action();
+            cameraScript.minY = -2;
         }
     }
 
@@ -56,5 +58,9 @@ public class PipeScript : MonoBehaviour
   public void Action()
   {
     marioController.transform.position = (Vector2)transform.GetChild(0).transform.position + new Vector2(0, 5);
+        if(marioController.transform.position.y < -5)
+        {
+            cameraScript.minY = -17;
+        }
   }
 }
