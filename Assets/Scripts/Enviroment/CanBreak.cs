@@ -26,7 +26,7 @@ public class CanBreak : MonoBehaviour
       bool isCollision = false;
       if (isBottom)
       {
-        Debug.Log("normal y: " + other.contacts[0].normal.y);
+        // Debug.Log("normal y: " + other.contacts[0].normal.y);
         if (other.contacts[0].normal.y > 0)
         {
           isCollision = true;

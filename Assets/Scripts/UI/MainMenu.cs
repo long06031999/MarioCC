@@ -79,7 +79,7 @@ public class MainMenu : MonoBehaviour
   void SaveGameWhenPlay(MarioController marioController, int sceneIndex)
   {
     PlayerData playerData = new PlayerData(marioController.Health, marioController.MaxHealth, marioController.transform.position,
-  sceneIndex, marioController.TotalTime, marioController.level, marioController.bulletNumber, 3);
+  sceneIndex, marioController.TotalTime, marioController.CurrentLevel, marioController.bulletNumber, 3);
 
     // Create File
     string path = Path.Combine(Application.persistentDataPath, "player.hd");
@@ -192,7 +192,7 @@ public class MainMenu : MonoBehaviour
 
       MarioController controller = gameObject.GetComponent<MarioController>();
       // Setup controller
-      controller.level = playerData.level;
+      controller.CurrentLevel = (MarioLevelEnum)playerData.level;
       controller.MaxHealth = playerData.maxHealth;
       controller.Health = playerData.health;
       controller.transform.position = new Vector2(playerData.position[0], playerData.position[1]);

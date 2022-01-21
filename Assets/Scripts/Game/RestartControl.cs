@@ -84,7 +84,7 @@ public class RestartControl : MonoBehaviour
       controller.Health = playerData.health;
       controller.MaxHealth = playerData.maxHealth;
       controller.transform.position = new Vector2(playerData.position[0], playerData.position[1]);
-      controller.level = playerData.level;
+      controller.CurrentLevel = (MarioLevelEnum)playerData.level;
       controller.isChangeMario = true;
       controller.TotalTime = playerData.totalTime;
       // gameObject.transform.position = new Vector2(0, 5);

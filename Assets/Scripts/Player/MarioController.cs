@@ -53,42 +53,74 @@ public class MarioController : MonoBehaviour
       }
       else
       {
-        if (value <= 0) Die();
+        //===========CHANGE LEVEL==============
+        if (value <= 100)
+        {
+          IncommingLevel = MarioLevelEnum.Normal;
+        }
+        else if (value <= 200)
+        {
+          IncommingLevel = MarioLevelEnum.Big;
+        }
         else
         {
-          if (value < MaxHealth) health = MaxHealth;
-          if (value > 0 && value <= MaxHealth)
-          {
-            health = value;
-            if (health <= 100 && level != 0)
-            {
-              level = 0;
-              isChangeMario = true;
-              MaxHealth = 100;
-            }
-            else if (health > 100 && health <= 200 && level != 1)
-            {
-              level = 1;
-              isChangeMario = true;
-              MaxHealth = 200;
-            }
-            else if (health > 200 && health <= 300 && level != 2)
-            {
-              level = 2;
-              isChangeMario = true;
-              MaxHealth = 300;
-            }
-          }
-          // float percent = (float)health / MaxHealth;
-          // Debug.Log("Percent: " + percent);
-          // CurrentHealthImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, originalImageSize * percent);
-          // HealthTextDetail.text = Health + " / " + MaxHealth;
-          NotifyDataChanged();
+          IncommingLevel = MarioLevelEnum.Super;
         }
+
+        if (value <= 0)
+        {
+          Die();
+        }
+        else if (value > MaxHealth)
+        {
+          health = MaxHealth;
+        }
+        else
+        {
+          health = value;
+        }
+
+        NotifyDataChanged();
+        // if (value <= 0) Die();
+        // else
+        // {
+        //   if (value < MaxHealth) health = MaxHealth;
+        //   if (value > 0 && value <= MaxHealth)
+        //   {
+        //     health = value;
+        //     if (health <= 100 && CurrentLevel != 0)
+        //     {
+        //       // CurrentLevel = 0;
+        //       isChangeMario = true;
+        //       MaxHealth = 100;
+        //     }
+        //     else if (health > 100 && health <= 200 && CurrentLevel != MarioLevelEnum.Big)
+        //     {
+        //       // CurrentLevel = MarioLevelEnum.Big;
+        //       isChangeMario = true;
+        //       MaxHealth = 200;
+        //     }
+        //     else if (health > 200 && health <= 300 && CurrentLevel != MarioLevelEnum.Super)
+        //     {
+        //       // CurrentLevel = MarioLevelEnum.Super;
+        //       isChangeMario = true;
+        //       MaxHealth = 300;
+        //     }
+        //   }
+        //   // float percent = (float)health / MaxHealth;
+        //   // Debug.Log("Percent: " + percent);
+        //   // CurrentHealthImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, originalImageSize * percent);
+        //   // HealthTextDetail.text = Health + " / " + MaxHealth;
+        // }
       }
 
     }
   }
+  //====================================LEVEL================================
+  [Header("Level")]
+
+  public MarioLevelEnum CurrentLevel = MarioLevelEnum.Normal;
+  public MarioLevelEnum IncommingLevel = MarioLevelEnum.Normal;
 
   //====================================ANDROID UI==================================
 
@@ -136,16 +168,72 @@ public class MarioController : MonoBehaviour
   // float originalImageSize;
 
 
-  public void HandleHealthPlayerWhenEatItem()
+  // public void HandleHealthPlayerWhenEatItem()
+  // {
+  //   if (level < 2)
+  //   {
+  //     MaxHealth += 100;
+  //   }
+  //   Health += 100;
+
+  // }
+  public void LevelUp()
   {
-    if (level < 2)
+    if (IncommingLevel == CurrentLevel && CurrentLevel < MarioLevelEnum.Super)
     {
+      Debug.Log("Before: " + IncommingLevel);
+      IncommingLevel++;
+      Debug.Log("After: " + IncommingLevel);
       MaxHealth += 100;
     }
-    Health += 100;
 
+    Health += 100;
   }
 
+  public void LevelDown()
+  {
+    if (CurrentLevel > 0)
+    {
+      CurrentLevel--;
+      MaxHealth -= 100;
+    }
+  }
+
+  public void PickHealingItem(int health)
+  {
+    if (health > 0)
+      Health += health;
+  }
+
+  public void PickMaxHealthIncrease(int maxHealth)
+  {
+    if (maxHealth > 0)
+      MaxHealth += maxHealth;
+  }
+
+  public void PickLifePoint()
+  {
+    if (LifePoint < MaxLifePoint)
+    {
+      LifePoint++;
+    }
+  }
+
+  public void PickIncreaseSizeOfBullet(int size)
+  {
+    if (size > 0)
+    {
+      MaxBulletNumber += size;
+    }
+  }
+
+  public void PickBullet(int size)
+  {
+    if (size > 0)
+    {
+      bulletNumber += size;
+    }
+  }
 
   //default value setting
   // private float velocityWhenPress = 7;
@@ -168,7 +256,6 @@ public class MarioController : MonoBehaviour
   private Rigidbody2D r2d;
 
   //show level mario
-  public int level = 0;
   public bool isChangeMario = false;
 
   //bullet
@@ -291,7 +378,7 @@ public class MarioController : MonoBehaviour
   {
     // timeHoldKey += Time.deltaTime;
     // if (level == 2 && timeHoldKey < checkTimeHoldKey)
-    if (this && level == 2)
+    if (this && (int)CurrentLevel == 2)
     {
 
       if (bulletNumber > 0)
@@ -362,7 +449,7 @@ public class MarioController : MonoBehaviour
   void RespawnMario()
   {
     PlayerData playerData = GameManager.Instance.GetSavedPlayerData();
-    level = playerData.level;
+    CurrentLevel = (MarioLevelEnum)playerData.level;
     MaxHealth = playerData.maxHealth;
     Health = playerData.health;
     transform.position = new Vector2(playerData.position[0], playerData.position[1]);
@@ -384,7 +471,7 @@ public class MarioController : MonoBehaviour
     // OnJump();
     ShootAndSpeed();
     // OnMoveToPipe();
-    OnChangeMario();
+    // OnChangeMario();
     CheckMarioDie();
   }
 
@@ -398,42 +485,39 @@ public class MarioController : MonoBehaviour
 
   private void OnChangeMario()
   {
-    if (this.isChangeMario)
+    switch (CurrentLevel)
     {
-      switch (level)
-      {
-        case 0:
-          {
-            StartCoroutine(ChangeSmallMario());
-            this.isChangeMario = false;
-            // fireButton.SetActive(false);
-            // BulletTextUI.gameObject.SetActive(false);
-            break;
-          }
-        case 1:
-          {
-            StartCoroutine(ChangeHighMario());
-            this.isChangeMario = false;
-            // fireButton.SetActive(false);
-            // BulletTextUI.gameObject.SetActive(false);
-            break;
-          }
-        case 2:
-          {
-            StartCoroutine(ChangeHighMarioWithGun());
-            this.isChangeMario = false;
-            // fireButton.SetActive(true);
-            // BulletTextUI.gameObject.SetActive(true);
-            break;
-          }
-        default:
-          {
-            this.isChangeMario = false;
-            // fireButton.SetActive(false);
-            break;
-          }
+      case MarioLevelEnum.Normal:
+        {
+          StartCoroutine(ChangeSmallMario());
+          // this.isChangeMario = false;
+          // fireButton.SetActive(false);
+          // BulletTextUI.gameObject.SetActive(false);
+          break;
+        }
+      case MarioLevelEnum.Big:
+        {
+          StartCoroutine(ChangeHighMario());
+          // this.isChangeMario = false;
+          // fireButton.SetActive(false);
+          // BulletTextUI.gameObject.SetActive(false);
+          break;
+        }
+      case MarioLevelEnum.Super:
+        {
+          StartCoroutine(ChangeHighMarioWithGun());
+          // this.isChangeMario = false;
+          // fireButton.SetActive(true);
+          // BulletTextUI.gameObject.SetActive(true);
+          break;
+        }
+      default:
+        {
+          // this.isChangeMario = false;
+          // fireButton.SetActive(false);
+          break;
+        }
 
-      }
     }
   }
 
@@ -489,7 +573,7 @@ public class MarioController : MonoBehaviour
       {
         r2d.AddForce((Vector2.up) * marioStatus.velocityJump);
         isOnGround = false;
-        if (level == 0) CreateAudio("smb_jump-small");
+        if (CurrentLevel == 0) CreateAudio("smb_jump-small");
         else CreateAudio("smb_jump-super");
 
         if (r2d.velocity.y < 0)
@@ -719,6 +803,14 @@ public class MarioController : MonoBehaviour
 
   public void NotifyDataChanged()
   {
+    //=====Set Level==========
+    if (IncommingLevel != CurrentLevel)
+    {
+      CurrentLevel = IncommingLevel;
+      Debug.Log("Change to " + CurrentLevel);
+      OnChangeMario();
+    }
+
     //=====Set Life Point=======
     // Debug.Log("Child Count: " + LifePointBar.transform.childCount);
     for (int i = 0; i < LifePointBar.transform.childCount; i++)
@@ -750,7 +842,7 @@ public class MarioController : MonoBehaviour
 
     }
 
-    if (this && level < 2)
+    if (this && (int)CurrentLevel < 2)
     {
       BulletTextUI.gameObject.SetActive(false);
       fireButton.SetActive(false);
@@ -778,6 +870,13 @@ public class MarioController : MonoBehaviour
            base.Equals(obj) &&
            EqualityComparer<ParticleSystem>.Default.Equals(particleSystem, controller.particleSystem);
   }
+}
+
+public enum MarioLevelEnum
+{
+  Normal,
+  Big,
+  Super
 }
 
 public abstract class MarioStatus

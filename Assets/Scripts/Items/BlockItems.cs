@@ -38,7 +38,7 @@ public class BlockItems : MonoBehaviour
       isItemNotEmpty = false;
       StartCoroutine(AnimationCreateItem());
       Instantiate(blockEmpty, originalPosition, Quaternion.identity);
-      if (mario.GetComponent<MarioController>().level == 0)
+      if (mario.GetComponent<MarioController>().CurrentLevel == 0)
       {
         Vector2 positionOfItem = new Vector2(originalPosition.x, originalPosition.y + 1f);
         eMushroom = Instantiate(eMushroom, positionOfItem, Quaternion.identity);

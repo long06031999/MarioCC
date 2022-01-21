@@ -62,7 +62,7 @@ public class GameManager
     // Get Player Data
     int sceneIndex = marioController.gameObject.scene.buildIndex;
     PlayerData playerData = new PlayerData(marioController.Health, marioController.MaxHealth, marioController.transform.position,
-      sceneIndex, marioController.TotalTime, marioController.level, marioController.bulletNumber, marioController.LifePoint);
+      sceneIndex, marioController.TotalTime, marioController.CurrentLevel, marioController.bulletNumber, marioController.LifePoint);
 
     // Create File
     string path = Path.Combine(Application.persistentDataPath, "player.hd");
@@ -156,7 +156,7 @@ public class GameManager
       controller.Health = playerData.health;
       controller.MaxHealth = playerData.maxHealth;
       controller.transform.position = new Vector2(playerData.position[0], playerData.position[1]);
-      controller.level = playerData.level;
+      controller.CurrentLevel = (MarioLevelEnum)playerData.level;
       controller.isChangeMario = true;
       controller.TotalTime = playerData.totalTime;
       return playerData.sceneIndex;

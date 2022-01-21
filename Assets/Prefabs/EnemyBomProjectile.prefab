@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6525664228797859446}
   - component: {fileID: 6525664228797859447}
   - component: {fileID: 1430567456619388963}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EnemyBomProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,6 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1401addceb059f1b895c25ac41ba9f60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isThrough: 1
   Speed: 100
   direction: {x: 1, y: 1}
   distance: 10
@@ -161,3 +162,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f14606733356d14db3e6dae3e020995, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyOnCollision: 1
+  dame: 10
