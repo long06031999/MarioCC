@@ -369,6 +369,7 @@ public class MarioController : MonoBehaviour
 
   IEnumerator UndeadToNormal(float duration)
   {
+
     while (IsUndead)
     {
       yield return null;
@@ -381,12 +382,18 @@ public class MarioController : MonoBehaviour
       IsUndead = true;
 
       float timer = duration;
+      float delay = 0.1f;
       while (timer > 0)
       {
-        timer -= Time.fixedDeltaTime;
+        GetComponent<SpriteRenderer>().enabled = false;
+        yield return new WaitForSeconds(delay);
+        GetComponent<SpriteRenderer>().enabled = true;
+        yield return new WaitForSeconds(delay);
+
+        timer -= Time.fixedDeltaTime + 2 * delay;
         UndeadStar.fillAmount = timer / duration;
-        yield return null;
       }
+      GetComponent<SpriteRenderer>().enabled = true;
       Debug.Log("Expired");
       IsUndead = false;
     }
