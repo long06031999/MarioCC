@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8762918943550057573}
   - component: {fileID: 4304156161040013414}
   - component: {fileID: -4976938279268730648}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: mario_423
   m_TagString: Untagged
   m_Icon: {fileID: 0}

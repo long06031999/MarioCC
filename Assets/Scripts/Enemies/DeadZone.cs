@@ -12,7 +12,7 @@ public class DeadZone : MonoBehaviour
     if (controller)
     {
       Debug.Log("mario Die");
-      controller.DestroyMario();
+      controller.Die();
     }
   }
 
@@ -22,7 +22,7 @@ public class DeadZone : MonoBehaviour
     if (controller)
     {
       Debug.Log("mario Die");
-      controller.DestroyMario();
+      controller.Die();
     }
   }
 }
