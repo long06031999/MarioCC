@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 552807462312120939}
   - component: {fileID: 552807462312120938}
   - component: {fileID: 552807462312120937}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RestoreLifePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
