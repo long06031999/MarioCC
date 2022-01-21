@@ -15,12 +15,80 @@ public class MarioController : MonoBehaviour
   public float countDown = 10f;
   private float countDownTimer = 10f;
 
+  //==================================HEALTH=============================
   [Header("Health")]
   public Image CurrentHealthImage;
   public Text HealthTextDetail;
-  [Space]
+  private bool isUndead = false;
+  [SerializeField]
+  public bool IsUndead
+  {
+    set
+    {
+      isUndead = value;
+      NotifyDataChanged();
+    }
+    get
+    {
+      return isUndead;
+    }
+  }
+  private int health = 100;
+  public int MaxHealth = 100;
+
+  public int Health
+  {
+    get { return health; }
+    set
+    {
+      if (value < health && IsUndead)
+      {
+
+      }
+      else
+      {
+        if (value <= 0) Die();
+        else
+        {
+          if (value < MaxHealth) health = MaxHealth;
+          if (value > 0 && value <= MaxHealth)
+          {
+            health = value;
+            if (health <= 100 && level != 0)
+            {
+              level = 0;
+              isChangeMario = true;
+              MaxHealth = 100;
+            }
+            else if (health > 100 && health <= 200 && level != 1)
+            {
+              level = 1;
+              isChangeMario = true;
+              MaxHealth = 200;
+            }
+            else if (health > 200 && health <= 300 && level != 2)
+            {
+              level = 2;
+              isChangeMario = true;
+              MaxHealth = 300;
+            }
+          }
+          // float percent = (float)health / MaxHealth;
+          // Debug.Log("Percent: " + percent);
+          // CurrentHealthImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, originalImageSize * percent);
+          // HealthTextDetail.text = Health + " / " + MaxHealth;
+          NotifyDataChanged();
+        }
+      }
+
+    }
+  }
+
+  //====================================ANDROID UI==================================
+
   [Header("Android UI")]
-  public GameObject fireButton, downButton;
+  public GameObject fireButton;
+  public GameObject downButton;
 
   public GameObject pauseMenu;
   [Header("Time")]
@@ -58,51 +126,9 @@ public class MarioController : MonoBehaviour
   private const float maxSpeedWhenHoldKey = 12;
   private const float checkTimeHoldKey = 0.02f;
 
-  private int health = 100;
-  public int MaxHealth = 100;
-
   Image image;
-  float originalImageSize;
+  // float originalImageSize;
 
-  public int Health
-  {
-    get { return health; }
-    set
-    {
-      if (value <= 0) Die();
-      else
-      {
-        if (value < MaxHealth) health = MaxHealth;
-        if (value > 0 && value <= MaxHealth)
-        {
-          health = value;
-          if (health <= 100 && level != 0)
-          {
-            level = 0;
-            isChangeMario = true;
-            MaxHealth = 100;
-          }
-          else if (health > 100 && health <= 200 && level != 1)
-          {
-            level = 1;
-            isChangeMario = true;
-            MaxHealth = 200;
-          }
-          else if (health > 200 && health <= 300 && level != 2)
-          {
-            level = 2;
-            isChangeMario = true;
-            MaxHealth = 300;
-          }
-        }
-        // float percent = (float)health / MaxHealth;
-        // Debug.Log("Percent: " + percent);
-        // CurrentHealthImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, originalImageSize * percent);
-        // HealthTextDetail.text = Health + " / " + MaxHealth;
-        NotifyDataChanged();
-      }
-    }
-  }
 
   public void HandleHealthPlayerWhenEatItem()
   {
@@ -157,7 +183,7 @@ public class MarioController : MonoBehaviour
   private void Awake()
   {
     image = GetComponentInChildren<Image>();
-    originalImageSize = image.rectTransform.rect.width;
+    // originalImageSize = image.rectTransform.rect.width;
     Debug.Log(image);
 
     animator = GetComponent<Animator>();
@@ -220,6 +246,22 @@ public class MarioController : MonoBehaviour
   public void JumpPerformed(InputAction.CallbackContext context)
   {
     OnJump();
+  }
+
+  public void SetUndeadDuration(float second)
+  {
+    StartCoroutine(UndeadToNormal(second));
+  }
+
+  IEnumerator UndeadToNormal(float duration)
+  {
+    Debug.Log("Undead");
+    IsUndead = true;
+
+    yield return new WaitForSeconds(duration);
+    Debug.Log("Expired");
+    IsUndead = false;
+
   }
   public void JumpCanceled(InputAction.CallbackContext context)
   {
@@ -356,6 +398,8 @@ public class MarioController : MonoBehaviour
   {
     OnMove();
     ReloadBulletNumber();
+
+    // CurrentHealthImage.color = Color.yellow;
   }
 
   void ReloadBulletNumber()
@@ -631,6 +675,16 @@ public class MarioController : MonoBehaviour
 
   public void NotifyDataChanged()
   {
+    //====Set Undead========
+    if (IsUndead)
+    {
+      CurrentHealthImage.color = Color.yellow;
+    }
+    else
+    {
+      CurrentHealthImage.color = Color.red;
+    }
+
     if (this && level < 2)
     {
       BulletTextUI.gameObject.SetActive(false);
