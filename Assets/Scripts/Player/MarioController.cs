@@ -62,19 +62,20 @@ public class MarioController : MonoBehaviour
         }
         else
         {
-          //===========CHANGE LEVEL==============
-          if (value <= 100)
+          //===========DOWN LEVEL==============
+          if (value < health)
           {
-            IncommingLevel = MarioLevelEnum.Normal;
+            CreateAudio("smb_kick");
+            if (value <= 100 && CurrentLevel == MarioLevelEnum.Big)
+            {
+              IncommingLevel = MarioLevelEnum.Normal;
+            }
+            else if (value <= 200 && CurrentLevel == MarioLevelEnum.Super)
+            {
+              IncommingLevel = MarioLevelEnum.Big;
+            }
           }
-          else if (value <= 200)
-          {
-            IncommingLevel = MarioLevelEnum.Big;
-          }
-          else
-          {
-            IncommingLevel = MarioLevelEnum.Super;
-          }
+
           health = value;
         }
 
@@ -186,6 +187,8 @@ public class MarioController : MonoBehaviour
     }
 
     Health += 100;
+
+    NotifyDataChanged();
   }
 
   public void LevelDown()
@@ -196,6 +199,8 @@ public class MarioController : MonoBehaviour
       CurrentLevel--;
       MaxHealth -= 100;
     }
+
+    NotifyDataChanged();
   }
 
   public void PickHealingItem(int health)
@@ -203,6 +208,8 @@ public class MarioController : MonoBehaviour
     CreateAudio("smb_flagpole");
     if (health > 0)
       Health += health;
+
+    NotifyDataChanged();
   }
 
   public void PickMaxHealthIncrease(int maxHealth)
@@ -210,6 +217,8 @@ public class MarioController : MonoBehaviour
     CreateAudio("smb_flagpole");
     if (maxHealth > 0)
       MaxHealth += maxHealth;
+    Health += maxHealth;
+    NotifyDataChanged();
   }
 
   public void PickLifePoint()
@@ -219,6 +228,8 @@ public class MarioController : MonoBehaviour
     {
       LifePoint++;
     }
+
+    NotifyDataChanged();
   }
 
   public void PickIncreaseSizeOfBullet(int size)
@@ -228,6 +239,10 @@ public class MarioController : MonoBehaviour
     {
       MaxBulletNumber += size;
     }
+
+    bulletNumber += size;
+
+    NotifyDataChanged();
   }
 
   public void PickBullet(int size)
@@ -237,6 +252,8 @@ public class MarioController : MonoBehaviour
     {
       bulletNumber += size;
     }
+
+    NotifyDataChanged();
   }
 
   //default value setting
