@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 153408273}
   - component: {fileID: 153408275}
   - component: {fileID: 153408274}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 267772474}
   - component: {fileID: 267772473}
   - component: {fileID: 267772472}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 394051004}
   - component: {fileID: 394051003}
   - component: {fileID: 394051002}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: EventSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -299,7 +299,7 @@ GameObject:
   - component: {fileID: 409523655}
   - component: {fileID: 409523657}
   - component: {fileID: 409523656}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -380,7 +380,7 @@ GameObject:
   - component: {fileID: 494235806}
   - component: {fileID: 494235805}
   - component: {fileID: 494235804}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Down
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -514,7 +514,7 @@ GameObject:
   - component: {fileID: 618682425}
   - component: {fileID: 618682424}
   - component: {fileID: 618682423}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Pause
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -648,7 +648,7 @@ GameObject:
   - component: {fileID: 791925524}
   - component: {fileID: 791925523}
   - component: {fileID: 791925527}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -762,7 +762,7 @@ GameObject:
   - component: {fileID: 974386847}
   - component: {fileID: 974386846}
   - component: {fileID: 974386845}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -896,7 +896,7 @@ GameObject:
   - component: {fileID: 1030118827}
   - component: {fileID: 1030118826}
   - component: {fileID: 1030118825}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1029,7 +1029,7 @@ GameObject:
   - component: {fileID: 1147595870}
   - component: {fileID: 1147595869}
   - component: {fileID: 1147595868}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Save
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1161,7 +1161,7 @@ GameObject:
   - component: {fileID: 1190484401}
   - component: {fileID: 1190484400}
   - component: {fileID: 1190484399}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1240,7 +1240,7 @@ GameObject:
   - component: {fileID: 1384959185}
   - component: {fileID: 1384959187}
   - component: {fileID: 1384959186}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1316,7 +1316,7 @@ GameObject:
   - component: {fileID: 1504364862}
   - component: {fileID: 1504364861}
   - component: {fileID: 1504364860}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: AndroidControl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1420,7 +1420,7 @@ GameObject:
   - component: {fileID: 1513902566}
   - component: {fileID: 1513902568}
   - component: {fileID: 1513902567}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1500,7 +1500,7 @@ GameObject:
   - component: {fileID: 1526681590}
   - component: {fileID: 1526681589}
   - component: {fileID: 1526681588}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Button (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1633,7 +1633,7 @@ GameObject:
   - component: {fileID: 1878123906}
   - component: {fileID: 1878123905}
   - component: {fileID: 1878123904}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1776,7 +1776,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1882729641}
   - component: {fileID: 1882729642}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: PauseMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1830,7 +1830,7 @@ GameObject:
   - component: {fileID: 1933737589}
   - component: {fileID: 1933737588}
   - component: {fileID: 1933737587}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1962,7 +1962,7 @@ GameObject:
   - component: {fileID: 8233851864884523630}
   - component: {fileID: 3842057860380087320}
   - component: {fileID: 4666868167250572267}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: BulletImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2035,7 +2035,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6072618116572750340}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: LifePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2075,7 +2075,7 @@ GameObject:
   - component: {fileID: 2630305197272646534}
   - component: {fileID: 5087914443701861738}
   - component: {fileID: 7568714083091465999}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Image (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2154,7 +2154,7 @@ GameObject:
   - component: {fileID: 2725520733267292016}
   - component: {fileID: 2725520733267292017}
   - component: {fileID: 1128112602229785125}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Mario
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -2322,6 +2322,8 @@ MonoBehaviour:
   CurrentHealthImage: {fileID: 1217517813276467905}
   HealthTextDetail: {fileID: 103122392846526627}
   MaxHealth: 100
+  CurrentLevel: 0
+  IncommingLevel: 0
   fireButton: {fileID: 1030118823}
   downButton: {fileID: 494235802}
   pauseMenu: {fileID: 791925522}
@@ -2329,7 +2331,6 @@ MonoBehaviour:
   money: 0
   TotalTime: 0
   particleSystem: {fileID: 6583812344653698783}
-  level: 0
   isChangeMario: 0
   bullet: {fileID: 4443310651840714476, guid: b1e11553c5554a94a88bbf88b3a647fe, type: 3}
   isOnPipe: 0
@@ -2443,7 +2444,7 @@ GameObject:
   - component: {fileID: 6650961016724484299}
   - component: {fileID: 7911980969057397071}
   - component: {fileID: 2380254996856840844}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2547,7 +2548,7 @@ GameObject:
   - component: {fileID: 2223486372893092679}
   - component: {fileID: 1235421968628436418}
   - component: {fileID: 7393128662215231518}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2623,7 +2624,7 @@ GameObject:
   - component: {fileID: 7921944712764381399}
   - component: {fileID: 4390420154499350106}
   - component: {fileID: 1553005225318632448}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: BulletNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2701,7 +2702,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6940028295012208328}
   - component: {fileID: 7514667826124250083}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CollisionPart
   m_TagString: Collision
   m_Icon: {fileID: 0}
@@ -2749,7 +2750,7 @@ GameObject:
   - component: {fileID: 675320180376839446}
   - component: {fileID: 934530180021189161}
   - component: {fileID: 2658767208524999727}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Image (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2824,7 +2825,7 @@ GameObject:
   - component: {fileID: 3583347503420635492}
   - component: {fileID: 6583812344653698783}
   - component: {fileID: 281826272571201216}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7628,7 +7629,7 @@ GameObject:
   - component: {fileID: 7743288595777804156}
   - component: {fileID: 6308125011105922202}
   - component: {fileID: 6013875509748776524}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7703,7 +7704,7 @@ GameObject:
   - component: {fileID: 8392709018853314954}
   - component: {fileID: 3791635926187701395}
   - component: {fileID: 103122392846526627}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7782,7 +7783,7 @@ GameObject:
   - component: {fileID: 734308181739364517}
   - component: {fileID: 1758307519975972611}
   - component: {fileID: 1326114784896200063}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: StarImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7855,7 +7856,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 742442687631627206}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7894,7 +7895,7 @@ GameObject:
   - component: {fileID: 1100946687820074507}
   - component: {fileID: 9015918285939463607}
   - component: {fileID: 1217517813276467905}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}

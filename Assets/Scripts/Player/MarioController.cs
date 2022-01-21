@@ -47,26 +47,11 @@ public class MarioController : MonoBehaviour
     get { return health; }
     set
     {
-      if (value < health && IsUndead)
+      if (value < health && isUndead)
       {
-
       }
       else
       {
-        //===========CHANGE LEVEL==============
-        if (value <= 100)
-        {
-          IncommingLevel = MarioLevelEnum.Normal;
-        }
-        else if (value <= 200)
-        {
-          IncommingLevel = MarioLevelEnum.Big;
-        }
-        else
-        {
-          IncommingLevel = MarioLevelEnum.Super;
-        }
-
         if (value <= 0)
         {
           Die();
@@ -77,6 +62,19 @@ public class MarioController : MonoBehaviour
         }
         else
         {
+          //===========CHANGE LEVEL==============
+          if (value <= 100)
+          {
+            IncommingLevel = MarioLevelEnum.Normal;
+          }
+          else if (value <= 200)
+          {
+            IncommingLevel = MarioLevelEnum.Big;
+          }
+          else
+          {
+            IncommingLevel = MarioLevelEnum.Super;
+          }
           health = value;
         }
 
@@ -192,6 +190,7 @@ public class MarioController : MonoBehaviour
 
   public void LevelDown()
   {
+    CreateAudio("smb_bowserfalls");
     if (CurrentLevel > 0)
     {
       CurrentLevel--;
@@ -201,18 +200,21 @@ public class MarioController : MonoBehaviour
 
   public void PickHealingItem(int health)
   {
+    CreateAudio("smb_flagpole");
     if (health > 0)
       Health += health;
   }
 
   public void PickMaxHealthIncrease(int maxHealth)
   {
+    CreateAudio("smb_flagpole");
     if (maxHealth > 0)
       MaxHealth += maxHealth;
   }
 
   public void PickLifePoint()
   {
+    CreateAudio("smb_flagpole");
     if (LifePoint < MaxLifePoint)
     {
       LifePoint++;
@@ -221,6 +223,7 @@ public class MarioController : MonoBehaviour
 
   public void PickIncreaseSizeOfBullet(int size)
   {
+    CreateAudio("smb_flagpole");
     if (size > 0)
     {
       MaxBulletNumber += size;
@@ -229,6 +232,7 @@ public class MarioController : MonoBehaviour
 
   public void PickBullet(int size)
   {
+    CreateAudio("smb_flagpole");
     if (size > 0)
     {
       bulletNumber += size;
@@ -354,6 +358,8 @@ public class MarioController : MonoBehaviour
     }
     if (!IsUndead)
     {
+      // audioSource.PlayScheduled(duration);
+      CreateAudio("smb_flagpole");
       Debug.Log("Undead");
       IsUndead = true;
 
@@ -831,7 +837,8 @@ public class MarioController : MonoBehaviour
     {
       CurrentHealthImage.color = Color.yellow;
       UndeadStar.gameObject.SetActive(true);
-      particleSystem.Play();
+      if (!particleSystem.isPlaying)
+        particleSystem.Play();
     }
     else
     {
