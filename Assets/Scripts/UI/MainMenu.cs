@@ -79,7 +79,7 @@ public class MainMenu : MonoBehaviour
   void SaveGameWhenPlay(MarioController marioController, int sceneIndex)
   {
     PlayerData playerData = new PlayerData(marioController.Health, marioController.MaxHealth, marioController.transform.position,
-  sceneIndex, marioController.TotalTime, marioController.level, marioController.bulletNumber);
+  sceneIndex, marioController.TotalTime, marioController.level, marioController.bulletNumber, 3);
 
     // Create File
     string path = Path.Combine(Application.persistentDataPath, "player.hd");
@@ -199,6 +199,7 @@ public class MainMenu : MonoBehaviour
       controller.isChangeMario = true;
       controller.TotalTime = playerData.totalTime;
       controller.bulletNumber = playerData.bulletNumber;
+      controller.LifePoint = playerData.lifePoint;
       // gameObject.transform.position = new Vector2(0, 5);
       // int sceneIndex = GameManager.Instance.LoadSavedGame(gameObject.GetComponent<MarioController>());
       // Move the GameObject (you attach this in the Inspector) to the newly loaded Scene

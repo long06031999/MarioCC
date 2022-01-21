@@ -14,14 +14,15 @@ public class CheckPoint : MonoBehaviour
   //       GetComponent<SpriteRenderer>().color = Color.white;
   //     }
   //   }
-
+  public bool IsActive = false;
   private void OnTriggerEnter2D(Collider2D other)
   {
     MarioController controller = other.gameObject.GetComponent<MarioController>();
-    if (controller)
+    if (controller && !IsActive)
     {
       GameManager.Instance.SaveGame(controller);
       GetComponent<SpriteRenderer>().color = Color.white;
+      IsActive = true;
     }
   }
 }

@@ -14,6 +14,11 @@ public class MarioController : MonoBehaviour
   public int bulletNumber = 5;
   public float countDown = 10f;
   private float countDownTimer = 10f;
+  //==================================LIFE POINT=============================
+  [Header("Life Point")]
+  public int MaxLifePoint = 3;
+  public int LifePoint = 3;
+  public GameObject LifePointBar;
 
   //==================================HEALTH=============================
   [Header("Health")]
@@ -342,9 +347,32 @@ public class MarioController : MonoBehaviour
       GameManager.Instance.PauseGame();
     }
   }
-  void Die()
+  public void Die()
   {
-    DestroyMario();
+    if (LifePoint <= 1)
+    {
+      DestroyMario();
+    }
+    else
+    {
+      RespawnMario();
+    }
+  }
+
+  void RespawnMario()
+  {
+    PlayerData playerData = GameManager.Instance.GetSavedPlayerData();
+    level = playerData.level;
+    MaxHealth = playerData.maxHealth;
+    Health = playerData.health;
+    transform.position = new Vector2(playerData.position[0], playerData.position[1]);
+    isChangeMario = true;
+    TotalTime = playerData.totalTime;
+    bulletNumber = playerData.bulletNumber;
+    LifePoint = playerData.lifePoint - 1;
+
+    GameManager.Instance.SaveGame(this);
+    NotifyDataChanged();
   }
   // Update is called once per frame
   void Update()
@@ -672,6 +700,7 @@ public class MarioController : MonoBehaviour
 
   public void DestroyMario()
   {
+
     positionDie = transform.localPosition;
     Instantiate(marioDie, positionDie, Quaternion.identity);
     Destroy(gameObject);
@@ -690,6 +719,21 @@ public class MarioController : MonoBehaviour
 
   public void NotifyDataChanged()
   {
+    //=====Set Life Point=======
+    // Debug.Log("Child Count: " + LifePointBar.transform.childCount);
+    for (int i = 0; i < LifePointBar.transform.childCount; i++)
+    {
+      // LifePointBar.transform.GetChild(i).gameObject.SetActive(false);
+      if (i < LifePoint)
+      {
+        LifePointBar.transform.GetChild(i).gameObject.SetActive(true);
+      }
+      else
+      {
+        LifePointBar.transform.GetChild(i).gameObject.SetActive(false);
+      }
+    }
+
     //====Set Undead========
     if (IsUndead)
     {
