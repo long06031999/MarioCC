@@ -9,11 +9,24 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public class MainMenu : MonoBehaviour
 {
-  public Text TopText;
+  bool IsMain = true;
+
+  [Header("Menu Layout Area")]
+  public GameObject MainMenuLayout;
+  public GameObject OptionsMenuLayout;
+
+  [Header("Main Menu Area")]
+
+  [Header("Options Menu Area")]
+  public Button OptionsButton;
+
+  [Header("Settings Area")]
   public AudioMixer audioMixer;
   public Slider slider;
   public Text VolumeValueLabel;
+  public Text TopText;
 
+  [Header("Game Area")]
   public GameObject mario;
 
   private void Awake()
@@ -66,7 +79,7 @@ public class MainMenu : MonoBehaviour
   void SaveGameWhenPlay(MarioController marioController, int sceneIndex)
   {
     PlayerData playerData = new PlayerData(marioController.Health, marioController.MaxHealth, marioController.transform.position,
-  sceneIndex, marioController.TotalTime, marioController.level);
+  sceneIndex, marioController.TotalTime, marioController.level, marioController.bulletNumber);
 
     // Create File
     string path = Path.Combine(Application.persistentDataPath, "player.hd");
@@ -83,6 +96,32 @@ public class MainMenu : MonoBehaviour
   public void Quit()
   {
     Application.Quit();
+  }
+
+  public void OnOptionsButtonClicked()
+  {
+    if (IsMain)
+    {
+      LoadOptionsMenu();
+    }
+    else
+    {
+      LoadMainMenu();
+    }
+  }
+
+  public void LoadOptionsMenu()
+  {
+    IsMain = false;
+    MainMenuLayout.SetActive(false);
+    OptionsMenuLayout.SetActive(true);
+  }
+
+  public void LoadMainMenu()
+  {
+    IsMain = true;
+    MainMenuLayout.SetActive(true);
+    OptionsMenuLayout.SetActive(false);
   }
 
   public void SetVolume(float Volume)
@@ -153,12 +192,13 @@ public class MainMenu : MonoBehaviour
 
       MarioController controller = gameObject.GetComponent<MarioController>();
       // Setup controller
-      controller.Health = playerData.health;
-      controller.MaxHealth = playerData.maxHealth;
-      controller.transform.position = new Vector2(playerData.position[0], playerData.position[1]);
       controller.level = playerData.level;
+      controller.MaxHealth = playerData.maxHealth;
+      controller.Health = playerData.health;
+      controller.transform.position = new Vector2(playerData.position[0], playerData.position[1]);
       controller.isChangeMario = true;
       controller.TotalTime = playerData.totalTime;
+      controller.bulletNumber = playerData.bulletNumber;
       // gameObject.transform.position = new Vector2(0, 5);
       // int sceneIndex = GameManager.Instance.LoadSavedGame(gameObject.GetComponent<MarioController>());
       // Move the GameObject (you attach this in the Inspector) to the newly loaded Scene

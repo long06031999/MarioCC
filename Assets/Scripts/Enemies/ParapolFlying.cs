@@ -6,7 +6,7 @@ using UnityEngine;
 public class ParapolFlying : MonoBehaviour
 {
 
-  Rigidbody2D rigidbody2D;
+  private Rigidbody2D rigidbody2D;
   public Vector2 direction = Vector2.up;
   public float Speed = 15;
   float timer = 5f;
