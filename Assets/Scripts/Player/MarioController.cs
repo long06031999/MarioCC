@@ -17,6 +17,7 @@ public class MarioController : MonoBehaviour
 
   //==================================HEALTH=============================
   [Header("Health")]
+  public Image UndeadStar;
   public Image CurrentHealthImage;
   public Text HealthTextDetail;
   private bool isUndead = false;
@@ -99,7 +100,7 @@ public class MarioController : MonoBehaviour
   public float TotalTime;
   PlayerInputAction playerInputAction;
 
-
+  public ParticleSystem particleSystem;
   int moveDirection = 0;
   public bool IsSlowDown
   {
@@ -255,12 +256,26 @@ public class MarioController : MonoBehaviour
 
   IEnumerator UndeadToNormal(float duration)
   {
-    Debug.Log("Undead");
-    IsUndead = true;
+    while (IsUndead)
+    {
+      yield return null;
+    }
+    if (!IsUndead)
+    {
+      Debug.Log("Undead");
+      IsUndead = true;
 
-    yield return new WaitForSeconds(duration);
-    Debug.Log("Expired");
-    IsUndead = false;
+      float timer = duration;
+      while (timer > 0)
+      {
+        timer -= Time.fixedDeltaTime;
+        UndeadStar.fillAmount = timer / duration;
+        yield return null;
+      }
+      Debug.Log("Expired");
+      IsUndead = false;
+    }
+
 
   }
   public void JumpCanceled(InputAction.CallbackContext context)
@@ -679,10 +694,16 @@ public class MarioController : MonoBehaviour
     if (IsUndead)
     {
       CurrentHealthImage.color = Color.yellow;
+      UndeadStar.gameObject.SetActive(true);
+      particleSystem.Play();
     }
     else
     {
       CurrentHealthImage.color = Color.red;
+      UndeadStar.gameObject.SetActive(false);
+      particleSystem.Clear();
+      particleSystem.Stop();
+
     }
 
     if (this && level < 2)
@@ -699,12 +720,19 @@ public class MarioController : MonoBehaviour
     }
     // Update Health
     float percent = (float)health / MaxHealth;
-    Debug.Log("Percent: " + percent);
+    // Debug.Log("Percent: " + percent);
     CurrentHealthImage.fillAmount = percent;
     HealthTextDetail.text = Health + " / " + MaxHealth;
 
     // Update Bullet
     BulletTextUI.text = bulletNumber.ToString();
+  }
+
+  public override bool Equals(object obj)
+  {
+    return obj is MarioController controller &&
+           base.Equals(obj) &&
+           EqualityComparer<ParticleSystem>.Default.Equals(particleSystem, controller.particleSystem);
   }
 }
 
