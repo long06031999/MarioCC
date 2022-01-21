@@ -196,7 +196,6 @@ public class MainMenu : MonoBehaviour
       controller.MaxHealth = playerData.maxHealth;
       controller.Health = playerData.health;
       controller.transform.position = new Vector2(playerData.position[0], playerData.position[1]);
-      controller.isChangeMario = true;
       controller.TotalTime = playerData.totalTime;
       controller.bulletNumber = playerData.bulletNumber;
       controller.LifePoint = playerData.lifePoint;

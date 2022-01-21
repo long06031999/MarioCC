@@ -25,7 +25,7 @@ public class MarioController : MonoBehaviour
   public Image UndeadStar;
   public Image CurrentHealthImage;
   public Text HealthTextDetail;
-  private bool isUndead = false;
+  [SerializeField] private bool isUndead = false;
   [SerializeField]
   public bool IsUndead
   {
@@ -180,9 +180,9 @@ public class MarioController : MonoBehaviour
   {
     if (IncommingLevel == CurrentLevel && CurrentLevel < MarioLevelEnum.Super)
     {
-      Debug.Log("Before: " + IncommingLevel);
+      // Debug.Log("Before: " + IncommingLevel);
       IncommingLevel++;
-      Debug.Log("After: " + IncommingLevel);
+      // Debug.Log("After: " + IncommingLevel);
       MaxHealth += 100;
     }
 
@@ -277,7 +277,7 @@ public class MarioController : MonoBehaviour
   private Rigidbody2D r2d;
 
   //show level mario
-  public bool isChangeMario = false;
+  // public bool isChangeMario = false;
 
   //bullet
   private bool isSpawnBullet = false;
@@ -483,7 +483,6 @@ public class MarioController : MonoBehaviour
     MaxHealth = playerData.maxHealth;
     Health = playerData.health;
     transform.position = new Vector2(playerData.position[0], playerData.position[1]);
-    isChangeMario = true;
     TotalTime = playerData.totalTime;
     bulletNumber = playerData.bulletNumber;
     LifePoint = playerData.lifePoint - 1;

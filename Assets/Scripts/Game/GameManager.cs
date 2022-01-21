@@ -157,7 +157,6 @@ public class GameManager
       controller.MaxHealth = playerData.maxHealth;
       controller.transform.position = new Vector2(playerData.position[0], playerData.position[1]);
       controller.CurrentLevel = (MarioLevelEnum)playerData.level;
-      controller.isChangeMario = true;
       controller.TotalTime = playerData.totalTime;
       return playerData.sceneIndex;
     }
