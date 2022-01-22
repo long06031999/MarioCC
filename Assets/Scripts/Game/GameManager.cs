@@ -83,7 +83,15 @@ public class GameManager
 
     // Create File
     string path = Path.Combine(Application.persistentDataPath, "top.hd");
-    FileStream fileStream = File.Create(path);
+    FileStream fileStream;
+    if (File.Exists(path))
+    {
+      fileStream = File.OpenWrite(path);
+    }
+    else
+    {
+      fileStream = File.Create(path);
+    }
 
     // Write
     BinaryFormatter binaryFormatter = new BinaryFormatter();
@@ -96,30 +104,42 @@ public class GameManager
   public Top GetTopChallenge()
   {
     string path = Path.Combine(Application.persistentDataPath, "top.hd");
-    FileStream fileStream = File.OpenRead(path);
-    if (fileStream != null)
+    if (File.Exists(path))
     {
+      FileStream fileStream = File.OpenRead(path);
+      if (fileStream.Length == 0)
+      {
+        return null;
+      }
       BinaryFormatter binaryFormatter = new BinaryFormatter();
       Top top = (Top)binaryFormatter.Deserialize(fileStream);
-
+      fileStream.Close();
       return top;
     }
-    else { return null; }
+    else
+    {
+      return null;
+    }
   }
 
   public PlayerData GetSavedPlayerData()
   {
     //Open File;
     string path = Path.Combine(Application.persistentDataPath, "player.hd");
-    FileStream fileStream = File.OpenRead(path);
-    if (fileStream != null)
+    if (File.Exists(path))
     {
+      FileStream fileStream = File.OpenRead(path);
+
       BinaryFormatter binaryFormatter = new BinaryFormatter();
       PlayerData playerData = (PlayerData)binaryFormatter.Deserialize(fileStream);
       fileStream.Close();
       return playerData;
+
     }
-    return null;
+    else
+    {
+      return null;
+    }
   }
 
   public IEnumerator LoadSavedScene(GameObject mario)
@@ -142,13 +162,14 @@ public class GameManager
     }
   }
 
-  public int LoadSavedGame(MarioController controller)
+  public bool LoadSavedGame(MarioController controller)
   {
     //Open File;
     string path = Path.Combine(Application.persistentDataPath, "player.hd");
-    FileStream fileStream = File.OpenRead(path);
-    if (fileStream != null)
+    FileStream fileStream;
+    if (File.Exists(path))
     {
+      fileStream = File.OpenRead(path);
       BinaryFormatter binaryFormatter = new BinaryFormatter();
       PlayerData playerData = (PlayerData)binaryFormatter.Deserialize(fileStream);
 
@@ -158,9 +179,12 @@ public class GameManager
       controller.transform.position = new Vector2(playerData.position[0], playerData.position[1]);
       controller.IncommingLevel = (MarioLevelEnum)playerData.level;
       controller.TotalTime = playerData.totalTime;
-      return playerData.sceneIndex;
+      return true;
     }
-    return 1;
+    else
+    {
+      return false;
+    }
   }
 
   public IEnumerator MoveGameObjectToScene(GameObject other, int sceneIndex)
@@ -180,6 +204,12 @@ public class GameManager
     }
 
     other.transform.position = new Vector2(0, 5);
+
+    MarioController controller = other.GetComponent<MarioController>();
+    if (controller)
+    {
+      controller.RemoveDebuff();
+    }
     // Move the GameObject (you attach this in the Inspector) to the newly loaded Scene
     SceneManager.MoveGameObjectToScene(other, SceneManager.GetSceneByBuildIndex(sceneIndex));
     // Unload the previous Scene

@@ -12,7 +12,7 @@ public class JellyFish : MonoBehaviour
   [SerializeField] float _finderTimer = 1f;
   [SerializeField] float _moveTimer = 1f;
   [SerializeField] float _MoveTime = 1f;
-  [SerializeField] float _distance;
+  [SerializeField] float _distance = 8;
 
   bool OnMove = false;
   Vector2 _vectorDistance;
@@ -113,7 +113,7 @@ public class JellyFish : MonoBehaviour
 
     if (marioController && (CaculateDistance(marioController.transform.position) <= _distance))
     {
-      float moveDelay = 2.5f;
+      float moveDelay = 2f;
       float moveDelayTimer = moveDelay;
       Vector2 targetPosition = marioController.transform.position;
       Debug.Log(marioController.transform.position + " / " + targetPosition);

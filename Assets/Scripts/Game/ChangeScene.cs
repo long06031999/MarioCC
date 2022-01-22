@@ -29,11 +29,17 @@ public class ChangeScene : MonoBehaviour
     if (other.tag == "Player")
       if (timer <= 0)
       {
-        Debug.Log("Scene Count: " + SceneManager.sceneCount);
-        int nextScene = SceneManager.GetActiveScene().buildIndex + 1;
-        StartCoroutine(GameManager.Instance.MoveGameObjectToScene(other.gameObject, nextScene));
+        MarioController marioController = other.gameObject.GetComponent<MarioController>();
+        if (marioController)
+        {
+          // marioController.SetInWater(false);
+          // Debug.Log("Scene Count: " + SceneManager.sceneCount);
+          int nextScene = SceneManager.GetActiveScene().buildIndex + 1;
+          StartCoroutine(GameManager.Instance.MoveGameObjectToScene(other.gameObject, nextScene));
 
-        timer = waitingTime;
+          timer = waitingTime;
+        }
+
       }
       else
       {

@@ -311,7 +311,7 @@ public class MarioController : MonoBehaviour
   {
     image = GetComponentInChildren<Image>();
     // originalImageSize = image.rectTransform.rect.width;
-    Debug.Log(image);
+    // Debug.Log(image);
 
     animator = GetComponent<Animator>();
     r2d = GetComponent<Rigidbody2D>();
@@ -373,7 +373,8 @@ public class MarioController : MonoBehaviour
 
   public void OnUp()
   {
-    Vector2 newPosition = new Vector2(transform.position.x + moveDirection * Time.fixedDeltaTime, transform.position.y + MoveUp * Time.fixedDeltaTime);
+    int speed = 2;
+    Vector2 newPosition = new Vector2(transform.position.x + moveDirection * Time.fixedDeltaTime * speed, transform.position.y + MoveUp * Time.fixedDeltaTime * speed);
     r2d.MovePosition(newPosition);
     if (moveDirection > 0 && !isRight) OnDirection();
     if (moveDirection < 0 && isRight) OnDirection();
@@ -912,6 +913,19 @@ public class MarioController : MonoBehaviour
   {
     GetComponent<Rigidbody2D>().gravityScale = 1f;
     downButton.SetActive(false);
+  }
+  public void RemoveDebuff()
+  {
+    if (IsSlowDown)
+    {
+      IsSlowDown = false;
+    }
+    if (IsInWater)
+    {
+      _isInWater = false;
+    }
+
+    NotifyDataChanged();
   }
   public void NotifyDataChanged()
   {
