@@ -10,6 +10,8 @@ public class EnemyHealthPoint : MonoBehaviour
   public Vector2 Offset = Vector2.up;
   public int MaxHP = 100;
   [SerializeField] int _hp = 100;
+
+  public bool UseRelative = false;
   public int HP
   {
     get { return _hp; }
@@ -26,13 +28,21 @@ public class EnemyHealthPoint : MonoBehaviour
     slider.transform.position = Camera.main.WorldToScreenPoint((Vector2)transform.position + Offset);
   }
 
-  void TakeDame(int dame)
+  public void TakeDame(int dame)
   {
     if (dame > 0)
     {
-      if (dame > HP)
+      if (dame >= HP)
       {
-        Die();
+        if (UseRelative)
+        {
+          _hp -= dame;
+        }
+        else
+        {
+
+          Die();
+        }
       }
       else
       {

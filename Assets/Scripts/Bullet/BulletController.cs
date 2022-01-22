@@ -7,7 +7,7 @@ public class BulletController : MonoBehaviour
   public float Speed = 100;
   public Vector2 direction = Vector2.right;
   public float distance = 30;
-  public float dame = 10;
+  public int dame = 50;
   //   new Rigidbody2D rigidbody2D;
   Vector2 startPos;
 
@@ -33,9 +33,10 @@ public class BulletController : MonoBehaviour
 
   private void OnTriggerEnter2D(Collider2D collision)
   {
-    if (collision.gameObject.tag == "Enemies")
+    EnemyHealthPoint enemyHealthPoint = collision.GetComponent<EnemyHealthPoint>();
+    if (enemyHealthPoint)
     {
-      Destroy(collision.gameObject);
+      enemyHealthPoint.TakeDame(dame);
     }
     Destroy(gameObject);
   }

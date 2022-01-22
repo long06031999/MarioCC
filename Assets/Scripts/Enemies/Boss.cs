@@ -37,6 +37,11 @@ public class Boss : MonoBehaviour
       }
       if (isCombatWithBoss)
       {
+        EnemyHealthPoint enemyHealthPoint = GetComponent<EnemyHealthPoint>();
+        if (enemyHealthPoint.HP <= 0)
+        {
+          WinGame();
+        }
         playerDirection = mario.transform.position - gameObject.transform.position;
         if (timer % FirstTile <= Time.deltaTime)
         {
