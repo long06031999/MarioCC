@@ -192,7 +192,7 @@ public class MainMenu : MonoBehaviour
 
       MarioController controller = gameObject.GetComponent<MarioController>();
       // Setup controller
-      controller.CurrentLevel = (MarioLevelEnum)playerData.level;
+      controller.IncommingLevel = (MarioLevelEnum)playerData.level;
       controller.MaxHealth = playerData.maxHealth;
       controller.Health = playerData.health;
       controller.transform.position = new Vector2(playerData.position[0], playerData.position[1]);

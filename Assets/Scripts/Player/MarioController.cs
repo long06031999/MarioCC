@@ -26,7 +26,6 @@ public class MarioController : MonoBehaviour
   public Image CurrentHealthImage;
   public Text HealthTextDetail;
   [SerializeField] private bool isUndead = false;
-  [SerializeField]
   public bool IsUndead
   {
     set
@@ -118,8 +117,20 @@ public class MarioController : MonoBehaviour
   //====================================LEVEL================================
   [Header("Level")]
 
-  public MarioLevelEnum CurrentLevel = MarioLevelEnum.Normal;
+  MarioLevelEnum _currentLevel = MarioLevelEnum.Normal;
+  public MarioLevelEnum CurrentLevel
+  {
+    get { return _currentLevel; }
+  }
   public MarioLevelEnum IncommingLevel = MarioLevelEnum.Normal;
+
+  //=====================================ENVIROMENT==========================================
+  [Header("Enviroment")]
+  [SerializeField] bool _isInWater = false;
+  public bool IsInWater
+  {
+    get { return _isInWater; }
+  }
 
   //====================================ANDROID UI==================================
 
@@ -137,7 +148,7 @@ public class MarioController : MonoBehaviour
   PlayerInputAction playerInputAction;
 
   public ParticleSystem particleSystem;
-  int moveDirection = 0;
+  [SerializeField] int moveDirection = 0;
   public bool IsSlowDown
   {
     get
@@ -160,6 +171,8 @@ public class MarioController : MonoBehaviour
       }
     }
   }
+
+  [SerializeField] int MoveUp;
   private const float maxSpeedWhenHoldKey = 12;
   private const float checkTimeHoldKey = 0.02f;
 
@@ -196,7 +209,7 @@ public class MarioController : MonoBehaviour
     CreateAudio("smb_bowserfalls");
     if (CurrentLevel > 0)
     {
-      CurrentLevel--;
+      IncommingLevel--;
       MaxHealth -= 100;
     }
 
@@ -357,9 +370,29 @@ public class MarioController : MonoBehaviour
   {
     moveDirection = 0;
   }
+
+  public void OnUp()
+  {
+    Vector2 newPosition = new Vector2(transform.position.x + moveDirection * Time.fixedDeltaTime, transform.position.y + MoveUp * Time.fixedDeltaTime);
+    r2d.MovePosition(newPosition);
+    if (moveDirection > 0 && !isRight) OnDirection();
+    if (moveDirection < 0 && isRight) OnDirection();
+
+  }
+
   public void JumpPerformed(InputAction.CallbackContext context)
   {
-    OnJump();
+    if (this)
+    {
+      if (IsInWater)
+      {
+        MoveUp = 1;
+      }
+      else
+      {
+        OnJump();
+      }
+    }
   }
 
   public void SetUndeadDuration(float second)
@@ -402,7 +435,13 @@ public class MarioController : MonoBehaviour
   }
   public void JumpCanceled(InputAction.CallbackContext context)
   {
-
+    if (this)
+    {
+      if (IsInWater)
+      {
+        MoveUp = 0;
+      }
+    }
   }
   public void FirePerformed(InputAction.CallbackContext context)
   {
@@ -448,12 +487,26 @@ public class MarioController : MonoBehaviour
   {
     if (this)
     {
-      OnMoveToPipe();
+      if (IsInWater)
+      {
+        MoveUp = -1;
+      }
+      else
+      {
+
+        OnMoveToPipe();
+      }
     }
   }
   public void TeleportCanceled(InputAction.CallbackContext context)
   {
-
+    if (this)
+    {
+      if (IsInWater)
+      {
+        MoveUp = 0;
+      }
+    }
   }
 
   public void OpenPauseMenuPerformed(InputAction.CallbackContext context)
@@ -479,16 +532,18 @@ public class MarioController : MonoBehaviour
   void RespawnMario()
   {
     PlayerData playerData = GameManager.Instance.GetSavedPlayerData();
-    CurrentLevel = (MarioLevelEnum)playerData.level;
+    IncommingLevel = (MarioLevelEnum)playerData.level;
     MaxHealth = playerData.maxHealth;
-    Health = playerData.health;
+    health = playerData.health;
     transform.position = new Vector2(playerData.position[0], playerData.position[1]);
     TotalTime = playerData.totalTime;
     bulletNumber = playerData.bulletNumber;
     LifePoint = playerData.lifePoint - 1;
-
-    GameManager.Instance.SaveGame(this);
     NotifyDataChanged();
+
+    Debug.Log(CurrentLevel + "/" + IncommingLevel + "/" + playerData.level + "=" + (MarioLevelEnum)playerData.level);
+    GameManager.Instance.SaveGame(this);
+
   }
   // Update is called once per frame
   void Update()
@@ -552,7 +607,16 @@ public class MarioController : MonoBehaviour
 
   private void FixedUpdate()
   {
-    OnMove();
+    if (IsInWater)
+    {
+
+      OnUp();
+    }
+    else
+    {
+
+      OnMove();
+    }
     ReloadBulletNumber();
 
     // CurrentHealthImage.color = Color.yellow;
@@ -578,9 +642,10 @@ public class MarioController : MonoBehaviour
   }
   private void OnMove()
   {
-    // float velocityKeyInput = Input.GetAxis("Horizontal");
+
     r2d.velocity = new Vector2(marioStatus.velocityWhenPress * moveDirection, r2d.velocity.y);
     velocity = Mathf.Abs(marioStatus.velocityWhenPress * moveDirection);
+
     if (moveDirection > 0 && !isRight) OnDirection();
     if (moveDirection < 0 && isRight) OnDirection();
   }
@@ -819,6 +884,14 @@ public class MarioController : MonoBehaviour
     Destroy(gameObject);
   }
 
+  public void SetInWater(bool IsInWater)
+  {
+    if (this.IsInWater != IsInWater)
+    {
+      _isInWater = IsInWater;
+      NotifyDataChanged();
+    }
+  }
   public void CreateAudio(String fileName)
   {
     audioSource.PlayOneShot(Resources.Load<AudioClip>("Audio/" + fileName));
@@ -830,12 +903,31 @@ public class MarioController : MonoBehaviour
     // GameManager.Instance.ReloadGame = false;
   }
 
+  public void OnInWater()
+  {
+    GetComponent<Rigidbody2D>().gravityScale = 0.7f;
+    downButton.SetActive(true);
+  }
+  public void OnOutWater()
+  {
+    GetComponent<Rigidbody2D>().gravityScale = 1f;
+    downButton.SetActive(false);
+  }
   public void NotifyDataChanged()
   {
+    //======Set Water=========
+    if (IsInWater)
+    {
+      OnInWater();
+    }
+    else
+    {
+      OnOutWater();
+    }
     //=====Set Level==========
     if (IncommingLevel != CurrentLevel)
     {
-      CurrentLevel = IncommingLevel;
+      _currentLevel = IncommingLevel;
       Debug.Log("Change to " + CurrentLevel);
       OnChangeMario();
     }
