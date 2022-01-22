@@ -2321,9 +2321,10 @@ MonoBehaviour:
   UndeadStar: {fileID: 1326114784896200063}
   CurrentHealthImage: {fileID: 1217517813276467905}
   HealthTextDetail: {fileID: 103122392846526627}
+  isUndead: 0
   MaxHealth: 100
-  CurrentLevel: 0
   IncommingLevel: 0
+  _isInWater: 0
   fireButton: {fileID: 1030118823}
   downButton: {fileID: 494235802}
   pauseMenu: {fileID: 791925522}
@@ -2331,7 +2332,8 @@ MonoBehaviour:
   money: 0
   TotalTime: 0
   particleSystem: {fileID: 6583812344653698783}
-  isChangeMario: 0
+  moveDirection: 0
+  MoveUp: 0
   bullet: {fileID: 4443310651840714476, guid: b1e11553c5554a94a88bbf88b3a647fe, type: 3}
   isOnPipe: 0
   pipe: {fileID: 8911928684269513236, guid: 4bca76a3e7ed81747982ef6c0a0a47c6, type: 3}
@@ -2345,7 +2347,7 @@ AudioSource:
   m_GameObject: {fileID: 2725520733267292026}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300002, guid: 1fdda6d220f68bd1688943c3445ab9f5, type: 2}
+  OutputAudioMixerGroup: {fileID: 116512665596122982, guid: 1fdda6d220f68bd1688943c3445ab9f5, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.701

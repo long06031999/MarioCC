@@ -26,16 +26,24 @@ public class MainMenu : MonoBehaviour
   public Text VolumeValueLabel;
   public Text TopText;
 
+  public Slider MusicSlider;
+  public Text MusicValueLable;
+
   [Header("Game Area")]
   public GameObject mario;
 
   private void Awake()
   {
-    float volumeValue;
-    if (audioMixer.GetFloat("MasterVolume", out volumeValue))
+    float volumeValue, musicValue;
+    if (audioMixer.GetFloat("Effect", out volumeValue))
     {
-      VolumeValueLabel.text = volumeValue.ToString();
+      VolumeValueLabel.text = (volumeValue + 80) + "%";
       slider.value = volumeValue;
+    }
+    if (audioMixer.GetFloat("Music", out musicValue))
+    {
+      MusicValueLable.text = (musicValue + 80) + "%";
+      MusicSlider.value = musicValue;
     }
   }
   public void PlayGame()
@@ -128,14 +136,28 @@ public class MainMenu : MonoBehaviour
   {
     if (audioMixer)
     {
-      audioMixer.SetFloat("MasterVolume", Volume);
-      VolumeValueLabel.text = Volume.ToString();
+      audioMixer.SetFloat("Effect", Volume);
+      VolumeValueLabel.text = (Volume + 80) + "%";
     }
     else
     {
       Debug.Log("Audio Mixer not be assign");
     }
   }
+
+  public void SetMusic(float Volume)
+  {
+    if (audioMixer)
+    {
+      audioMixer.SetFloat("Music", Volume);
+      MusicValueLable.text = (Volume + 80) + "%";
+    }
+    else
+    {
+      Debug.Log("Audio Mixer not be assign");
+    }
+  }
+
 
   public void LoadSavedGame()
   {
