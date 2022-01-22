@@ -178,6 +178,11 @@ public class MainMenu : MonoBehaviour
     }
   }
 
+  public void SetFullScreen(bool isFullScreen)
+  {
+    Screen.fullScreen = isFullScreen;
+  }
+
   public void SetMusic(float Volume)
   {
     if (audioMixer)

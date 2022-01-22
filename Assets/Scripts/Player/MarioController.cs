@@ -67,11 +67,11 @@ public class MarioController : MonoBehaviour
             CreateAudio("smb_kick");
             if (value <= 100 && CurrentLevel == MarioLevelEnum.Big)
             {
-              IncommingLevel = MarioLevelEnum.Normal;
+              LevelDown();
             }
             else if (value <= 200 && CurrentLevel == MarioLevelEnum.Super)
             {
-              IncommingLevel = MarioLevelEnum.Big;
+              LevelDown();
             }
           }
 
