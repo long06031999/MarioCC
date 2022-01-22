@@ -2698,7 +2698,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 13.1627, y: 259.42377}
+  m_AnchoredPosition: {x: 0, y: 170}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1314859211
@@ -6564,7 +6564,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Survival for 60s to win!
+  m_text: Survival for 60s or Defeat the boss to win!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d5384a7eb952af7f09742cc49187fb6c, type: 2}
   m_sharedMaterial: {fileID: -5755169071283944024, guid: d5384a7eb952af7f09742cc49187fb6c, type: 2}
