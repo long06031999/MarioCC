@@ -1292,6 +1292,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 114033420}
     m_Modifications:
+    - target: {fileID: 1591662859, guid: 411c32c0b33e5ec4f84e0edf9b95ec82, type: 3}
+      propertyPath: time
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 348622429916619107, guid: 411c32c0b33e5ec4f84e0edf9b95ec82, type: 3}
       propertyPath: m_Name
       value: TurtleFlyWithGun
@@ -2016,6 +2020,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 114033420}
     m_Modifications:
+    - target: {fileID: 1591662859, guid: 411c32c0b33e5ec4f84e0edf9b95ec82, type: 3}
+      propertyPath: time
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 348622429916619107, guid: 411c32c0b33e5ec4f84e0edf9b95ec82, type: 3}
       propertyPath: m_Name
       value: TurtleFlyWithGun (2)
@@ -2078,6 +2086,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 114033420}
     m_Modifications:
+    - target: {fileID: 1591662859, guid: 411c32c0b33e5ec4f84e0edf9b95ec82, type: 3}
+      propertyPath: time
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 348622429916619107, guid: 411c32c0b33e5ec4f84e0edf9b95ec82, type: 3}
       propertyPath: m_Name
       value: TurtleFlyWithGun (4)
@@ -16824,6 +16836,10 @@ PrefabInstance:
     - target: {fileID: 2725520733267292026, guid: c9753f762b85cdc4f98161b1acd3be37, type: 3}
       propertyPath: m_Name
       value: Mario
+      objectReference: {fileID: 0}
+    - target: {fileID: 2725520733267292026, guid: c9753f762b85cdc4f98161b1acd3be37, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2725520733267292031, guid: c9753f762b85cdc4f98161b1acd3be37, type: 3}
       propertyPath: m_RootOrder
