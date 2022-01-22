@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(Collider2D))]
 public class DameArea : MonoBehaviour
 {
   public bool destroyOnCollision = true;

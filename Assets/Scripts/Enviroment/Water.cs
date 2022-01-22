@@ -20,7 +20,15 @@ public class Water : MonoBehaviour
     if (controller)
     {
       controller.SetInWater(true);
-      Debug.Log("In");
+      // Debug.Log("In");
+    }
+
+    JellyFish jellyFish = other.gameObject.GetComponent<JellyFish>();
+    if (jellyFish)
+    {
+
+      jellyFish.SetInWater(true);
+      // Debug.Log("In");
     }
   }
 
@@ -31,6 +39,15 @@ public class Water : MonoBehaviour
     {
       controller.SetInWater(false);
       Debug.Log("Out");
+    }
+
+
+    JellyFish jellyFish = other.gameObject.GetComponent<JellyFish>();
+    if (jellyFish)
+    {
+
+      jellyFish.SetInWater(false);
+      // Debug.Log("In");
     }
   }
 }
