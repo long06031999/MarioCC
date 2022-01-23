@@ -904,6 +904,14 @@ public class MarioController : MonoBehaviour
     // GameManager.Instance.ReloadGame = false;
   }
 
+  private void OnParticleCollision(GameObject other)
+  {
+    if (other.tag == "Posion")
+    {
+      Health -= 1;
+    }
+  }
+
   public void OnInWater()
   {
     GetComponent<Rigidbody2D>().gravityScale = 0.7f;

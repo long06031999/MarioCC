@@ -1,0 +1,648 @@
+fileFormatVersion: 2
+guid: a537067852ceae3a883ad22108c07d8c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6033213838891002349
+    second: cloud-png-transparent-23_0
+  - first:
+      213: -633978380751781137
+    second: cloud-png-transparent-23_1
+  - first:
+      213: 8500366005689830871
+    second: cloud-png-transparent-23_2
+  - first:
+      213: 1674974932272769777
+    second: cloud-png-transparent-23_3
+  - first:
+      213: 863562925096491229
+    second: cloud-png-transparent-23_4
+  - first:
+      213: 6187693175900171797
+    second: cloud-png-transparent-23_5
+  - first:
+      213: -1976214377976552876
+    second: cloud-png-transparent-23_6
+  - first:
+      213: 5419426205827855964
+    second: cloud-png-transparent-23_7
+  - first:
+      213: -2955562552765438305
+    second: cloud-png-transparent-23_8
+  - first:
+      213: 2519097492910113550
+    second: cloud-png-transparent-23_9
+  - first:
+      213: -2648289927701295074
+    second: cloud-png-transparent-23_10
+  - first:
+      213: 7260616925580773897
+    second: cloud-png-transparent-23_11
+  - first:
+      213: 7389590586949081792
+    second: cloud-png-transparent-23_12
+  - first:
+      213: 3273856443501340787
+    second: cloud-png-transparent-23_13
+  - first:
+      213: 4230999252864832483
+    second: cloud-png-transparent-23_14
+  - first:
+      213: -5706525396539475264
+    second: cloud-png-transparent-23_15
+  - first:
+      213: 1554081209865246643
+    second: cloud-png-transparent-23_16
+  - first:
+      213: -5024756062087335779
+    second: cloud-png-transparent-23_17
+  - first:
+      213: -5567871829746112772
+    second: cloud-png-transparent-23_18
+  - first:
+      213: -7334137894419189606
+    second: cloud-png-transparent-23_19
+  - first:
+      213: 5102639023818458268
+    second: cloud-png-transparent-23_20
+  - first:
+      213: -7214804283055496719
+    second: cloud-png-transparent-23_21
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 0
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: cloud-png-transparent-23_0
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 693
+        width: 755
+        height: 392
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de9a11965084ab350800000000000000
+      internalID: 6033213838891002349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud-png-transparent-23_1
+      rect:
+        serializedVersion: 2
+        x: 445
+        y: 1026
+        width: 38
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe2430c8508a337f0800000000000000
+      internalID: -633978380751781137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud-png-transparent-23_2
+      rect:
+        serializedVersion: 2
+        x: 1604
+        y: 549
+        width: 663
+        height: 478
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ddc2f568dd57f570800000000000000
+      internalID: 8500366005689830871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud-png-transparent-23_3
+      rect:
+        serializedVersion: 2
+        x: 770
+        y: 927
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fa6dc593d4be3710800000000000000
+      internalID: 1674974932272769777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud-png-transparent-23_4
+      rect:
+        serializedVersion: 2
+        x: 1114
+        y: 755
+        width: 393
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd8d29fa7edfbfb00800000000000000
+      internalID: 863562925096491229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud-png-transparent-23_5
+      rect:
+        serializedVersion: 2
+        x: 769
+        y: 896
+        width: 24
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51e63a0e82a1fd550800000000000000
+      internalID: 6187693175900171797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud-png-transparent-23_6
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 805
+        width: 35
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45220b06e731394e0800000000000000
+      internalID: -1976214377976552876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud-png-transparent-23_7
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 783
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c56ffccbb6ba53b40800000000000000
+      internalID: 5419426205827855964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud-png-transparent-23_8
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 777
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9628fa748bbbf6d0800000000000000
+      internalID: -2955562552765438305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud-png-transparent-23_9
+      rect:
+        serializedVersion: 2
+        x: 1443
+        y: 761
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e030c73b2d1a5f220800000000000000
+      internalID: 2519097492910113550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud-png-transparent-23_10
+      rect:
+        serializedVersion: 2
+        x: 1486
+        y: 735
+        width: 27
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e109e1d87526f3bd0800000000000000
+      internalID: -2648289927701295074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud-png-transparent-23_11
+      rect:
+        serializedVersion: 2
+        x: 628
+        y: 675
+        width: 46
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90a4e6b10a4e2c460800000000000000
+      internalID: 7260616925580773897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud-png-transparent-23_12
+      rect:
+        serializedVersion: 2
+        x: 682
+        y: 673
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ca9ba2bc791d8660800000000000000
+      internalID: 7389590586949081792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud-png-transparent-23_13
+      rect:
+        serializedVersion: 2
+        x: 802
+        y: 151
+        width: 761
+        height: 549
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3786588f6131f6d20800000000000000
+      internalID: 3273856443501340787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud-png-transparent-23_14
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 294
+        width: 715
+        height: 363
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e393f7576787ba30800000000000000
+      internalID: 4230999252864832483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud-png-transparent-23_15
+      rect:
+        serializedVersion: 2
+        x: 1665
+        y: 507
+        width: 17
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0caf485e2695ec0b0800000000000000
+      internalID: -5706525396539475264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud-png-transparent-23_16
+      rect:
+        serializedVersion: 2
+        x: 1684
+        y: 509
+        width: 4
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b7902260a4319510800000000000000
+      internalID: 1554081209865246643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud-png-transparent-23_17
+      rect:
+        serializedVersion: 2
+        x: 1535
+        y: 0
+        width: 778
+        height: 506
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d903b4cdbfa744ab0800000000000000
+      internalID: -5024756062087335779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud-png-transparent-23_18
+      rect:
+        serializedVersion: 2
+        x: 1704
+        y: 503
+        width: 5
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf624191212fab2b0800000000000000
+      internalID: -5567871829746112772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud-png-transparent-23_19
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 283
+        width: 19
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a90b9656178e73a90800000000000000
+      internalID: -7334137894419189606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud-png-transparent-23_20
+      rect:
+        serializedVersion: 2
+        x: 1418
+        y: 96
+        width: 208
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c94cebf382730d640800000000000000
+      internalID: 5102639023818458268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud-png-transparent-23_21
+      rect:
+        serializedVersion: 2
+        x: 1433
+        y: 84
+        width: 10
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f1a280fabddfdb90800000000000000
+      internalID: -7214804283055496719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
