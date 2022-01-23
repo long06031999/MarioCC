@@ -198,7 +198,8 @@ public class MarioController : MonoBehaviour
       // Debug.Log("After: " + IncommingLevel);
       MaxHealth += 100;
       MaxBulletNumber += 5;
-    }
+      bulletNumber += 5;
+     }
 
     Health += 100;
 
@@ -213,6 +214,7 @@ public class MarioController : MonoBehaviour
       IncommingLevel--;
       MaxHealth -= 100;
       MaxBulletNumber -= 5;
+      bulletNumber -= 5;
     }
     NotifyDataChanged();
   }
