@@ -197,6 +197,7 @@ public class MarioController : MonoBehaviour
       IncommingLevel++;
       // Debug.Log("After: " + IncommingLevel);
       MaxHealth += 100;
+      MaxBulletNumber += 5;
     }
 
     Health += 100;
@@ -211,8 +212,8 @@ public class MarioController : MonoBehaviour
     {
       IncommingLevel--;
       MaxHealth -= 100;
+      MaxBulletNumber -= 5;
     }
-
     NotifyDataChanged();
   }
 
@@ -448,7 +449,7 @@ public class MarioController : MonoBehaviour
   {
     // timeHoldKey += Time.deltaTime;
     // if (level == 2 && timeHoldKey < checkTimeHoldKey)
-    if (this && (int)CurrentLevel == 2)
+    if (this && (int)CurrentLevel >= 0)
     {
 
       if (bulletNumber > 0)
@@ -1007,18 +1008,18 @@ public class MarioController : MonoBehaviour
 
     }
 
-    if (this && (int)CurrentLevel < 2)
+   /* if (this && (int)CurrentLevel < 2)
     {
       BulletTextUI.gameObject.SetActive(false);
       fireButton.SetActive(false);
       ProgressImage.gameObject.SetActive(false);
     }
-    else
-    {
+    else*/
+    //{
       BulletTextUI.gameObject.SetActive(true);
       fireButton.SetActive(true);
       ProgressImage.gameObject.SetActive(true);
-    }
+    //}
     // Update Health
     float percent = (float)health / MaxHealth;
     // Debug.Log("Percent: " + percent);

@@ -11,9 +11,13 @@ public class BulletController : MonoBehaviour
   //   new Rigidbody2D rigidbody2D;
   Vector2 startPos;
 
+
+   private MarioController controller;
+
   private void Awake()
   {
-    // rigidbody2D = GetComponent<Rigidbody2D>();
+        // rigidbody2D = GetComponent<Rigidbody2D>();
+        controller = GameObject.FindGameObjectWithTag("Player").GetComponent<MarioController>();
   }
   // Start is called before the first frame update
   void Start()
@@ -36,6 +40,18 @@ public class BulletController : MonoBehaviour
     EnemyHealthPoint enemyHealthPoint = collision.GetComponent<EnemyHealthPoint>();
     if (enemyHealthPoint)
     {
+            switch (controller.CurrentLevel)
+            {
+                case MarioLevelEnum.Normal:
+                    dame = 10;
+                    break;
+                case MarioLevelEnum.Big:
+                    dame = 30;
+                    break;
+                default:
+                    dame = 50;
+                    break;
+            }
       enemyHealthPoint.TakeDame(dame);
     }
     Destroy(gameObject);
