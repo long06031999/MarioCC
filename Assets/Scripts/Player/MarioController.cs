@@ -922,6 +922,26 @@ public class MarioController : MonoBehaviour
     GetComponent<Rigidbody2D>().gravityScale = 1f;
     downButton.SetActive(false);
   }
+
+  public void PickCoin(int coin)
+  {
+    if (coin > 0)
+    {
+      CreateAudio("smb_coin");
+      money += coin;
+    }
+  }
+
+  public void HandleMoney()
+  {
+    if (LifePoint < 3 && money >= 5)
+    {
+      money -= 5;
+      LifePoint++;
+      NotifyDataChanged();
+    }
+  }
+
   public void RemoveDebuff()
   {
     if (IsSlowDown)
@@ -937,6 +957,7 @@ public class MarioController : MonoBehaviour
   }
   public void NotifyDataChanged()
   {
+    HandleMoney();
     //======Set Water=========
     if (IsInWater)
     {
