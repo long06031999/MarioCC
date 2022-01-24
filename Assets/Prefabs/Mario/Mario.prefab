@@ -2335,6 +2335,8 @@ MonoBehaviour:
   moveDirection: 0
   MoveUp: 0
   bullet: {fileID: 4443310651840714476, guid: b1e11553c5554a94a88bbf88b3a647fe, type: 3}
+  highBullet: {fileID: 6130344615975973021, guid: b6f15bd5f89559a4ba2bd03bea5865d9, type: 3}
+  superBullet: {fileID: 5140673064484605978, guid: fbe20b8bf54b54949aa3cb434a948244, type: 3}
   isOnPipe: 0
   pipe: {fileID: 8911928684269513236, guid: 4bca76a3e7ed81747982ef6c0a0a47c6, type: 3}
   marioDie: {fileID: 3191792717973071642, guid: 88bbff671bb4300488a404a457859f07, type: 3}

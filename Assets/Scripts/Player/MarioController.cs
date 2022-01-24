@@ -298,9 +298,11 @@ public class MarioController : MonoBehaviour
   //bullet
   private bool isSpawnBullet = false;
   public GameObject bullet;
+  public GameObject highBullet;
+  public GameObject superBullet;
 
-  //move to pipe
-  public bool isOnPipe = false;
+    //move to pipe
+    public bool isOnPipe = false;
   public GameObject pipe;
 
   //mario die
@@ -467,7 +469,23 @@ public class MarioController : MonoBehaviour
             positionOfBullet = new Vector2(transform.position.x + 1f, transform.position.y);
           else
             positionOfBullet = new Vector2(transform.position.x - 1f, transform.position.y);
-          GameObject g = Instantiate(bullet, positionOfBullet, Quaternion.identity);
+          GameObject g = null;
+          switch (CurrentLevel)
+                 {
+                 case MarioLevelEnum.Normal:
+                    g = Instantiate(bullet, positionOfBullet, Quaternion.identity);
+                            Debug.Log("init normal bullet");
+                    break;
+                 case MarioLevelEnum.Big:
+                    g = Instantiate(highBullet, positionOfBullet, Quaternion.identity);
+                            Debug.Log("init high bullet");
+                            break;
+                 case MarioLevelEnum.Super:
+                    g = Instantiate(superBullet, positionOfBullet, Quaternion.identity);
+                            Debug.Log("init super bullet");
+                            break;
+                
+                 }
 
           // because mario's default face direction is always right and default flipX = false,
           // so ! for exact direction
