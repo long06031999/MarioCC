@@ -199,7 +199,7 @@ public class MarioController : MonoBehaviour
       MaxHealth += 100;
       MaxBulletNumber += 5;
       bulletNumber += 5;
-     }
+    }
 
     Health += 100;
 
@@ -214,7 +214,7 @@ public class MarioController : MonoBehaviour
       IncommingLevel--;
       MaxHealth -= 100;
       MaxBulletNumber -= 5;
-      bulletNumber -= 5;
+      // bulletNumber -= 5;
     }
     NotifyDataChanged();
   }
@@ -1010,17 +1010,17 @@ public class MarioController : MonoBehaviour
 
     }
 
-   /* if (this && (int)CurrentLevel < 2)
-    {
-      BulletTextUI.gameObject.SetActive(false);
-      fireButton.SetActive(false);
-      ProgressImage.gameObject.SetActive(false);
-    }
-    else*/
+    /* if (this && (int)CurrentLevel < 2)
+     {
+       BulletTextUI.gameObject.SetActive(false);
+       fireButton.SetActive(false);
+       ProgressImage.gameObject.SetActive(false);
+     }
+     else*/
     //{
-      BulletTextUI.gameObject.SetActive(true);
-      fireButton.SetActive(true);
-      ProgressImage.gameObject.SetActive(true);
+    BulletTextUI.gameObject.SetActive(true);
+    fireButton.SetActive(true);
+    ProgressImage.gameObject.SetActive(true);
     //}
     // Update Health
     float percent = (float)health / MaxHealth;
