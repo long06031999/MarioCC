@@ -490,15 +490,26 @@ public class MarioController : MonoBehaviour
           // because mario's default face direction is always right and default flipX = false,
           // so ! for exact direction
           if (!gameObject.GetComponent<SpriteRenderer>().flipX)
-            g.GetComponent<BulletController>().direction = Vector2.right;
+               {
+                    g.GetComponent<BulletController>().direction = Vector2.right;
+                    FlipxBullet(g, gameObject.GetComponent<SpriteRenderer>().flipX);
+               }
           else
-            g.GetComponent<BulletController>().direction = Vector2.left;
+               {
+                   g.GetComponent<BulletController>().direction = Vector2.left;
+                   FlipxBullet(g, gameObject.GetComponent<SpriteRenderer>().flipX);
+               }
+            
           CreateAudio("smb_fireball");
         }
       }
-
     }
   }
+
+    public void FlipxBullet(GameObject g, bool flipX)
+    {
+        g.GetComponent<SpriteRenderer>().flipX = flipX;
+    }
   public void FireCanceled(InputAction.CallbackContext context)
   {
     marioStatus.velocityWhenPress = 7f;
