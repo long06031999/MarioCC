@@ -542,10 +542,10 @@ public class MarioController : MonoBehaviour
     transform.position = new Vector2(playerData.position[0], playerData.position[1]);
     TotalTime = playerData.totalTime;
     bulletNumber = playerData.bulletNumber;
-    LifePoint = playerData.lifePoint - 1;
+    LifePoint--;
     NotifyDataChanged();
 
-    Debug.Log(CurrentLevel + "/" + IncommingLevel + "/" + playerData.level + "=" + (MarioLevelEnum)playerData.level);
+    // Debug.Log(CurrentLevel + "/" + IncommingLevel + "/" + playerData.level + "=" + (MarioLevelEnum)playerData.level);
     GameManager.Instance.SaveGame(this);
 
   }
