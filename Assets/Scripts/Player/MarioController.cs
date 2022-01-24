@@ -911,7 +911,7 @@ public class MarioController : MonoBehaviour
   {
     if (other.tag == "Posion")
     {
-      Health -= 1;
+      Health -= 2;
     }
   }
 
