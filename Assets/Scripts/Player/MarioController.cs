@@ -267,6 +267,10 @@ public class MarioController : MonoBehaviour
     if (size > 0)
     {
       bulletNumber += size;
+      if (bulletNumber > MaxBulletNumber)
+      {
+        bulletNumber = MaxBulletNumber;
+      }
     }
 
     NotifyDataChanged();
@@ -301,8 +305,8 @@ public class MarioController : MonoBehaviour
   public GameObject highBullet;
   public GameObject superBullet;
 
-    //move to pipe
-    public bool isOnPipe = false;
+  //move to pipe
+  public bool isOnPipe = false;
   public GameObject pipe;
 
   //mario die
@@ -471,45 +475,45 @@ public class MarioController : MonoBehaviour
             positionOfBullet = new Vector2(transform.position.x - 1f, transform.position.y);
           GameObject g = null;
           switch (CurrentLevel)
-                 {
-                 case MarioLevelEnum.Normal:
-                    g = Instantiate(bullet, positionOfBullet, Quaternion.identity);
-                            Debug.Log("init normal bullet");
-                    break;
-                 case MarioLevelEnum.Big:
-                    g = Instantiate(highBullet, positionOfBullet, Quaternion.identity);
-                            Debug.Log("init high bullet");
-                            break;
-                 case MarioLevelEnum.Super:
-                    g = Instantiate(superBullet, positionOfBullet, Quaternion.identity);
-                            Debug.Log("init super bullet");
-                            break;
-                
-                 }
+          {
+            case MarioLevelEnum.Normal:
+              g = Instantiate(bullet, positionOfBullet, Quaternion.identity);
+              Debug.Log("init normal bullet");
+              break;
+            case MarioLevelEnum.Big:
+              g = Instantiate(highBullet, positionOfBullet, Quaternion.identity);
+              Debug.Log("init high bullet");
+              break;
+            case MarioLevelEnum.Super:
+              g = Instantiate(superBullet, positionOfBullet, Quaternion.identity);
+              Debug.Log("init super bullet");
+              break;
+
+          }
 
           // because mario's default face direction is always right and default flipX = false,
           // so ! for exact direction
           if (!gameObject.GetComponent<SpriteRenderer>().flipX)
-               {
-                    g.GetComponent<BulletController>().direction = Vector2.right;
-                    FlipxBullet(g, gameObject.GetComponent<SpriteRenderer>().flipX);
-               }
+          {
+            g.GetComponent<BulletController>().direction = Vector2.right;
+            FlipxBullet(g, gameObject.GetComponent<SpriteRenderer>().flipX);
+          }
           else
-               {
-                   g.GetComponent<BulletController>().direction = Vector2.left;
-                   FlipxBullet(g, gameObject.GetComponent<SpriteRenderer>().flipX);
-               }
-            
+          {
+            g.GetComponent<BulletController>().direction = Vector2.left;
+            FlipxBullet(g, gameObject.GetComponent<SpriteRenderer>().flipX);
+          }
+
           CreateAudio("smb_fireball");
         }
       }
     }
   }
 
-    public void FlipxBullet(GameObject g, bool flipX)
-    {
-        g.GetComponent<SpriteRenderer>().flipX = flipX;
-    }
+  public void FlipxBullet(GameObject g, bool flipX)
+  {
+    g.GetComponent<SpriteRenderer>().flipX = flipX;
+  }
   public void FireCanceled(InputAction.CallbackContext context)
   {
     marioStatus.velocityWhenPress = 7f;
