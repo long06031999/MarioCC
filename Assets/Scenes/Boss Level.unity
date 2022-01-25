@@ -6718,7 +6718,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Survival for 60s or Defeat the boss to win!
+  m_text: Survival for 120s or Defeat the boss to win!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d5384a7eb952af7f09742cc49187fb6c, type: 2}
   m_sharedMaterial: {fileID: -5755169071283944024, guid: d5384a7eb952af7f09742cc49187fb6c, type: 2}
@@ -7452,7 +7452,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 229895161929004853, guid: bba82da7adbe10b0f904b436029785ee, type: 3}
       propertyPath: timer
-      value: 180
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 229895161929004853, guid: bba82da7adbe10b0f904b436029785ee, type: 3}
       propertyPath: FirstTile

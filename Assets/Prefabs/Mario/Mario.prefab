@@ -2314,7 +2314,7 @@ MonoBehaviour:
   ProgressImage: {fileID: 4666868167250572267}
   MaxBulletNumber: 5
   bulletNumber: 5
-  countDown: 10
+  countDown: 5
   MaxLifePoint: 3
   LifePoint: 3
   LifePointBar: {fileID: 1087974887608429958}
