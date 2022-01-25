@@ -290,7 +290,6 @@ public class MarioController : MonoBehaviour
   private bool isOnGround = true;
   private bool isNavigation = false;
   private bool isRight = true;
-  private int angle = 90;
 
   //component
   private Animator animator;
@@ -516,7 +515,7 @@ public class MarioController : MonoBehaviour
   }
   public void FireCanceled(InputAction.CallbackContext context)
   {
-    marioStatus.velocityWhenPress = 7f;
+    /*marioStatus.velocityWhenPress = 7f;*/
     timeHoldKey = 0f;
     isSpawnBullet = false;
   }
